@@ -27,11 +27,6 @@ body {
   text-rendering: optimizeLegibility;
   overflow-x: clip;
 }
-@media (prefers-reduced-motion: no-preference) {
-  body {
-    transition: background-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
-  }
-}
 img,
 svg {
   display: block;
@@ -263,26 +258,26 @@ ol {
     0 14px 32px -10px rgba(255, 122, 80, 0.6);
 }
 .btn--secondary {
-  background: var(--wash-5);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--ink);
   box-shadow: var(--sh-inset), var(--sh-1);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 .btn--secondary:hover {
-  background: var(--wash-10);
+  background: rgba(255, 255, 255, 0.1);
   box-shadow: var(--sh-inset), var(--sh-2);
 }
 .btn--ghost {
   color: var(--ink-2);
 }
 .btn--ghost:hover {
-  background: var(--wash-white-6);
+  background: rgba(255, 255, 255, 0.06);
 }
 .btn--light {
   background: var(--ink);
-  color: var(--on-ink);
-  box-shadow: var(--sh-pop);
+  color: var(--on-accent);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
 }
 .btn--light:hover {
   background: var(--accent-ink);

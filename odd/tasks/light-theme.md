@@ -30,3 +30,6 @@ Add a light version of the landing page and a Dark/Light selector in the top nav
 ## Verification (T1-T3)
 - `npm run build`: passes (tsc -b + vite build, 66 modules).
 - Hardcoded color grep over base/sections/visuals/motion/dashboard: remaining are only orange accent glows/gradients (rgba(255,122,80,..), peach tints), `#000` mask alpha stops, white inset highlight on the orange primary button, black ring around the compare handle, and per-metric highlight hues (green/yellow); all are theme-safe (tinted accent or on accent fills). Visual inspection in a browser still pending.
+
+## Status
+- 2026-09-30: Light theme removed at user request (reverted bde7f7a). Dark-only.

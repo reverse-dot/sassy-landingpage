@@ -614,7 +614,7 @@
 }
 .pd__if span:first-child {
   font-weight: 600;
-  color: var(--accent-text);
+  color: var(--accent);
 }
 .pd__ins li.app__empty {
   padding: 16px 8px;

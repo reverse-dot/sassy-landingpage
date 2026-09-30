@@ -1,34 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { LuArrowRight, LuMenu, LuMoon, LuSun, LuX } from "react-icons/lu";
+import { LuArrowRight, LuMenu, LuX } from "react-icons/lu";
 import { Logo } from "./Logo";
 import { MagneticButton } from "./MagneticButton";
-import { useTheme, type Theme } from "../theme";
 import { navLinks, APP_URL, LOGIN_URL } from "../data/content";
-
-function ThemeSwitch({ className }: { className?: string }) {
-  const { theme, setTheme } = useTheme();
-  const options: { value: Theme; label: string; Icon: typeof LuSun }[] = [
-    { value: "dark", label: "Dark", Icon: LuMoon },
-    { value: "light", label: "Light", Icon: LuSun },
-  ];
-  return (
-    <div className={["theme-switch", className].filter(Boolean).join(" ")} role="group" aria-label="Color theme">
-      {options.map(({ value, label, Icon }) => (
-        <button
-          key={value}
-          type="button"
-          className="theme-switch__btn"
-          aria-pressed={theme === value}
-          aria-label={`${label} theme`}
-          onClick={() => setTheme(value)}
-        >
-          <Icon size={14} aria-hidden="true" />
-          <span>{label}</span>
-        </button>
-      ))}
-    </div>
-  );
-}
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -111,7 +85,6 @@ export function Navbar() {
         </nav>
 
         <div className="nav__actions">
-          <ThemeSwitch className="nav__theme" />
           <a href={LOGIN_URL} className="nav__login">
             Iniciar sesión
           </a>
@@ -167,7 +140,6 @@ export function Navbar() {
               Empezar gratis en la beta <LuArrowRight size={16} aria-hidden="true" />
             </span>
           </a>
-          <ThemeSwitch className="theme-switch--panel" />
           <p className="hand nav__mnote">gratis durante la beta ✓</p>
         </div>
       </div>

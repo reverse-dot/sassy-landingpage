@@ -76,7 +76,7 @@
 .rl-mask {
   display: block;
   overflow: hidden;
-  /* Room for descenders and handwritten flourishes */
+  /* Room for descenders and drawn flourishes */
   padding-bottom: 0.08em;
   margin-bottom: -0.08em;
 }
@@ -93,7 +93,7 @@
   opacity: 1;
 }
 
-/* ---- Handwritten stroke drawing (SVG paths with pathLength="1") ---- */
+/* ---- Stroke drawing (SVG paths with pathLength="1") ---- */
 .draw path,
 path.draw {
   stroke-dasharray: 1;
@@ -169,7 +169,7 @@ path.draw {
   pointer-events: none;
   background: radial-gradient(
     420px circle at var(--mx, 50%) var(--my, 0%),
-    rgba(116, 175, 230, 0.14),
+    rgba(255, 122, 80, 0.12),
     transparent 60%
   );
   opacity: 0;

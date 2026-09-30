@@ -1,33 +1,22 @@
-type Props = { className?: string; mono?: boolean; showWord?: boolean };
+type Props = { className?: string; showWord?: boolean };
 
 /**
- * Mendleaf mark: a leaf formed from two opposing arcs, with its vein drawn
- * as a row of stitches — the "mend" in the name.
+ * Sassy mark: the white logo from the app (transparent PNG, made for dark
+ * backgrounds) next to the wordmark set in the display face.
  */
-export function Logo({ className, mono = false, showWord = true }: Props) {
-  const tile = mono ? "currentColor" : "var(--ink)";
-  const leaf = mono ? "var(--white)" : "#bfe0fb";
+export function Logo({ className, showWord = true }: Props) {
   return (
     <span className={["logo", className].filter(Boolean).join(" ")}>
-      <svg
+      <img
         className="logo__mark"
-        viewBox="0 0 32 32"
-        width="30"
-        height="30"
+        src="/logo/bandito-logo-white.png"
+        alt=""
+        width={58}
+        height={22}
+        decoding="async"
         aria-hidden="true"
-        focusable="false"
-      >
-        <rect width="32" height="32" rx="9" fill={tile} />
-        <path d="M8 24C8 14.6 14.6 8 24 8c0 9.4-6.6 16-16 16Z" fill={leaf} />
-        <path
-          d="M9.5 22.5 20 12"
-          stroke={tile}
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeDasharray="2.4 2.2"
-        />
-      </svg>
-      {showWord && <span className="logo__word">Mendleaf</span>}
+      />
+      {showWord && <span className="logo__word">Sassy</span>}
     </span>
   );
 }

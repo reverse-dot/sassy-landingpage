@@ -1,41 +1,32 @@
 import { useEffect, useState } from "react";
-import {
-  LuSearch,
-  LuFileText,
-  LuFlaskConical,
-  LuMessageSquare,
-  LuSend,
-  LuCalendarCheck,
-  LuFileCheck,
-  LuCheck,
-  LuSparkles,
-} from "react-icons/lu";
+import { LuSearch, LuTrendingUp, LuUsers, LuClock, LuInfo, LuColumns2, LuSparkles, LuFileCheck } from "react-icons/lu";
 import { Paper } from "./HandMarks";
 import { prefersReducedMotion } from "../motion/env";
+import { clients, WEEKDAYS } from "../data/content";
 
 /* ---------------------------------------------------------------
-   Feature 1 — handwriting lines colour-matched to structured fields
+   Feature 1 — manual figures matched to a side-by-side card
    --------------------------------------------------------------- */
 const F1 = [
-  { hand: "c/o SOB on exertion, 2/12", field: "Presenting", value: "Breathless on exertion for 2 months", tone: "sky" },
-  { hand: "ankles puffy ++ pm", field: "Examination", value: "Bilateral ankle swelling, worse evenings", tone: "mint" },
-  { hand: "? HF — check BNP", field: "Assessment", value: "Possible heart failure — to confirm", tone: "lilac" },
-  { hand: "echo + bloods, r/v 1/52", field: "Plan", value: "Echo · BNP & renal bloods · review 1 wk", tone: "peach" },
+  { manual: "seguidores ~12.4k (¿12.5k?)", field: "Seguidores", value: "12.480 · +3,2% en 30 días", tone: "sky" },
+  { manual: "eng. a ojo, ¿3%?", field: "Interacción mediana", value: "3,4% · @taller.norte 2,1%", tone: "mint" },
+  { manual: "norte: ¿3 pub. por sem.?", field: "Frecuencia", value: "5 pub./sem · @taller.norte 3", tone: "lilac" },
+  { manual: "revisar capturas del lunes", field: "Ventana", value: "Últimos 30 días · 22 pub.", tone: "peach" },
 ];
 
-export function NotesToRecords({ active }: { active: boolean }) {
+export function SideBySideVisual({ active }: { active: boolean }) {
   return (
     <div
       className={["fv fv1", active ? "is-active" : ""].join(" ")}
       role="img"
-      aria-label="Four handwritten lines are colour-matched to four structured fields: presenting complaint, examination, assessment and plan."
+      aria-label="Cuatro notas manuales se emparejan con cuatro campos ordenados: seguidores, interacción mediana, frecuencia y ventana de análisis."
     >
       <Paper className="fv1__note">
-        <p className="fv1__date hand">Tue — Mr D. Kowal</p>
+        <p className="fv1__date">Lun — Casa Lumbre</p>
         <ul>
           {F1.map((f, i) => (
             <li key={i} className={`fv1__line tone-${f.tone}`} style={{ ["--k" as string]: i }}>
-              <span className="hand">{f.hand}</span>
+              <span>{f.manual}</span>
             </li>
           ))}
         </ul>
@@ -44,10 +35,10 @@ export function NotesToRecords({ active }: { active: boolean }) {
       <div className="fv1__card card">
         <div className="fv1__head">
           <span className="fv1__title">
-            <LuFileText size={14} aria-hidden="true" /> Structured record
+            <LuColumns2 size={14} aria-hidden="true" /> Lado a lado
           </span>
           <span className="badge badge--mint">
-            <LuSparkles size={11} aria-hidden="true" /> 4 of 4
+            <LuSparkles size={11} aria-hidden="true" /> 4 de 4
           </span>
         </div>
         {F1.map((f, i) => (
@@ -65,18 +56,18 @@ export function NotesToRecords({ active }: { active: boolean }) {
 }
 
 /* ---------------------------------------------------------------
-   Feature 2 — searchable patient timeline
+   Feature 2 — insights with evidence, searchable
    --------------------------------------------------------------- */
 const EVENTS = [
-  { icon: LuFileText, t: "Today", title: "Visit note signed", sub: "Knee pain · mild effusion noted", tone: "sky", hit: true },
-  { icon: LuFlaskConical, t: "Sep 12", title: "Bloods returned", sub: "CRP within range", tone: "mint" },
-  { icon: LuMessageSquare, t: "Aug 28", title: "Patient message", sub: "“Knee swelling again after gardening”", tone: "butter", hit: true },
-  { icon: LuFileText, t: "Jun 03", title: "Visit note", sub: "Hypertension review · stable", tone: "lilac" },
+  { icon: LuTrendingUp, t: "cob. 100%", title: "Fortaleza · interacción", sub: "3,4% vs 2,1% · muestra de 22 pub. · 30 días", tone: "mint", hit: true },
+  { icon: LuUsers, t: "cob. 100%", title: "Fortaleza · seguidores", sub: "+3,2% vs +1,1%, +2,4% y +0,6% · 30 días", tone: "sky" },
+  { icon: LuClock, t: "cob. 100%", title: "Oportunidad · frecuencia", sub: "@estudio.bruma 7 vs 5 pub./sem · 30 días", tone: "peach" },
+  { icon: LuInfo, t: "parcial", title: "Contexto · muestra pequeña", sub: "@cafe.ancla · 9 pub. · lectura con cautela", tone: "lilac", hit: true },
 ];
 
-const QUERY = "swelling";
+const QUERY = "muestra";
 
-export function TimelineVisual({ active }: { active: boolean }) {
+export function InsightsVisual({ active }: { active: boolean }) {
   const [typed, setTyped] = useState(prefersReducedMotion() ? QUERY.length : 0);
 
   useEffect(() => {
@@ -97,7 +88,7 @@ export function TimelineVisual({ active }: { active: boolean }) {
     <div
       className={["fv fv2", active ? "is-active" : "", searching ? "is-searched" : ""].join(" ")}
       role="img"
-      aria-label="A patient timeline with notes, lab results and messages. Searching for 'swelling' highlights the two matching entries."
+      aria-label="Lista de insights con evidencia, agrupados en fortalezas, oportunidades y contexto. Al buscar «muestra» se resaltan las dos entradas que la mencionan."
     >
       <div className="fv2__card card">
         <div className="fv2__top">
@@ -107,13 +98,13 @@ export function TimelineVisual({ active }: { active: boolean }) {
               {QUERY.slice(0, typed)}
               <span className="fv2__caret" />
             </span>
-            <span className="fv2__count">{searching ? "2 matches" : ""}</span>
+            <span className="fv2__count">{searching ? "2 coincidencias" : ""}</span>
           </div>
           <div className="fv2__filters">
-            <span className="fv2__f is-on">All</span>
-            <span className="fv2__f">Notes</span>
-            <span className="fv2__f">Labs</span>
-            <span className="fv2__f">Messages</span>
+            <span className="fv2__f is-on">Todos</span>
+            <span className="fv2__f">Fortalezas</span>
+            <span className="fv2__f">Oportunidades</span>
+            <span className="fv2__f">Contexto</span>
           </div>
         </div>
         <ol className="fv2__list">
@@ -139,14 +130,14 @@ export function TimelineVisual({ active }: { active: boolean }) {
         </ol>
       </div>
       <div className="fv2__side card">
-        <p className="fv2__side-k">Across 14 months</p>
+        <p className="fv2__side-k">Ventana de 30 días</p>
         <div className="fv2__bars" aria-hidden="true">
-          {[30, 52, 38, 70, 44, 86, 58, 64].map((h, i) => (
+          {[52, 70, 44, 86, 58].map((h, i) => (
             <span key={i} style={{ ["--h" as string]: `${h}%`, ["--k" as string]: i }} />
           ))}
         </div>
         <p className="fv2__side-v">
-          <strong>23</strong> entries, one place
+          <strong>22</strong> publicaciones analizadas
         </p>
       </div>
     </div>
@@ -154,67 +145,96 @@ export function TimelineVisual({ active }: { active: boolean }) {
 }
 
 /* ---------------------------------------------------------------
-   Feature 3 — tasks progressing through workflow states
+   Feature 3 — weekly cadence and best moment to post
    --------------------------------------------------------------- */
-const TASKS = [
-  { icon: LuSend, label: "Referral to cardiology", states: ["Drafted", "Sent", "Accepted"] },
-  { icon: LuCalendarCheck, label: "Echo appointment", states: ["Suggested", "Requested", "Booked · Oct 8"] },
-  { icon: LuFileCheck, label: "Patient summary", states: ["Drafted", "Reviewed", "Sent by text"] },
-];
-const STATE_TONES = ["butter", "sky", "mint"];
-
-export function ActionsVisual({ active }: { active: boolean }) {
-  const [step, setStep] = useState(prefersReducedMotion() ? 2 : 0);
-
-  useEffect(() => {
-    if (!active || prefersReducedMotion()) return;
-    setStep(0);
-    const a = window.setTimeout(() => setStep(1), 900);
-    const b = window.setTimeout(() => setStep(2), 1900);
-    return () => {
-      clearTimeout(a);
-      clearTimeout(b);
-    };
-  }, [active]);
-
+export function ContentVisual({ active }: { active: boolean }) {
+  const c = clients[0];
+  const max = Math.max(...c.weekly);
   return (
     <div
       className={["fv fv3", active ? "is-active" : ""].join(" ")}
       role="img"
-      aria-label="A plain-language visit summary, with three follow-up tasks moving from drafted to sent to completed."
+      aria-label={`Publicaciones por día de la semana de ${c.handle} y su mejor momento para publicar: ${c.bestMoment.toLowerCase()}.`}
     >
       <div className="fv3__summary card">
         <p className="fv3__k">
-          <LuSparkles size={13} aria-hidden="true" /> Summary for the patient
+          <LuSparkles size={13} aria-hidden="true" /> Mejor momento para publicar
         </p>
         <p className="fv3__s">
-          We think your breathlessness and ankle swelling could be linked to how your heart is pumping. We've
-          booked a heart scan and blood tests, and we'll see you again next week.
+          Con las últimas 22 publicaciones de {c.handle}, la interacción mediana fue mayor los{" "}
+          {c.bestMoment.toLowerCase().replace("jueves, ", "jueves ")}.
         </p>
       </div>
-      <ul className="fv3__tasks">
-        {TASKS.map((t, i) => {
-          const Icon = t.icon;
-          const s = Math.min(step, 2);
-          return (
-            <li key={t.label} className="fv3__task card" style={{ ["--k" as string]: i }}>
-              <span className="fv3__icon">
-                <Icon size={15} aria-hidden="true" />
-              </span>
-              <span className="fv3__label">{t.label}</span>
-              <span className="fv3__track" aria-hidden="true">
-                {[0, 1, 2].map((d) => (
-                  <i key={d} className={d <= s ? "on" : ""} />
+      <div className="fv3__chart card">
+        <p className="fv3__chart-h">
+          Publicaciones por día <span>Últimos 30 días</span>
+        </p>
+        <div className="fv3__week" aria-hidden="true">
+          {c.weekly.map((n, i) => (
+            <span
+              key={i}
+              className={["fv3__bar", i === c.bestDay ? "is-best" : ""].join(" ")}
+              style={{ ["--h" as string]: `${Math.round((n / max) * 100)}%`, ["--k" as string]: i }}
+            />
+          ))}
+        </div>
+        <div className="fv3__days" aria-hidden="true">
+          {WEEKDAYS.map((d, i) => (
+            <span key={d} className={i === c.bestDay ? "is-best" : ""}>
+              {d}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   Feature 4 — per-client report, observed data only
+   --------------------------------------------------------------- */
+const TILES = [
+  { k: "Interacción", v: "3,4%", d: "mediana", flat: true, spark: [50, 62, 44, 70, 58, 80] },
+  { k: "Crecimiento", v: "+3,2%", d: "seguidores", flat: false, spark: [30, 38, 46, 55, 64, 78] },
+  { k: "Cadencia", v: "5/sem", d: "publicaciones", flat: true, spark: [60, 40, 70, 55, 66, 62] },
+];
+
+export function ReportsVisual({ active }: { active: boolean }) {
+  return (
+    <div
+      className={["fv fv4", active ? "is-active" : ""].join(" ")}
+      role="img"
+      aria-label="Informe de un cliente con tres indicadores: interacción mediana 3,4%, crecimiento de seguidores 3,2% y cadencia de 5 publicaciones por semana, calculados con 22 publicaciones observadas."
+    >
+      <div className="fv4__doc card">
+        <div className="fv4__head">
+          <div>
+            <strong>Casa Lumbre</strong>
+            <span>Informe del cliente · ventana de 30 días</span>
+          </div>
+          <span className="badge badge--mint">
+            <LuFileCheck size={11} aria-hidden="true" /> Datos observados
+          </span>
+        </div>
+        <div className="fv4__grid">
+          {TILES.map((t, i) => (
+            <div key={t.k} className="fv4__tile" style={{ ["--k" as string]: i }}>
+              <span className="fv4__tile-k">{t.k}</span>
+              <span className="fv4__tile-v">{t.v}</span>
+              <span className={["fv4__tile-d", t.flat ? "is-flat" : ""].join(" ")}>{t.d}</span>
+              <span className="fv4__spark" aria-hidden="true">
+                {t.spark.map((h, j) => (
+                  <i key={j} style={{ ["--h" as string]: `${h}%` }} />
                 ))}
               </span>
-              <span className={`badge badge--${STATE_TONES[s]} fv3__state`} key={s}>
-                {s === 2 && <LuCheck size={11} aria-hidden="true" />}
-                {t.states[s]}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
+            </div>
+          ))}
+        </div>
+        <p className="fv4__foot">
+          <span>22 publicaciones · cobertura 100%</span>
+          <span>Sin estimaciones</span>
+        </p>
+      </div>
     </div>
   );
 }

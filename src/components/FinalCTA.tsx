@@ -3,6 +3,7 @@ import { MagneticButton } from "./MagneticButton";
 import { PointerParallax, Layer } from "./PointerParallax";
 import { RevealLines, Reveal } from "./ScrollReveal";
 import { HandArrow, HandUnderline, Paper } from "./HandMarks";
+import { APP_URL, LOGIN_URL, CTA_LABEL } from "../data/content";
 
 export function FinalCTA() {
   return (
@@ -14,13 +15,14 @@ export function FinalCTA() {
 
             <Layer depth={-0.8} className="cta__float cta__float--1" aria-hidden>
               <Paper className="cta__scrap float-a">
-                <span className="hand">r/v 2/52 → text pt</span>
+                <span className="intro__k">Interacción</span>
+                <span className="intro__v">3,4%</span>
               </Paper>
             </Layer>
             <Layer depth={1.1} className="cta__float cta__float--2" aria-hidden>
               <div className="cta__tile float-b">
                 <span className="badge badge--mint">
-                  <LuCheck size={11} /> Signed
+                  <LuCheck size={11} /> Sincronizado
                 </span>
                 <span className="cta__tile-l" />
                 <span className="cta__tile-l cta__tile-l--s" />
@@ -28,7 +30,7 @@ export function FinalCTA() {
             </Layer>
             <Layer depth={0.6} className="cta__float cta__float--3" aria-hidden>
               <div className="cta__tile cta__tile--sm float-a">
-                <span className="badge badge--sky">Referral sent</span>
+                <span className="badge badge--sky">3 insights</span>
               </div>
             </Layer>
 
@@ -36,25 +38,25 @@ export function FinalCTA() {
               <RevealLines
                 id="cta-title"
                 className="display cta__title"
-                lines={["Give your notes", "a better ending."]}
+                lines={["Empieza a comparar", "con evidencia."]}
               />
               <Reveal as="p" className="lead cta__lead" delay={200}>
-                Bring tomorrow's clinic list. We'll set up your templates with you and you'll sign your first
-                structured note before lunch.
+                Conecta tu Instagram, agrega a tus primeros competidores y mira tu primer lado a lado. Mientras
+                dure la beta, todo es gratis.
               </Reveal>
               <Reveal className="cta__actions" delay={300}>
-                <MagneticButton href="#start" size="lg">
-                  Start your free trial
+                <MagneticButton href={APP_URL} size="lg">
+                  {CTA_LABEL}
                   <LuArrowRight className="arrow" size={17} aria-hidden="true" />
                 </MagneticButton>
-                <MagneticButton href="#demo" size="lg" variant="secondary" strength={0.22}>
-                  Book a walkthrough
+                <MagneticButton href={LOGIN_URL} size="lg" variant="secondary" strength={0.22}>
+                  Iniciar sesión
                 </MagneticButton>
               </Reveal>
               <Reveal className="cta__note" delay={600}>
                 <HandArrow variant="curve" className="cta__note-arrow" />
                 <span className="hand">
-                  your evenings, back
+                  gratis durante la beta
                   <HandUnderline className="cta__note-line" delay={900} />
                 </span>
               </Reveal>

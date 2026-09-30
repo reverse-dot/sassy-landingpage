@@ -4,7 +4,7 @@ import { TiltCard } from "./TiltCard";
 
 const initials = (n: string) =>
   n
-    .replace(/^Dr\.\s*/, "")
+    .replace(/\.$/, "")
     .split(" ")
     .map((w) => w[0])
     .slice(0, 2)
@@ -19,7 +19,7 @@ export function Testimonials() {
         <div className="quotes__grid">
           <Reveal as="figure" className="quotes__featured" variant="up">
             <p className="eyebrow" id="quotes-title">
-              From the clinic floor
+              Agencias y creadores
             </p>
             <span className="quotes__mark hand" aria-hidden="true">
               “
@@ -61,7 +61,7 @@ export function Testimonials() {
             ))}
           </Reveal>
         </div>
-        <p className="quotes__note">Names, roles and practices are fictional, for illustration.</p>
+        <p className="quotes__note">Los testimonios, nombres y roles son ficticios, solo con fines ilustrativos.</p>
       </div>
     </section>
   );

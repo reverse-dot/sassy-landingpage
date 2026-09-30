@@ -1,37 +1,26 @@
-import { footerCols } from "../data/content";
+import { footerCols, PRIVACY_URL, TERMS_URL } from "../data/content";
 import { Logo } from "./Logo";
 
 export function Footer() {
   return (
     <footer className="foot" aria-labelledby="foot-title">
       <h2 id="foot-title" className="sr-only">
-        Site footer
+        Pie de página
       </h2>
       <div className="container container--wide">
         <div className="foot__top">
           <div className="foot__brand">
             <Logo />
-            <p>Clinical notes, clearly kept. Made for the people who write them.</p>
-            <form className="foot__form" onSubmit={(e) => e.preventDefault()}>
-              <label htmlFor="foot-email" className="foot__form-l">
-                Product notes, once a month
-              </label>
-              <div className="foot__form-row">
-                <input id="foot-email" type="email" placeholder="you@clinic.org" autoComplete="email" />
-                <button type="submit" className="btn btn--primary btn--md">
-                  <span className="btn__label">Subscribe</span>
-                </button>
-              </div>
-            </form>
+            <p>Analítica de Instagram para agencias, creadores y marcas.</p>
           </div>
-          <nav className="foot__cols" aria-label="Footer">
+          <nav className="foot__cols" aria-label="Pie de página">
             {footerCols.map((c) => (
               <div key={c.title}>
                 <h3>{c.title}</h3>
                 <ul>
                   {c.links.map((l) => (
-                    <li key={l}>
-                      <a href="#top">{l}</a>
+                    <li key={l.label}>
+                      <a href={l.href}>{l.label}</a>
                     </li>
                   ))}
                 </ul>
@@ -40,21 +29,18 @@ export function Footer() {
           </nav>
         </div>
         <div className="foot__bottom">
-          <p>© 2026 Mendleaf. A fictional product created for a design concept.</p>
+          <p>© 2026 Sassy. Los datos de ejemplo de esta página son ficticios.</p>
           <ul>
             <li>
-              <a href="#top">Terms</a>
+              <a href={TERMS_URL}>Términos</a>
             </li>
             <li>
-              <a href="#top">Privacy</a>
-            </li>
-            <li>
-              <a href="#top">Accessibility</a>
+              <a href={PRIVACY_URL}>Privacidad</a>
             </li>
           </ul>
         </div>
         <p className="foot__word" aria-hidden="true">
-          Mendleaf
+          Sassy
         </p>
       </div>
     </footer>

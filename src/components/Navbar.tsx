@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { LuArrowRight, LuMenu, LuX } from "react-icons/lu";
 import { Logo } from "./Logo";
 import { MagneticButton } from "./MagneticButton";
-import { navLinks } from "../data/content";
+import { navLinks, APP_URL, LOGIN_URL } from "../data/content";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -61,11 +61,11 @@ export function Navbar() {
   return (
     <header className={["nav", scrolled ? "is-scrolled" : "", open ? "is-open" : ""].join(" ")}>
       <div className="nav__bar container container--wide">
-        <a href="#top" className="nav__logo" aria-label="Mendleaf home">
+        <a href="#top" className="nav__logo" aria-label="Sassy, inicio">
           <Logo />
         </a>
 
-        <nav className="nav__desktop" aria-label="Primary">
+        <nav className="nav__desktop" aria-label="Principal">
           <ul ref={listRef} className="nav__list" onPointerLeave={() => movePill(null)}>
             <span ref={pillRef} className="nav__pill" aria-hidden="true" />
             {navLinks.map((l) => (
@@ -85,11 +85,11 @@ export function Navbar() {
         </nav>
 
         <div className="nav__actions">
-          <a href="#login" className="nav__login">
-            Log in
+          <a href={LOGIN_URL} className="nav__login">
+            Iniciar sesión
           </a>
-          <MagneticButton href="#start" size="md" strength={0.25} className="nav__cta">
-            Start free
+          <MagneticButton href={APP_URL} size="md" strength={0.25} className="nav__cta">
+            Empezar gratis
             <LuArrowRight className="arrow" aria-hidden="true" size={16} />
           </MagneticButton>
           <button
@@ -97,7 +97,7 @@ export function Navbar() {
             className="nav__toggle"
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
             onClick={() => setOpen((o) => !o)}
           >
             <span className="nav__toggle-icon" data-state={open ? "open" : "closed"}>
@@ -114,12 +114,12 @@ export function Navbar() {
         className="nav__panel"
         role="dialog"
         aria-modal={open}
-        aria-label="Menu"
+        aria-label="Menú"
         aria-hidden={!open}
         inert={!open}
         data-open={open}
       >
-        <nav aria-label="Mobile">
+        <nav aria-label="Móvil">
           <ul className="nav__mlist">
             {navLinks.map((l, i) => (
               <li key={l.label} style={{ ["--i" as string]: i }}>
@@ -132,15 +132,15 @@ export function Navbar() {
           </ul>
         </nav>
         <div className="nav__mactions" style={{ ["--i" as string]: navLinks.length }}>
-          <a href="#login" className="btn btn--secondary btn--lg" onClick={() => setOpen(false)}>
-            <span className="btn__label">Log in</span>
+          <a href={LOGIN_URL} className="btn btn--secondary btn--lg" onClick={() => setOpen(false)}>
+            <span className="btn__label">Iniciar sesión</span>
           </a>
-          <a href="#start" className="btn btn--primary btn--lg" onClick={() => setOpen(false)}>
+          <a href={APP_URL} className="btn btn--primary btn--lg" onClick={() => setOpen(false)}>
             <span className="btn__label">
-              Start free <LuArrowRight size={16} aria-hidden="true" />
+              Empezar gratis en la beta <LuArrowRight size={16} aria-hidden="true" />
             </span>
           </a>
-          <p className="hand nav__mnote">no card, no contract ✓</p>
+          <p className="hand nav__mnote">gratis durante la beta ✓</p>
         </div>
       </div>
     </header>

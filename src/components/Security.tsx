@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { LuLock, LuKeyRound, LuUserCheck, LuHistory, LuDatabase, LuShieldCheck } from "react-icons/lu";
-import { securityPoints, auditLog } from "../data/content";
+import { LuLock, LuEye, LuUnlink, LuTrash2, LuFileCheck, LuRefreshCw } from "react-icons/lu";
+import { securityPoints, syncLog } from "../data/content";
 import { Reveal, RevealLines } from "./ScrollReveal";
 import { useInView } from "../motion/hooks";
 import { prefersReducedMotion } from "../motion/env";
 
-const ICONS = { lock: LuLock, key: LuKeyRound, user: LuUserCheck, history: LuHistory, database: LuDatabase };
+const ICONS = { lock: LuLock, eye: LuEye, unlink: LuUnlink, trash: LuTrash2, check: LuFileCheck };
 const ACT_TONE: Record<string, string> = {
-  signed: "mint",
-  viewed: "sky",
-  edited: "lilac",
-  flagged: "peach",
-  exported: "butter",
-  revoked: "rose",
+  sincronizó: "mint",
+  agregaste: "sky",
+  actualizó: "sky",
+  recalculó: "lilac",
+  cambiaste: "butter",
+  marcó: "peach",
 };
 
-/** An audit trail that quietly appends a new entry every few seconds. */
-function AuditPanel() {
+/** An example sync feed that quietly appends a new entry every few seconds. */
+function SyncPanel() {
   const [ref, inView] = useInView<HTMLDivElement>({ once: false, threshold: 0.2 });
   const [head, setHead] = useState(0);
 
@@ -27,18 +27,18 @@ function AuditPanel() {
   }, [inView]);
 
   const rows = Array.from({ length: 5 }, (_, i) => {
-    const idx = (head - i + auditLog.length * 100) % auditLog.length;
-    return { ...auditLog[idx], key: head - i };
+    const idx = (head - i + syncLog.length * 100) % syncLog.length;
+    return { ...syncLog[idx], key: head - i };
   });
 
   return (
-    <div ref={ref} className="audit" aria-label="Example audit trail" role="figure">
+    <div ref={ref} className="audit" aria-label="Ejemplo de actividad de sincronización" role="figure">
       <div className="audit__head">
         <span className="audit__title">
-          <LuShieldCheck size={15} aria-hidden="true" /> Audit trail
+          <LuRefreshCw size={15} aria-hidden="true" /> Actividad de ejemplo
         </span>
         <span className="audit__live">
-          <i aria-hidden="true" /> Live
+          <i aria-hidden="true" /> Conectada
         </span>
       </div>
       <ol className="audit__list" key={head}>
@@ -53,8 +53,8 @@ function AuditPanel() {
         ))}
       </ol>
       <div className="audit__foot">
-        <span>Tamper-evident · exportable</span>
-        <span>Retention: 8 years</span>
+        <span>Datos públicos y API oficial</span>
+        <span>Desconecta cuando quieras</span>
       </div>
     </div>
   );
@@ -67,19 +67,19 @@ export function Security() {
       <div className="container sec__grid">
         <div className="sec__copy">
           <Reveal>
-            <p className="eyebrow eyebrow--dark">Trust</p>
+            <p className="eyebrow eyebrow--dark">Privacidad y datos</p>
           </Reveal>
           <RevealLines
             id="sec-title"
             className="h2"
-            lines={["Designed with privacy", "and security at the core"]}
+            lines={["Tus datos, con", "reglas claras"]}
           />
           <Reveal as="p" className="lead sec__lead" delay={150}>
-            Clinical notes are some of the most personal words anyone writes down. We treat them that way — in
-            how the product is built, who can see what, and what happens to the data over time.
+            Sassy trabaja con la cuenta de tus clientes, así que explicamos qué datos usamos, cómo los obtenemos
+            y cómo puedes retirarlos en cualquier momento.
           </Reveal>
           <Reveal delay={250}>
-            <AuditPanel />
+            <SyncPanel />
           </Reveal>
         </div>
 

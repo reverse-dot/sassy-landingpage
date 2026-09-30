@@ -1,43 +1,54 @@
 import { useMemo, useRef, useState, type KeyboardEvent } from "react";
 import {
   LuLayoutDashboard,
-  LuUsers,
+  LuColumns2,
+  LuLightbulb,
+  LuImage,
   LuFileText,
-  LuListChecks,
-  LuInbox,
   LuSettings,
   LuSearch,
   LuBell,
   LuCheck,
-  LuSparkles,
+  LuClock,
   LuTriangleAlert,
-  LuFlaskConical,
-  LuMessageSquare,
-  LuPenLine,
+  LuChartColumn,
 } from "react-icons/lu";
-import { patients, type Patient } from "../data/content";
+import { clients, WEEKDAYS, type Client, type Insight } from "../data/content";
 import { Reveal, RevealLines } from "./ScrollReveal";
 import { HandArrow } from "./HandMarks";
 import { Logo } from "./Logo";
 import { useScrollVar } from "../motion/hooks";
 
-const TABS = ["Note", "Summary", "Timeline"] as const;
+const TABS = ["Lado a lado", "Insights", "Contenido"] as const;
 type Tab = (typeof TABS)[number];
 
-const STATUS_TONE: Record<Patient["status"], string> = {
-  "Ready to sign": "mint",
-  Drafting: "sky",
-  Signed: "lilac",
-  "Needs review": "peach",
+const STATUS_TONE: Record<Client["status"], string> = {
+  Sincronizado: "mint",
+  Sincronizando: "sky",
+  "Datos limitados": "peach",
 };
 
-const KIND_ICON = { note: LuFileText, lab: LuFlaskConical, msg: LuMessageSquare, task: LuListChecks };
+const GROUP_TONE: Record<Insight["group"], string> = {
+  Fortaleza: "mint",
+  Oportunidad: "sky",
+  Contexto: "lilac",
+};
+const GROUP_ORDER: Insight["group"][] = ["Fortaleza", "Oportunidad", "Contexto"];
+
+const NAV = [
+  [LuLayoutDashboard, "Panel", true],
+  [LuColumns2, "Lado a lado", false],
+  [LuLightbulb, "Insights", false],
+  [LuImage, "Contenido", false],
+  [LuFileText, "Informes", false],
+] as const;
 
 export function InteractiveDashboard() {
-  const [pid, setPid] = useState(patients[0].id);
-  const [tab, setTab] = useState<Tab>("Note");
-  const [done, setDone] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(patients.flatMap((p) => p.tasks.map((t) => [`${p.id}:${t.id}`, t.done])))
+  const [cid, setCid] = useState(clients[0].id);
+  const [tab, setTab] = useState<Tab>("Lado a lado");
+  // Which competitors are being monitored (paused ones drop out of the views).
+  const [watch, setWatch] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(clients.flatMap((c) => c.accounts.filter((a) => !a.you).map((a) => [`${c.id}:${a.handle}`, true])))
   );
   const [query, setQuery] = useState("");
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -50,12 +61,19 @@ export function InteractiveDashboard() {
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
     return q
-      ? patients.filter((p) => (p.name + " " + p.reason).toLowerCase().includes(q))
-      : patients;
+      ? clients.filter((c) => (c.name + " " + c.handle + " " + c.segment).toLowerCase().includes(q))
+      : clients;
   }, [query]);
 
-  const p = patients.find((x) => x.id === pid)!;
-  const openTasks = p.tasks.filter((t) => !done[`${p.id}:${t.id}`]).length;
+  const c = clients.find((x) => x.id === cid)!;
+  const isOn = (handle: string) => watch[`${c.id}:${handle}`] !== false;
+  const competitors = c.accounts.filter((a) => !a.you);
+  const activeCount = competitors.filter((a) => isOn(a.handle)).length;
+  const rows = c.accounts.filter((a) => a.you || isOn(a.handle));
+  const insights = GROUP_ORDER.flatMap((g) =>
+    c.insights.filter((i) => i.group === g && (i.evidence.account === c.handle || isOn(i.evidence.account)))
+  );
+  const maxWeek = Math.max(...c.weekly);
 
   const onTabKey = (e: KeyboardEvent, i: number) => {
     let n = i;
@@ -74,18 +92,18 @@ export function InteractiveDashboard() {
       <div className="container container--wide">
         <div className="section-head section-head--center">
           <Reveal>
-            <p className="eyebrow">Try it</p>
+            <p className="eyebrow">Pruébalo</p>
           </Reveal>
-          <RevealLines id="dash-title" className="h2" lines={["A calm place to", "finish the day"]} />
+          <RevealLines id="dash-title" className="h2" lines={["Un panel para todos", "tus clientes"]} />
           <Reveal as="p" className="lead" delay={150}>
-            This is a working preview with sample patients. Switch between visits, flip through the record and
-            tick off a task or two.
+            Esta es una vista previa interactiva con datos de ejemplo. Cambia de cliente, revisa el lado a lado y
+            pausa o activa a tus competidores.
           </Reveal>
         </div>
 
         <div className="dash__wrap" ref={frameRef}>
           <div className="dash__hint" aria-hidden="true">
-            <span className="hand">pick a patient</span>
+            <span className="hand">elige un cliente</span>
             <HandArrow variant="down" className="dash__hint-arrow" />
           </div>
 
@@ -96,36 +114,27 @@ export function InteractiveDashboard() {
                 <i />
                 <i />
               </span>
-              <span className="app__url">app.mendleaf.example/today</span>
+              <span className="app__url">sassyig.vercel.app</span>
             </div>
 
             <div className="app__body">
               {/* Sidebar */}
-              <aside className="app__side" aria-label="App navigation (preview)">
+              <aside className="app__side" aria-label="Navegación de la app (vista previa)">
                 <div className="app__brand">
                   <Logo />
                 </div>
                 <ul className="app__nav">
-                  {[
-                    [LuLayoutDashboard, "Today", true],
-                    [LuUsers, "Patients", false],
-                    [LuFileText, "Notes", false],
-                    [LuListChecks, "Tasks", false],
-                    [LuInbox, "Inbox", false],
-                  ].map(([Icon, label, on]) => {
-                    const I = Icon as typeof LuUsers;
-                    return (
-                      <li key={label as string} className={on ? "is-on" : ""}>
-                        <I size={16} aria-hidden="true" />
-                        <span>{label as string}</span>
-                        {label === "Tasks" && <em className="app__count">7</em>}
-                      </li>
-                    );
-                  })}
+                  {NAV.map(([Icon, label, on]) => (
+                    <li key={label} className={on ? "is-on" : ""}>
+                      <Icon size={16} aria-hidden="true" />
+                      <span>{label}</span>
+                      {label === "Insights" && <em className="app__count">3</em>}
+                    </li>
+                  ))}
                 </ul>
                 <div className="app__side-foot">
                   <LuSettings size={16} aria-hidden="true" />
-                  <span>Settings</span>
+                  <span>Ajustes</span>
                 </div>
               </aside>
 
@@ -134,10 +143,10 @@ export function InteractiveDashboard() {
                 <div className="app__top">
                   <label className="app__search">
                     <LuSearch size={15} aria-hidden="true" />
-                    <span className="sr-only">Search today's patients</span>
+                    <span className="sr-only">Buscar clientes</span>
                     <input
                       type="search"
-                      placeholder="Search patients"
+                      placeholder="Buscar cliente"
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                     />
@@ -149,54 +158,54 @@ export function InteractiveDashboard() {
                       <i />
                     </span>
                     <span className="avatar app__me" aria-hidden="true">
-                      MC
+                      AG
                     </span>
                   </div>
                 </div>
 
                 <div className="app__cols">
-                  {/* Schedule */}
+                  {/* Client switcher */}
                   <div className="app__list">
                     <p className="app__list-h">
-                      Today <span>Mon 29 Sep</span>
+                      Clientes <span>3 de 6</span>
                     </p>
                     <ul>
                       {list.map((x) => (
                         <li key={x.id}>
                           <button
-                            className={["pt", x.id === pid ? "is-on" : ""].join(" ")}
-                            aria-pressed={x.id === pid}
-                            onClick={() => setPid(x.id)}
+                            className={["pt", x.id === cid ? "is-on" : ""].join(" ")}
+                            aria-pressed={x.id === cid}
+                            onClick={() => setCid(x.id)}
                           >
-                            <span className="pt__time">{x.time}</span>
+                            <span className="pt__time">{x.sync}</span>
                             <span className={`avatar tone-bg-${x.tone}`}>{x.initials}</span>
                             <span className="pt__txt">
                               <strong>{x.name}</strong>
-                              <span>{x.reason}</span>
+                              <span>{x.segment}</span>
                             </span>
                             <span className={`pt__dot tone-dot-${STATUS_TONE[x.status]}`} title={x.status} />
                           </button>
                         </li>
                       ))}
-                      {list.length === 0 && <li className="app__empty">No patients match “{query}”.</li>}
+                      {list.length === 0 && <li className="app__empty">Ningún cliente coincide con “{query}”.</li>}
                     </ul>
                   </div>
 
                   {/* Detail */}
                   <div className="app__detail" aria-live="polite">
-                    <header className="pd__head" key={p.id}>
-                      <span className={`avatar avatar--lg tone-bg-${p.tone}`}>{p.initials}</span>
+                    <header className="pd__head" key={c.id}>
+                      <span className={`avatar avatar--lg tone-bg-${c.tone}`}>{c.initials}</span>
                       <div className="pd__who">
-                        <h3>{p.name}</h3>
+                        <h3>{c.name}</h3>
                         <p>
-                          {p.age} · {p.sex} · {p.mrn}
+                          {c.handle} · {c.segment}
                         </p>
                       </div>
-                      <span className={`badge badge--${STATUS_TONE[p.status]} pd__status`}>{p.status}</span>
-                      {p.flags.length > 0 && (
+                      <span className={`badge badge--${STATUS_TONE[c.status]} pd__status`}>{c.status}</span>
+                      {c.flags.length > 0 && (
                         <div className="pd__flags">
-                          {p.flags.map((f) => (
-                            <span key={f} className="badge badge--rose">
+                          {c.flags.map((f) => (
+                            <span key={f} className="badge badge--butter">
                               <LuTriangleAlert size={11} aria-hidden="true" /> {f}
                             </span>
                           ))}
@@ -204,7 +213,7 @@ export function InteractiveDashboard() {
                       )}
                     </header>
 
-                    <div className="pd__tabs" role="tablist" aria-label="Record views">
+                    <div className="pd__tabs" role="tablist" aria-label="Vistas del cliente">
                       {TABS.map((t, i) => (
                         <button
                           key={t}
@@ -212,9 +221,9 @@ export function InteractiveDashboard() {
                             tabRefs.current[i] = el;
                           }}
                           role="tab"
-                          id={`tab-${t}`}
+                          id={`tab-${i}`}
                           aria-selected={tab === t}
-                          aria-controls={`panel-${t}`}
+                          aria-controls={`panel-${i}`}
                           tabIndex={tab === t ? 0 : -1}
                           className={tab === t ? "is-on" : ""}
                           onClick={() => setTab(t)}
@@ -234,75 +243,117 @@ export function InteractiveDashboard() {
                       <div
                         className="pd__panel"
                         role="tabpanel"
-                        id={`panel-${tab}`}
-                        aria-labelledby={`tab-${tab}`}
-                        key={p.id + tab}
+                        id={`panel-${TABS.indexOf(tab)}`}
+                        aria-labelledby={`tab-${TABS.indexOf(tab)}`}
+                        key={c.id + tab}
                       >
-                        {tab === "Note" && (
-                          <dl className="pd__fields">
-                            {p.fields.map((f, i) => (
-                              <div key={f.label} style={{ ["--k" as string]: i }}>
-                                <dt>{f.label}</dt>
-                                <dd>{f.value}</dd>
-                              </div>
-                            ))}
+                        {tab === "Lado a lado" && (
+                          <div>
+                            <div className="pd__tablewrap">
+                              <table className="pd__table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Cuenta</th>
+                                    <th scope="col">Seguidores</th>
+                                    <th scope="col">Interacción</th>
+                                    <th scope="col">Pub./sem</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {rows.map((a, i) => (
+                                    <tr key={a.handle} className={a.you ? "is-you" : ""} style={{ ["--k" as string]: i }}>
+                                      <th scope="row">
+                                        <span>{a.handle}</span>
+                                        {a.you && <em>Tú</em>}
+                                      </th>
+                                      <td>
+                                        {a.followers}
+                                        <small className={a.growth.startsWith("−") ? "is-down" : "is-up"}>{a.growth}</small>
+                                      </td>
+                                      <td>{a.engagement}</td>
+                                      <td>{a.cadence}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
                             <p className="pd__src">
-                              <LuPenLine size={13} aria-hidden="true" /> Structured from handwriting · edited by
-                              you
+                              <LuChartColumn size={13} aria-hidden="true" /> Ventana de 30 días · interacción
+                              mediana de la muestra
                             </p>
-                          </dl>
-                        )}
-                        {tab === "Summary" && (
-                          <div className="pd__summary">
-                            <p className="pd__sk">
-                              <LuSparkles size={13} aria-hidden="true" /> Generated summary · review before
-                              sharing
-                            </p>
-                            <p>{p.summary}</p>
                           </div>
                         )}
-                        {tab === "Timeline" && (
-                          <ol className="pd__tl">
-                            {p.timeline.map((ev, i) => {
-                              const I = KIND_ICON[ev.kind];
-                              return (
-                                <li key={i} style={{ ["--k" as string]: i }}>
-                                  <span className="pd__tl-ico">
-                                    <I size={13} aria-hidden="true" />
-                                  </span>
-                                  <span className="pd__tl-what">{ev.what}</span>
-                                  <span className="pd__tl-meta">
-                                    {ev.who} · {ev.when}
-                                  </span>
+                        {tab === "Insights" && (
+                          <div>
+                            <ul className="pd__ins">
+                              {insights.map((ins, i) => (
+                                <li key={ins.text} style={{ ["--k" as string]: i }}>
+                                  <span className={`badge badge--${GROUP_TONE[ins.group]}`}>{ins.group}</span>
+                                  <p>{ins.text}</p>
+                                  <small>
+                                    {ins.evidence.account} · {ins.evidence.metric}: {ins.evidence.value} · muestra{" "}
+                                    {ins.evidence.sample} · cobertura {ins.evidence.coverage} · {ins.evidence.window}
+                                  </small>
                                 </li>
-                              );
-                            })}
-                          </ol>
+                              ))}
+                              {insights.length === 0 && (
+                                <li className="app__empty">Activa al menos un competidor para ver observaciones.</li>
+                              )}
+                            </ul>
+                            <p className="pd__src">Observaciones deterministas · sin puntajes ni recomendaciones</p>
+                          </div>
+                        )}
+                        {tab === "Contenido" && (
+                          <div className="pd__cadence">
+                            <p className="pd__sk">Publicaciones por día · últimos 30 días</p>
+                            <div className="pd__week" aria-hidden="true">
+                              {c.weekly.map((n, i) => (
+                                <span
+                                  key={i}
+                                  className={i === c.bestDay ? "is-best" : ""}
+                                  style={{ ["--h" as string]: `${Math.round((n / maxWeek) * 100)}%`, ["--k" as string]: i }}
+                                />
+                              ))}
+                            </div>
+                            <div className="pd__days" aria-hidden="true">
+                              {WEEKDAYS.map((d, i) => (
+                                <span key={d} className={i === c.bestDay ? "is-best" : ""}>
+                                  {d}
+                                </span>
+                              ))}
+                            </div>
+                            <p className="pd__best">
+                              <LuClock size={14} aria-hidden="true" /> Mejor momento: {c.bestMoment}
+                            </p>
+                          </div>
                         )}
                       </div>
 
                       <div className="pd__tasks">
                         <p className="pd__tasks-h">
-                          Follow-ups <span>{openTasks} open</span>
+                          Competidores{" "}
+                          <span>
+                            {activeCount} de {competitors.length} activos
+                          </span>
                         </p>
                         <ul>
-                          {p.tasks.map((t) => {
-                            const key = `${p.id}:${t.id}`;
-                            const isDone = !!done[key];
+                          {competitors.map((a) => {
+                            const on = isOn(a.handle);
+                            const key = `${c.id}:${a.handle}`;
                             return (
                               <li key={key}>
                                 <button
-                                  className={["tk", isDone ? "is-done" : ""].join(" ")}
+                                  className={["tk", "tk--watch", on ? "is-done" : ""].join(" ")}
                                   role="checkbox"
-                                  aria-checked={isDone}
-                                  onClick={() => setDone((d) => ({ ...d, [key]: !d[key] }))}
+                                  aria-checked={on}
+                                  onClick={() => setWatch((w) => ({ ...w, [key]: !on }))}
                                 >
                                   <span className="tk__box" aria-hidden="true">
                                     <LuCheck size={11} />
                                   </span>
-                                  <span className="tk__label">{t.label}</span>
-                                  <span className={`badge badge--${isDone ? "mint" : t.tone}`}>
-                                    {isDone ? "Done" : t.due}
+                                  <span className="tk__label">{a.handle}</span>
+                                  <span className={`badge badge--${on ? "mint" : "butter"}`}>
+                                    {on ? "Sync diaria" : "En pausa"}
                                   </span>
                                 </button>
                               </li>

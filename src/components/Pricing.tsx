@@ -1,99 +1,74 @@
-import { useState } from "react";
 import { LuCheck, LuArrowRight } from "react-icons/lu";
-import { plans } from "../data/content";
+import { plans, APP_URL } from "../data/content";
 import { Reveal, RevealLines } from "./ScrollReveal";
 import { TiltCard } from "./TiltCard";
 import { MagneticButton } from "./MagneticButton";
 
 export function Pricing() {
-  const [annual, setAnnual] = useState(true);
-
   return (
     <section className="price section" id="pricing" aria-labelledby="price-title">
       <div className="container">
         <div className="section-head section-head--center">
           <Reveal>
-            <p className="eyebrow">Pricing</p>
+            <p className="eyebrow">Precios</p>
           </Reveal>
-          <RevealLines id="price-title" className="h2" lines={["Simple plans,", "priced per clinician"]} />
-          <Reveal delay={150}>
-            <div className="toggle" role="radiogroup" aria-label="Billing period">
-              <button
-                role="radio"
-                aria-checked={!annual}
-                className={!annual ? "is-on" : ""}
-                onClick={() => setAnnual(false)}
-              >
-                Monthly
-              </button>
-              <button
-                role="radio"
-                aria-checked={annual}
-                className={annual ? "is-on" : ""}
-                onClick={() => setAnnual(true)}
-              >
-                Yearly <span className="toggle__save">save ~20%</span>
-              </button>
-              <span className="toggle__pill" data-pos={annual ? "1" : "0"} aria-hidden="true" />
-            </div>
-          </Reveal>
+          <RevealLines id="price-title" className="h2" lines={["Gratis durante la beta,", "planes claros después"]} />
         </div>
 
-        <Reveal as="ul" className="price__grid" stagger={120} variant="up">
-          {plans.map((p) => {
-            const amount = annual ? p.annual : p.monthly;
-            return (
-              <li key={p.name} className={["price__item", p.featured ? "is-featured" : ""].join(" ")}>
-                <TiltCard className="plan" max={2}>
-                  {p.featured && <span className="plan__ribbon hand">{p.note}</span>}
-                  <h3 className="plan__name">{p.name}</h3>
-                  <p className="plan__blurb">{p.blurb}</p>
-
-                  <div className="plan__price" aria-live="polite">
-                    {amount != null ? (
-                      <>
-                        <span className="plan__cur">$</span>
-                        <span className="plan__amt" key={amount}>
-                          {amount}
-                        </span>
-                        <span className="plan__unit">
-                          {p.unit}
-                          <br />
-                          {annual ? "billed yearly" : "billed monthly"}
-                        </span>
-                      </>
-                    ) : (
-                      <span className="plan__custom">Custom</span>
-                    )}
-                  </div>
-
-                  <MagneticButton
-                    href="#start"
-                    variant={p.featured ? "light" : "primary"}
-                    size="lg"
-                    strength={0.18}
-                    className="plan__cta"
-                  >
-                    {p.cta}
-                    <LuArrowRight className="arrow" size={16} aria-hidden="true" />
-                  </MagneticButton>
-
-                  <ul className="plan__features">
-                    {p.features.map((f) => (
-                      <li key={f}>
-                        <span className="plan__tick" aria-hidden="true">
-                          <LuCheck size={12} />
-                        </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </TiltCard>
-              </li>
-            );
-          })}
+        <Reveal className="price__beta">
+          <strong>
+            Hoy Sassy es gratis <span className="badge badge--sky">Beta</span>
+          </strong>
+          <p>
+            Todas las cuentas nuevas empiezan en un plan beta gratuito. Los precios de abajo son los que
+            aplicarán cuando termine la beta.
+          </p>
         </Reveal>
-        <p className="price__fine">Prices in USD, excluding tax. Every plan starts with 14 days free.</p>
+
+        <Reveal as="ul" className="price__grid" stagger={120} variant="up">
+          {plans.map((p) => (
+            <li key={p.name} className={["price__item", p.featured ? "is-featured" : ""].join(" ")}>
+              <TiltCard className="plan" max={2}>
+                {p.featured && <span className="plan__ribbon hand">{p.note}</span>}
+                <h3 className="plan__name">{p.name}</h3>
+                <p className="plan__blurb">{p.blurb}</p>
+
+                <div className="plan__price">
+                  <span className="plan__cur">{p.cur}</span>
+                  <span className="plan__amt">{p.price}</span>
+                  <span className="plan__unit">{p.unit}</span>
+                </div>
+                <p className="plan__after">Después de la beta</p>
+
+                <MagneticButton
+                  href={APP_URL}
+                  variant={p.featured ? "primary" : "secondary"}
+                  size="lg"
+                  strength={0.18}
+                  className="plan__cta"
+                >
+                  {p.cta}
+                  <LuArrowRight className="arrow" size={16} aria-hidden="true" />
+                </MagneticButton>
+
+                <ul className="plan__features">
+                  {p.features.map((f) => (
+                    <li key={f}>
+                      <span className="plan__tick" aria-hidden="true">
+                        <LuCheck size={12} />
+                      </span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </TiltCard>
+            </li>
+          ))}
+        </Reveal>
+        <p className="price__fine">
+          Precios posteriores a la beta. Los planes Creador y Empresa se cobran en pesos chilenos (CLP); el plan
+          Agencia, en dólares (USD).
+        </p>
       </div>
     </section>
   );

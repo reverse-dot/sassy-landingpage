@@ -1,7 +1,8 @@
 import type { CSSProperties, ReactNode } from "react";
 
-/* Original hand-drawn marks. Each path uses pathLength="1" so the
-   `.draw` utility in motion.css can animate it on regardless of length. */
+/* Original hand-drawn annotation marks, drawn in the accent colour. Each path
+   uses pathLength="1" so the `.draw` utility in motion.css can animate it on
+   regardless of length. */
 
 type MarkProps = {
   className?: string;
@@ -33,7 +34,7 @@ export function HandCircle({ className, style, color = "var(--pen-red)", width =
   );
 }
 
-export function HandUnderline({ className, style, color = "var(--sky-500)", width = 3, delay = 0 }: MarkProps) {
+export function HandUnderline({ className, style, color = "var(--accent)", width = 3, delay = 0 }: MarkProps) {
   return (
     <svg
       className={["hand-mark draw", className].filter(Boolean).join(" ")}
@@ -97,23 +98,7 @@ export function HandArrow({
   );
 }
 
-export function Signature({ className, color = "var(--pen)" }: { className?: string; color?: string }) {
-  return (
-    <svg className={["hand-mark draw", className].filter(Boolean).join(" ")} viewBox="0 0 120 40" aria-hidden="true">
-      <path
-        pathLength={1}
-        d="M4 30c8-18 14-24 16-18s-8 20-2 20 12-26 18-22-6 18 0 18 10-14 14-14 2 10 8 10 10-12 16-12 4 8 10 8 18-6 30-10"
-        fill="none"
-        stroke={color}
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-/** A sheet of ruled paper with a torn-ish top edge and a margin line. */
+/** A dark note card with a faint dot grid: the "manual tracking" side of the story. */
 export function Paper({
   children,
   className,

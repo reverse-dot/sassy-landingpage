@@ -1,28 +1,28 @@
-import { LuCamera, LuMic, LuPenLine, LuCheck } from "react-icons/lu";
+import { LuInstagram, LuShieldCheck, LuLink, LuCheck } from "react-icons/lu";
 import { steps } from "../data/content";
 import { Reveal, RevealLines } from "./ScrollReveal";
 import { TiltCard } from "./TiltCard";
 import { useScrollVar } from "../motion/hooks";
 
-function CaptureIllo() {
+function ConnectIllo() {
   return (
     <div className="illo illo--capture" aria-hidden="true">
       <div className="ic__phone">
         <div className="ic__paper">
-          <span className="hand">knee ~3/52</span>
-          <span className="hand">→ physio</span>
+          <span className="ic__handle">@casa.lumbre</span>
+          <span className="ic__ok">Autorizada</span>
           <span className="ic__scan" />
         </div>
       </div>
       <div className="ic__modes">
         <span className="ic__mode">
-          <LuCamera size={14} />
+          <LuLink size={14} />
         </span>
         <span className="ic__mode">
-          <LuPenLine size={14} />
+          <LuShieldCheck size={14} />
         </span>
         <span className="ic__mode ic__mode--on">
-          <LuMic size={14} />
+          <LuInstagram size={14} />
           <span className="ic__wave">
             {Array.from({ length: 5 }).map((_, i) => (
               <i key={i} style={{ ["--w" as string]: i }} />
@@ -34,8 +34,8 @@ function CaptureIllo() {
   );
 }
 
-function StructureIllo() {
-  const rows = ["Presenting", "Findings", "Assessment", "Plan"];
+function CompetitorsIllo() {
+  const rows = ["Tu cuenta", "Competidor 1", "Competidor 2", "Competidor 3"];
   return (
     <div className="illo illo--structure" aria-hidden="true">
       {rows.map((r, i) => (
@@ -46,13 +46,13 @@ function StructureIllo() {
           </span>
         </div>
       ))}
-      <span className="is__flag">1 to check</span>
+      <span className="is__flag">Sincronización diaria</span>
     </div>
   );
 }
 
-function ActIllo() {
-  const items = ["Sign record", "Send referral", "Book review"];
+function InsightsIllo() {
+  const items = ["Fortaleza · interacción", "Oportunidad · frecuencia", "Contexto · muestra pequeña"];
   return (
     <div className="illo illo--act" aria-hidden="true">
       {items.map((t, i) => (
@@ -63,12 +63,12 @@ function ActIllo() {
           <span>{t}</span>
         </div>
       ))}
-      <span className="ia__done hand">done by 5:10 ✓</span>
+      <span className="ia__done hand">con evidencia ✓</span>
     </div>
   );
 }
 
-const ILLOS = [CaptureIllo, StructureIllo, ActIllo];
+const ILLOS = [ConnectIllo, CompetitorsIllo, InsightsIllo];
 
 export function HowItWorks() {
   const lineRef = useScrollVar<HTMLDivElement>("--draw", (el, vh) => {
@@ -78,16 +78,16 @@ export function HowItWorks() {
   });
 
   return (
-    <section className="how section" aria-labelledby="how-title">
+    <section className="how section" id="how" aria-labelledby="how-title">
       <div className="container">
         <div className="section-head section-head--center">
           <Reveal>
-            <p className="eyebrow">How it works</p>
+            <p className="eyebrow">Cómo funciona</p>
           </Reveal>
           <RevealLines
             id="how-title"
             className="h2"
-            lines={["Three steps between", "the visit and the record"]}
+            lines={["Tres pasos entre tu cuenta", "y tus insights"]}
           />
         </div>
 
@@ -109,7 +109,7 @@ export function HowItWorks() {
                     <div className="how__body">
                       <p className="how__tag">{s.tag}</p>
                       <h3 className="h3">
-                        <span className="sr-only">Step {s.n}: </span>
+                        <span className="sr-only">Paso {s.n}: </span>
                         {s.title}
                       </h3>
                       <p className="body">{s.body}</p>

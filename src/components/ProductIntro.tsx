@@ -4,10 +4,10 @@ import { HandArrow } from "./HandMarks";
 import { Reveal } from "./ScrollReveal";
 
 const TEXT =
-  "Clinicians write for people, not for databases. Mendleaf meets you there — it reads shorthand, arrows and crossed-out doses exactly as you wrote them, then quietly turns the page into a record your whole team can trust.";
+  "Cada cliente tiene su propia competencia. Sassy los reúne en un solo panel, sincroniza los datos cada día y muestra únicamente lo que la evidencia respalda.";
 
 /** Words that get a soft highlight once they are fully revealed. */
-const EMPHASIS = new Set(["arrows", "crossed-out", "trust."]);
+const EMPHASIS = new Set(["competencia.", "panel,", "respalda."]);
 
 /**
  * Editorial statement whose words brighten one by one as the reader scrolls
@@ -31,15 +31,19 @@ export function ProductIntro() {
         <div className="intro__side">
           <Reveal>
             <p className="eyebrow" id="intro-title">
-              Why Mendleaf
+              Por qué Sassy
             </p>
           </Reveal>
           <div className="intro__fan" aria-hidden="true">
             <span className="intro__sheet intro__sheet--1">
-              <span className="hand">bp 132/80 ✓</span>
+              <span className="intro__k">Seguidores</span>
+              <span className="intro__v">12.480</span>
+              <span className="intro__d">+3,2% en 30 días</span>
             </span>
             <span className="intro__sheet intro__sheet--2">
-              <span className="hand">f/u 2/52 →</span>
+              <span className="intro__k">Interacción</span>
+              <span className="intro__v">3,4%</span>
+              <span className="intro__d">Mediana · 30 días</span>
             </span>
             <span className="intro__sheet intro__sheet--3">
               <span className="intro__lines" />
@@ -62,7 +66,7 @@ export function ProductIntro() {
           </p>
           <Reveal className="intro__aside" delay={200}>
             <HandArrow variant="loop" className="intro__aside-arrow" color="var(--pen)" />
-            <span className="hand">yes — even your handwriting</span>
+            <span className="hand">un panel, todos tus clientes</span>
           </Reveal>
         </div>
       </div>

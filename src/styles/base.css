@@ -21,11 +21,10 @@ body {
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   color: var(--ink);
-  background: var(--white);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-feature-settings: "ss01", "cv11";
   overflow-x: clip;
 }
 img,
@@ -65,18 +64,18 @@ ol {
   list-style: none;
 }
 ::selection {
-  background: var(--sky-200);
+  background: var(--accent-200);
   color: var(--ink);
 }
 
 /* Focus: always visible for keyboard users, invisible for mouse clicks */
 :focus-visible {
-  outline: 2px solid var(--sky-600);
+  outline: 2px solid var(--accent-600);
   outline-offset: 3px;
   border-radius: 6px;
 }
 .on-dark :focus-visible {
-  outline-color: var(--sky-300);
+  outline-color: var(--accent-300);
 }
 
 .sr-only {
@@ -98,9 +97,9 @@ ol {
   z-index: 200;
   padding: 10px 16px;
   border-radius: var(--r-pill);
-  background: var(--ink);
-  color: var(--white);
-  font-weight: 500;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
   font-size: var(--fs-small);
   transform: translateY(-160%);
   transition: transform var(--dur-2) var(--ease-out);
@@ -126,24 +125,27 @@ ol {
 
 /* ---------- Type ---------- */
 .display {
+  font-family: var(--font-display);
   font-size: var(--fs-display);
   line-height: var(--lh-tight);
   letter-spacing: var(--tracking-display);
-  font-weight: 600;
+  font-weight: 700;
   text-wrap: balance;
 }
 .h2 {
+  font-family: var(--font-display);
   font-size: var(--fs-h2);
   line-height: 1.05;
   letter-spacing: var(--tracking-h);
-  font-weight: 600;
+  font-weight: 700;
   text-wrap: balance;
 }
 .h3 {
+  font-family: var(--font-display);
   font-size: var(--fs-h3);
   line-height: var(--lh-snug);
-  letter-spacing: -0.02em;
-  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-weight: 700;
 }
 .lead {
   font-size: var(--fs-lead);
@@ -168,7 +170,7 @@ ol {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--sky-700);
+  color: var(--accent-700);
 }
 .eyebrow::before {
   content: "";
@@ -177,10 +179,11 @@ ol {
   background: currentColor;
   border-radius: 2px;
 }
+/* Annotation voice: display face in the accent colour */
 .hand {
-  font-family: var(--font-hand);
-  font-weight: 600;
-  letter-spacing: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0.01em;
   color: var(--pen);
 }
 .section-head {
@@ -241,42 +244,43 @@ ol {
   font-size: 1rem;
 }
 .btn--primary {
-  background: var(--ink);
-  color: var(--white);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.14) inset,
-    0 8px 20px -8px rgba(21, 23, 28, 0.55);
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 8px 24px -8px rgba(255, 122, 80, 0.5);
 }
 .btn--primary:hover {
-  background: #252933;
+  background: var(--accent-400);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.14) inset,
-    0 14px 28px -10px rgba(21, 23, 28, 0.55);
+    0 1px 0 rgba(255, 255, 255, 0.24) inset,
+    0 14px 32px -10px rgba(255, 122, 80, 0.6);
 }
 .btn--secondary {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--ink);
   box-shadow: var(--sh-inset), var(--sh-1);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 .btn--secondary:hover {
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.1);
   box-shadow: var(--sh-inset), var(--sh-2);
 }
 .btn--ghost {
   color: var(--ink-2);
 }
 .btn--ghost:hover {
-  background: rgba(21, 23, 28, 0.05);
+  background: rgba(255, 255, 255, 0.06);
 }
 .btn--light {
-  background: var(--white);
-  color: var(--ink);
-  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.45);
+  background: var(--ink);
+  color: var(--on-accent);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
 }
 .btn--light:hover {
-  background: var(--sky-50);
+  background: var(--accent-ink);
 }
 .btn .arrow {
   transition: transform var(--dur-2) var(--ease-out);
@@ -315,8 +319,8 @@ ol {
   color: var(--butter-ink);
 }
 .badge--sky {
-  background: var(--sky-100);
-  color: var(--sky-700);
+  background: var(--accent-100);
+  color: var(--accent-700);
 }
 .badge--rose {
   background: var(--rose);
@@ -324,7 +328,7 @@ ol {
 }
 .badge--ink {
   background: var(--ink);
-  color: var(--white);
+  color: var(--on-accent);
 }
 .dot {
   width: 6px;
@@ -347,7 +351,7 @@ ol {
 }
 
 .card {
-  background: var(--white);
+  background: var(--surface);
   border-radius: var(--r-lg);
   box-shadow: var(--sh-inset), var(--sh-2);
 }

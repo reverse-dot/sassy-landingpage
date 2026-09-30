@@ -3,28 +3,28 @@
    ================================================================= */
 
 /* ---------- Tone utilities (pastel pairs) ---------- */
-.tone-bg-sky { background: var(--sky-100); color: var(--sky-700); }
+.tone-bg-sky { background: var(--accent-100); color: var(--accent-700); }
 .tone-bg-mint { background: var(--mint); color: var(--mint-ink); }
 .tone-bg-lilac { background: var(--lilac); color: var(--lilac-ink); }
 .tone-bg-peach { background: var(--peach); color: var(--peach-ink); }
 .tone-bg-butter { background: var(--butter); color: var(--butter-ink); }
 .tone-bg-rose { background: var(--rose); color: var(--rose-ink); }
-.tone-dot-sky { background: var(--sky-500); }
-.tone-dot-mint { background: #3fb67f; }
-.tone-dot-lilac { background: #8a78e0; }
-.tone-dot-peach { background: #e98a55; }
-.tone-dot-butter { background: #d6b12f; }
+.tone-dot-sky { background: var(--accent-500); }
+.tone-dot-mint { background: var(--success); }
+.tone-dot-lilac { background: var(--muted); }
+.tone-dot-peach { background: var(--accent); }
+.tone-dot-butter { background: var(--warning); }
 .tone-fg-mint { color: var(--mint-ink); }
-.tone-fg-sky { color: var(--sky-700); }
+.tone-fg-sky { color: var(--accent-700); }
 .tone-fg-lilac { color: var(--lilac-ink); }
 .tone-fg-peach { color: var(--peach-ink); }
 .tone-fg-butter { color: var(--butter-ink); }
 .tone-fg-rose { color: var(--rose-ink); }
-.tone-sky { --tone: var(--sky-100); --tone-ink: var(--sky-600); }
-.tone-mint { --tone: var(--mint); --tone-ink: #2f9c6a; }
-.tone-lilac { --tone: var(--lilac); --tone-ink: #7461d4; }
-.tone-peach { --tone: var(--peach); --tone-ink: #d9733f; }
-.tone-butter { --tone: var(--butter); --tone-ink: #c9a21e; }
+.tone-sky { --tone: var(--accent-100); --tone-ink: var(--accent-600); }
+.tone-mint { --tone: var(--mint); --tone-ink: var(--success); }
+.tone-lilac { --tone: var(--lilac); --tone-ink: var(--ink-3); }
+.tone-peach { --tone: var(--peach); --tone-ink: var(--accent-400); }
+.tone-butter { --tone: var(--butter); --tone-ink: var(--warning); }
 .avatar--lg { width: 44px; height: 44px; font-size: 0.875rem; }
 
 /* ---------- Logo ---------- */
@@ -35,15 +35,19 @@
 }
 .logo__mark {
   flex: none;
+  width: auto;
+  height: 22px;
   transition: transform var(--dur-3) var(--ease-out);
 }
 a:hover > .logo .logo__mark {
-  transform: rotate(-8deg) scale(1.04);
+  transform: rotate(-6deg) scale(1.05);
 }
 .logo__word {
-  font-size: 1.1875rem;
-  font-weight: 600;
-  letter-spacing: -0.035em;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.005em;
   color: var(--ink);
 }
 
@@ -59,10 +63,10 @@ a:hover > .logo .logo__mark {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: saturate(1.6) blur(16px);
-  -webkit-backdrop-filter: saturate(1.6) blur(16px);
-  box-shadow: 0 1px 0 rgba(20, 38, 66, 0.07);
+  background: rgba(10, 10, 10, 0.78);
+  backdrop-filter: saturate(1.4) blur(16px);
+  -webkit-backdrop-filter: saturate(1.4) blur(16px);
+  box-shadow: 0 1px 0 var(--line);
   opacity: 0;
   transition: opacity var(--dur-3) var(--ease-out);
 }
@@ -71,7 +75,7 @@ a:hover > .logo .logo__mark {
   opacity: 1;
 }
 .nav.is-open::before {
-  background: var(--white);
+  background: var(--bg);
 }
 .nav__bar {
   position: relative;
@@ -99,7 +103,7 @@ a:hover > .logo .logo__mark {
   margin-top: -18px;
   width: 0;
   border-radius: var(--r-pill);
-  background: rgba(21, 23, 28, 0.055);
+  background: rgba(255, 255, 255, 0.07);
   opacity: 0;
   pointer-events: none;
   transition:
@@ -142,14 +146,14 @@ a:hover > .logo .logo__mark {
 }
 .nav__login:hover {
   color: var(--ink);
-  background: rgba(21, 23, 28, 0.05);
+  background: rgba(255, 255, 255, 0.06);
 }
 .nav__toggle {
   display: none;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.06);
   box-shadow: var(--sh-inset), var(--sh-1);
   place-items: center;
 }
@@ -183,7 +187,7 @@ a:hover > .logo .logo__mark {
 .nav__panel {
   position: fixed;
   inset: var(--nav-h) 0 0 0;
-  background: var(--white);
+  background: var(--bg);
   padding: 12px var(--gutter) calc(32px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
@@ -222,9 +226,10 @@ a:hover > .logo .logo__mark {
   justify-content: space-between;
   min-height: 64px;
   border-bottom: 1px solid var(--line);
+  font-family: var(--font-display);
   font-size: 1.75rem;
-  font-weight: 550;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 .nav__mlist a svg {
   color: var(--faint);
@@ -277,12 +282,16 @@ a:hover > .logo .logo__mark {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, #d7e9f9 0%, #e6f1fc 38%, #f3f8fe 72%, #ffffff 100%);
+  mask-image: linear-gradient(180deg, #000 72%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent);
+  background:
+    radial-gradient(60% 50% at 78% 18%, rgba(255, 122, 80, 0.12), transparent 70%),
+    linear-gradient(180deg, var(--accent-50) 0%, var(--bg) 70%);
 }
 .hero__grid {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(31, 90, 150, 0.14) 1px, transparent 1.2px);
+  background-image: radial-gradient(rgba(255, 171, 145, 0.16) 1px, transparent 1.2px);
   background-size: 22px 22px;
   mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 20%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 20%, transparent 75%);
@@ -297,14 +306,14 @@ a:hover > .logo .logo__mark {
   height: 820px;
   right: -180px;
   top: -260px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 62%);
+  background: radial-gradient(circle, rgba(255, 122, 80, 0.16) 0%, rgba(255, 122, 80, 0) 62%);
 }
 .hero__blob--b {
   width: 640px;
   height: 640px;
   left: -220px;
   bottom: -260px;
-  background: radial-gradient(circle, rgba(235, 230, 252, 0.8) 0%, rgba(235, 230, 252, 0) 65%);
+  background: radial-gradient(circle, rgba(255, 214, 176, 0.07) 0%, rgba(255, 214, 176, 0) 65%);
 }
 
 .hero__inner {
@@ -340,7 +349,7 @@ a:hover > .logo .logo__mark {
   max-width: 100%;
   padding: 5px 14px 5px 5px;
   border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
   box-shadow: var(--sh-inset), var(--sh-1);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -349,17 +358,17 @@ a:hover > .logo .logo__mark {
   transition: background-color var(--dur-2), box-shadow var(--dur-2);
 }
 .announce:hover {
-  background: var(--white);
+  background: var(--canvas);
   box-shadow: var(--sh-inset), var(--sh-2);
 }
 .announce__tag {
   flex: none;
   padding: 3px 9px;
   border-radius: var(--r-pill);
-  background: var(--ink);
-  color: var(--white);
+  background: var(--accent);
+  color: var(--on-accent);
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -379,7 +388,7 @@ a:hover > .logo .logo__mark {
 .hero__title {
   margin-top: 28px;
   font-size: clamp(2.5rem, 0.9rem + 3.7vw, 4.75rem);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 .hero__circled {
@@ -412,8 +421,8 @@ a:hover > .logo .logo__mark {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: var(--ink);
-  color: var(--white);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 .play-dot svg {
   margin-left: 1px;
@@ -437,7 +446,7 @@ a:hover > .logo .logo__mark {
   height: 14px;
   border-radius: 50%;
   background: var(--mint)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M4 7.2 6 9.2 10 5' fill='none' stroke='%2317694a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M4 7.2 6 9.2 10 5' fill='none' stroke='%2322c55e' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
     center / 14px no-repeat;
 }
 .hero__visual {
@@ -526,14 +535,8 @@ a:hover > .logo .logo__mark {
   height: 190px;
   border-radius: 8px;
   background: var(--paper);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0 23px,
-    var(--paper-rule) 23px 24px
-  );
   box-shadow: var(--sh-inset), var(--sh-2);
-  padding: 30px 14px;
-  font-size: 1.25rem;
+  padding: 22px 16px;
   transform-origin: 30% 110%;
   will-change: transform;
 }
@@ -542,19 +545,43 @@ a:hover > .logo .logo__mark {
 }
 .intro__sheet--2 {
   transform: rotate(calc(2deg + var(--p) * 2deg)) translateY(calc(var(--p) * -6px));
-  background-color: #fffbea;
+  background: linear-gradient(160deg, var(--active-from), var(--active-to));
+  box-shadow: inset 0 0 0 1px var(--active-border), var(--sh-2);
 }
 .intro__sheet--3 {
   transform: rotate(calc(4deg + var(--p) * 14deg)) translateX(calc(var(--p) * 22px));
-  background: var(--white);
-  background-image: none;
+  background: var(--surface);
   box-shadow: var(--sh-inset), var(--sh-3);
+}
+.intro__k {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.intro__v {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--ink);
+}
+.intro__d {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--success);
 }
 .intro__lines {
   display: block;
   height: 100%;
   background:
-    linear-gradient(var(--sky-200), var(--sky-200)) 0 4px / 70% 8px no-repeat,
+    linear-gradient(var(--accent-200), var(--accent-200)) 0 4px / 70% 8px no-repeat,
     linear-gradient(var(--line), var(--line)) 0 30px / 100% 6px no-repeat,
     linear-gradient(var(--line), var(--line)) 0 46px / 86% 6px no-repeat,
     linear-gradient(var(--mint), var(--mint)) 0 74px / 40% 18px no-repeat,
@@ -574,7 +601,7 @@ a:hover > .logo .logo__mark {
   transition: opacity 120ms linear;
 }
 .iw--em {
-  background: linear-gradient(transparent 58%, var(--sky-100) 58% 92%, transparent 92%);
+  background: linear-gradient(transparent 58%, var(--highlight) 58% 92%, transparent 92%);
   border-radius: 2px;
 }
 .intro__aside {
@@ -608,7 +635,7 @@ a:hover > .logo .logo__mark {
    HOW IT WORKS
    ================================================================= */
 .how {
-  background: linear-gradient(180deg, #fff 0%, var(--sky-25) 30%, var(--sky-25) 70%, #fff 100%);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface-sunken) 30%, var(--surface-sunken) 70%, var(--bg) 100%);
 }
 .how__track {
   position: relative;
@@ -626,7 +653,7 @@ a:hover > .logo .logo__mark {
 }
 .how__line path {
   fill: none;
-  stroke: var(--sky-300);
+  stroke: var(--accent-500);
   stroke-width: 2;
   stroke-dasharray: 1;
   stroke-dashoffset: calc(1 - var(--draw));
@@ -644,7 +671,7 @@ a:hover > .logo .logo__mark {
   height: 100%;
   padding: 18px 18px 28px;
   border-radius: var(--r-xl);
-  background: var(--white);
+  background: var(--surface);
   box-shadow: var(--sh-inset), var(--sh-1);
   transition: box-shadow var(--dur-3) var(--ease-out);
 }
@@ -658,7 +685,7 @@ a:hover > .logo .logo__mark {
   z-index: 2;
   font-size: 2.6rem;
   line-height: 1;
-  color: var(--sky-500);
+  color: var(--accent-500);
 }
 .how__body {
   display: grid;
@@ -713,17 +740,19 @@ a:hover > .logo .logo__mark {
   }
 }
 .feat__kicker {
-  font-family: var(--font-hand);
-  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
   font-weight: 600;
-  color: var(--sky-600);
+  letter-spacing: 0.02em;
+  color: var(--accent-ink);
 }
 .feat__title {
   margin-top: 8px;
+  font-family: var(--font-display);
   font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.6rem);
   line-height: 1.06;
-  letter-spacing: -0.035em;
-  font-weight: 600;
+  letter-spacing: -0.015em;
+  font-weight: 700;
   text-wrap: balance;
 }
 .feat__body {
@@ -744,7 +773,7 @@ a:hover > .logo .logo__mark {
 }
 .feat__points svg {
   flex: none;
-  color: var(--sky-500);
+  color: var(--accent-500);
 }
 .feat__inline {
   display: none;
@@ -758,9 +787,9 @@ a:hover > .logo .logo__mark {
   height: min(640px, calc(100vh - var(--nav-h) - 10vh));
   border-radius: var(--r-2xl);
   background:
-    radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.9), transparent 60%),
-    linear-gradient(160deg, var(--sky-100), var(--sky-50) 55%, #f6f3fe);
-  box-shadow: var(--sh-inset);
+    radial-gradient(120% 90% at 100% 0%, rgba(255, 122, 80, 0.1), transparent 60%),
+    linear-gradient(160deg, var(--active-from), var(--active-to));
+  box-shadow: inset 0 0 0 1px var(--active-border);
   overflow: hidden;
 }
 .feat__progress {
@@ -787,14 +816,14 @@ a:hover > .logo .logo__mark {
   width: 22px;
   height: 3px;
   border-radius: 3px;
-  background: rgba(20, 38, 66, 0.12);
+  background: rgba(255, 255, 255, 0.14);
   overflow: hidden;
 }
 .feat__progress i::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--ink);
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--dur-4) var(--ease-out);
@@ -852,7 +881,8 @@ a:hover > .logo .logo__mark {
     margin-top: 36px;
     padding: clamp(20px, 5vw, 40px);
     border-radius: var(--r-xl);
-    background: linear-gradient(160deg, var(--sky-100), var(--sky-50) 60%, #f6f3fe);
+    background: linear-gradient(160deg, var(--active-from), var(--active-to));
+    box-shadow: inset 0 0 0 1px var(--active-border);
   }
 }
 
@@ -901,13 +931,13 @@ a:hover > .logo .logo__mark {
 }
 .compare__before {
   background:
-    radial-gradient(rgba(120, 96, 60, 0.08) 1px, transparent 1.3px) 0 0 / 14px 14px,
-    linear-gradient(160deg, #f4eee2, #ece4d4);
+    radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1.3px) 0 0 / 14px 14px,
+    linear-gradient(160deg, var(--surface), var(--surface-sunken));
 }
 .compare__after {
   background:
-    radial-gradient(90% 80% at 100% 0%, #fff, transparent 60%),
-    linear-gradient(160deg, var(--sky-50), #fff 70%);
+    radial-gradient(90% 80% at 100% 0%, rgba(255, 122, 80, 0.14), transparent 60%),
+    linear-gradient(160deg, var(--active-from), var(--bg) 75%);
   clip-path: inset(0 0 0 var(--split));
 }
 .compare__handle {
@@ -917,8 +947,8 @@ a:hover > .logo .logo__mark {
   left: var(--split);
   width: 2px;
   margin-left: -1px;
-  background: var(--white);
-  box-shadow: 0 0 0 1px rgba(20, 38, 66, 0.08), 0 0 24px rgba(20, 38, 66, 0.2);
+  background: var(--accent);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 0 24px rgba(255, 122, 80, 0.35);
   pointer-events: none;
   z-index: 3;
 }
@@ -932,8 +962,8 @@ a:hover > .logo .logo__mark {
   height: 48px;
   margin: -24px 0 0 -24px;
   border-radius: 50%;
-  background: var(--white);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
   box-shadow: var(--sh-3);
   transition: transform var(--dur-2) var(--ease-out);
 }
@@ -941,7 +971,7 @@ a:hover > .logo .logo__mark {
   transform: scale(1.06);
 }
 .compare:has(.compare__range:focus-visible) .compare__knob {
-  outline: 2px solid var(--sky-600);
+  outline: 2px solid var(--accent-600);
   outline-offset: 3px;
 }
 .compare__range {
@@ -981,7 +1011,7 @@ a:hover > .logo .logo__mark {
   height: 26px;
   padding: 0 10px;
   border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.08);
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--ink-2);
@@ -994,19 +1024,22 @@ a:hover > .logo .logo__mark {
 .cmp__scrap {
   position: absolute;
   padding: 10px 16px 12px;
-  border-radius: 4px;
-  background: #fffdf6;
-  box-shadow: 0 1px 1px rgba(60, 40, 10, 0.08), 0 10px 20px -10px rgba(60, 40, 10, 0.35);
+  border-radius: 6px;
+  background: var(--canvas);
+  box-shadow: var(--sh-inset), var(--sh-2);
   transform: rotate(var(--r));
-  font-size: 1.45rem;
-  line-height: 1.1;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.2;
+  color: var(--ink-2);
   white-space: nowrap;
 }
 .cmp__scrap:nth-child(2n) {
-  background: #fff6c2;
+  background: var(--butter);
+  color: var(--butter-ink);
 }
-.cmp__scrap.is-red .hand {
-  color: var(--pen-red);
+.cmp__scrap.is-red {
+  color: var(--error);
 }
 .cmp__ring {
   position: absolute;
@@ -1031,7 +1064,7 @@ a:hover > .logo .logo__mark {
   align-items: center;
   padding: 11px 14px;
   border-radius: 12px;
-  background: var(--white);
+  background: var(--surface);
   box-shadow: var(--sh-inset), var(--sh-1);
 }
 .cmp__n {
@@ -1060,8 +1093,8 @@ a:hover > .logo .logo__mark {
   left: 24px;
   padding: 5px 11px;
   border-radius: var(--r-pill);
-  background: rgba(21, 23, 28, 0.78);
-  color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ink-2);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -1069,8 +1102,8 @@ a:hover > .logo .logo__mark {
 .cmp__label--after {
   left: auto;
   right: 24px;
-  background: var(--white);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
   box-shadow: var(--sh-2);
 }
 .flow__benefits {
@@ -1118,7 +1151,7 @@ a:hover > .logo .logo__mark {
     inset: 64px 12px 56px;
   }
   .cmp__scrap {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     padding: 8px 12px 10px;
   }
   .cmp__scrap:nth-child(3),
@@ -1162,7 +1195,7 @@ a:hover > .logo .logo__mark {
    INTERACTIVE DASHBOARD section wrapper
    ================================================================= */
 .dash {
-  background: linear-gradient(180deg, #fff 0%, var(--sky-50) 26%, var(--sky-50) 74%, #fff 100%);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--accent-50) 26%, var(--accent-50) 74%, var(--bg) 100%);
 }
 .dash__wrap {
   --p: 1;
@@ -1217,7 +1250,7 @@ a:hover > .logo .logo__mark {
   margin-top: 28px;
   font-size: 9rem;
   line-height: 0.9;
-  color: var(--sky-300);
+  color: var(--accent-500);
 }
 .quotes__featured blockquote p {
   font-size: clamp(1.55rem, 1rem + 1.7vw, 2.45rem);
@@ -1259,7 +1292,7 @@ a:hover > .logo .logo__mark {
 .qcard {
   padding: 26px 24px 24px;
   border-radius: var(--r-xl);
-  background: var(--white);
+  background: var(--surface);
   box-shadow: var(--sh-inset), var(--sh-2);
   transition: box-shadow var(--dur-3) var(--ease-out);
 }
@@ -1273,13 +1306,13 @@ a:hover > .logo .logo__mark {
   height: 4px;
   border-radius: 4px;
   margin-bottom: 18px;
-  background: var(--tone-ink, var(--sky-400));
+  background: var(--tone-ink, var(--accent-400));
 }
-.qcard--sky { --tone-ink: var(--sky-400); }
-.qcard--mint { --tone-ink: #5fc596; }
-.qcard--lilac { --tone-ink: #9c8cea; }
-.qcard--peach { --tone-ink: #f0a174; }
-.qcard--butter { --tone-ink: #e0c14f; }
+.qcard--sky { --tone-ink: var(--accent-400); }
+.qcard--mint { --tone-ink: var(--success); }
+.qcard--lilac { --tone-ink: var(--ink-3); }
+.qcard--peach { --tone-ink: var(--accent-400); }
+.qcard--butter { --tone-ink: var(--warning); }
 .qcard blockquote p {
   font-size: 1.03rem;
   line-height: 1.55;
@@ -1328,8 +1361,9 @@ a:hover > .logo .logo__mark {
    SECURITY (dark)
    ================================================================= */
 .sec {
-  background: #101217;
-  color: #e7ebf1;
+  background: var(--surface-sunken);
+  color: var(--ink);
+  border-block: 1px solid var(--line);
   overflow: clip;
   isolation: isolate;
 }
@@ -1341,7 +1375,7 @@ a:hover > .logo .logo__mark {
   right: -300px;
   top: -380px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(116, 175, 230, 0.2), rgba(116, 175, 230, 0) 62%);
+  background: radial-gradient(circle, rgba(255, 122, 80, 0.14), rgba(255, 122, 80, 0) 62%);
 }
 .sec__glow::after {
   content: "";
@@ -1351,7 +1385,7 @@ a:hover > .logo .logo__mark {
   width: 700px;
   height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(156, 140, 234, 0.12), transparent 62%);
+  background: radial-gradient(circle, rgba(255, 214, 176, 0.05), transparent 62%);
 }
 .sec__grid {
   display: grid;
@@ -1360,15 +1394,15 @@ a:hover > .logo .logo__mark {
   align-items: start;
 }
 .on-dark .h2 {
-  color: var(--white);
+  color: var(--ink);
   margin-top: 20px;
 }
 .eyebrow--dark {
-  color: var(--sky-300);
+  color: var(--accent-300);
 }
 .sec__lead {
   margin-top: 22px;
-  color: #aab3c2;
+  color: var(--ink-3);
   max-width: 34rem;
 }
 .sec__points {
@@ -1379,10 +1413,10 @@ a:hover > .logo .logo__mark {
   grid-template-columns: 44px 1fr;
   gap: 18px;
   padding-block: 26px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--line);
 }
 .sec__point:last-child {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--line);
 }
 .sec__icon {
   display: grid;
@@ -1390,20 +1424,20 @@ a:hover > .logo .logo__mark {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(116, 175, 230, 0.1);
-  box-shadow: inset 0 0 0 1px rgba(116, 175, 230, 0.2);
-  color: var(--sky-300);
+  background: rgba(255, 122, 80, 0.1);
+  box-shadow: inset 0 0 0 1px var(--active-border);
+  color: var(--accent-300);
 }
 .sec__point h3 {
   font-size: 1.0625rem;
   font-weight: 600;
-  color: var(--white);
+  color: var(--ink);
   letter-spacing: -0.015em;
 }
 .sec__point p {
   margin-top: 6px;
   font-size: 0.9375rem;
-  color: #9ea8b8;
+  color: var(--ink-3);
   line-height: 1.55;
 }
 @media (max-width: 1023px) {
@@ -1415,55 +1449,33 @@ a:hover > .logo .logo__mark {
 /* =================================================================
    PRICING
    ================================================================= */
-.toggle {
-  position: relative;
+.price__beta {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 4px;
-  margin-top: 12px;
-  border-radius: var(--r-pill);
-  background: #edf1f6;
-  box-shadow: var(--sh-inset);
+  gap: 6px;
+  max-width: 760px;
+  margin: 0 auto clamp(28px, 4vw, 44px);
+  padding: 18px 22px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(160deg, var(--active-from), var(--active-to));
+  box-shadow: inset 0 0 0 1px var(--active-border);
+  text-align: center;
 }
-.toggle button {
-  position: relative;
-  z-index: 1;
+.price__beta strong {
   display: inline-flex;
-  align-items: center;
   justify-content: center;
-  gap: 8px;
-  height: 40px;
-  padding: 0 20px;
-  border-radius: var(--r-pill);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--muted);
-  transition: color var(--dur-2);
-}
-.toggle button.is-on {
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--ink);
 }
-.toggle__save {
-  padding: 2px 7px;
-  border-radius: var(--r-pill);
-  background: var(--mint);
-  color: var(--mint-ink);
-  font-size: 0.6875rem;
-  font-weight: 600;
+.price__beta strong .badge {
+  font-family: var(--font-sans);
 }
-.toggle__pill {
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: 4px;
-  width: calc(50% - 4px);
-  border-radius: var(--r-pill);
-  background: var(--white);
-  box-shadow: var(--sh-2);
-  transition: transform 460ms var(--ease-out);
-}
-.toggle__pill[data-pos="1"] {
-  transform: translateX(100%);
+.price__beta p {
+  font-size: var(--fs-small);
+  color: var(--ink-2);
 }
 .price__grid {
   display: grid;
@@ -1483,7 +1495,7 @@ a:hover > .logo .logo__mark {
   width: 100%;
   padding: 32px 28px;
   border-radius: var(--r-2xl);
-  background: var(--white);
+  background: var(--surface);
   box-shadow: var(--sh-inset), var(--sh-1);
   transition:
     translate var(--dur-3) var(--ease-out),
@@ -1495,13 +1507,13 @@ a:hover > .logo .logo__mark {
 }
 .is-featured .plan {
   background:
-    radial-gradient(120% 80% at 100% 0%, rgba(116, 175, 230, 0.22), transparent 55%),
-    var(--ink);
-  color: var(--white);
-  box-shadow: 0 30px 60px -30px rgba(21, 23, 28, 0.6);
+    radial-gradient(120% 80% at 100% 0%, rgba(255, 122, 80, 0.16), transparent 55%),
+    linear-gradient(160deg, var(--active-from), var(--active-to));
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--active-border-strong), 0 30px 60px -30px rgba(255, 122, 80, 0.3);
 }
 .is-featured .plan.tilt--spot::after {
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.08), transparent 60%);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 171, 145, 0.1), transparent 60%);
 }
 .plan__ribbon {
   position: absolute;
@@ -1510,18 +1522,20 @@ a:hover > .logo .logo__mark {
   translate: -50% 0;
   padding: 2px 14px 4px;
   border-radius: var(--r-pill);
-  background: var(--sky-100);
-  color: var(--sky-700);
-  box-shadow: 0 6px 16px -8px rgba(20, 38, 66, 0.4);
-  font-size: 1.15rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.6);
+  font-size: 1rem;
+  font-weight: 700;
   line-height: 1.3;
   white-space: nowrap;
   rotate: -2deg;
 }
 .plan__name {
-  font-size: 1.125rem;
-  font-weight: 600;
-  letter-spacing: -0.015em;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 .plan__blurb {
   margin-top: 8px;
@@ -1531,7 +1545,7 @@ a:hover > .logo .logo__mark {
   max-width: 28ch;
 }
 .is-featured .plan__blurb {
-  color: #b3bdcb;
+  color: var(--ink-2);
 }
 .plan__price {
   display: flex;
@@ -1559,10 +1573,11 @@ a:hover > .logo .logo__mark {
 }
 .plan__amt {
   display: inline-block;
-  font-size: 3.5rem;
+  font-family: var(--font-display);
+  font-size: 3.25rem;
   line-height: 1;
-  font-weight: 600;
-  letter-spacing: -0.05em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
   animation: price-in 520ms var(--ease-out);
 }
@@ -1573,14 +1588,14 @@ a:hover > .logo .logo__mark {
   color: var(--muted);
 }
 .is-featured .plan__unit {
-  color: #9ea8b8;
+  color: var(--ink-2);
 }
-.plan__custom {
-  font-size: 2.6rem;
-  line-height: 1;
+.plan__after {
+  margin-top: -14px;
+  margin-bottom: 22px;
+  font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: -0.04em;
-  padding-bottom: 6px;
+  color: var(--accent-ink);
 }
 .plan__cta {
   width: 100%;
@@ -1595,8 +1610,8 @@ a:hover > .logo .logo__mark {
   color: var(--ink-2);
 }
 .is-featured .plan__features {
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #d7dde6;
+  border-color: var(--line-2);
+  color: var(--ink);
 }
 .plan__features li {
   display: flex;
@@ -1615,8 +1630,8 @@ a:hover > .logo .logo__mark {
   color: var(--mint-ink);
 }
 .is-featured .plan__tick {
-  background: rgba(116, 175, 230, 0.18);
-  color: var(--sky-300);
+  background: rgba(255, 122, 80, 0.18);
+  color: var(--accent-300);
 }
 .price__fine {
   margin-top: 28px;
@@ -1656,15 +1671,17 @@ a:hover > .logo .logo__mark {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(60% 70% at 15% 0%, rgba(255, 255, 255, 0.95), transparent 60%),
-    radial-gradient(50% 60% at 95% 100%, rgba(235, 230, 252, 0.95), transparent 70%),
-    linear-gradient(170deg, #cfe5f9, #e6f1fc 60%, #f1f7fe);
+    radial-gradient(60% 70% at 15% 0%, rgba(255, 122, 80, 0.16), transparent 60%),
+    radial-gradient(50% 60% at 95% 100%, rgba(255, 214, 176, 0.08), transparent 70%),
+    linear-gradient(170deg, var(--active-from), var(--active-to));
+  box-shadow: inset 0 0 0 1px var(--active-border);
+  border-radius: inherit;
 }
 .cta__bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(31, 90, 150, 0.13) 1px, transparent 1.2px);
+  background-image: radial-gradient(rgba(255, 171, 145, 0.14) 1px, transparent 1.2px);
   background-size: 22px 22px;
   mask-image: radial-gradient(ellipse 60% 70% at 50% 50%, transparent 30%, #000 90%);
   -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 50%, transparent 30%, #000 90%);
@@ -1686,9 +1703,14 @@ a:hover > .logo .logo__mark {
   bottom: 14%;
 }
 .cta__scrap {
-  padding: 16px 20px;
-  font-size: 1.4rem;
+  display: grid;
+  gap: 4px;
+  padding: 14px 18px;
   rotate: -8deg;
+}
+.cta__scrap .intro__v {
+  margin-top: 2px;
+  font-size: 1.6rem;
 }
 .cta__tile {
   display: grid;
@@ -1696,7 +1718,7 @@ a:hover > .logo .logo__mark {
   width: 190px;
   padding: 16px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--surface);
   box-shadow: var(--sh-inset), var(--sh-3);
   rotate: 6deg;
 }
@@ -1708,7 +1730,7 @@ a:hover > .logo .logo__mark {
 .cta__tile-l {
   height: 8px;
   border-radius: 4px;
-  background: var(--line);
+  background: var(--line-2);
 }
 .cta__tile-l--s {
   width: 60%;
@@ -1721,7 +1743,7 @@ a:hover > .logo .logo__mark {
   align-items: center;
 }
 .cta__title {
-  font-size: clamp(2.4rem, 1rem + 5vw, 5rem);
+  font-size: clamp(2.2rem, 1rem + 3.8vw, 4.1rem);
 }
 .cta__lead {
   margin-top: 22px;
@@ -1822,14 +1844,14 @@ a:hover > .logo .logo__mark {
   padding: 0 16px;
   border: 1px solid var(--line-2);
   border-radius: var(--r-pill);
-  background: var(--white);
+  background: var(--surface);
   font-size: 0.9375rem;
   transition: border-color var(--dur-2), box-shadow var(--dur-2);
 }
 .foot__form-row input:focus {
   outline: none;
-  border-color: var(--sky-400);
-  box-shadow: 0 0 0 4px var(--sky-100);
+  border-color: var(--accent-400);
+  box-shadow: 0 0 0 4px var(--accent-100);
 }
 .foot__cols {
   display: grid;
@@ -1903,7 +1925,7 @@ a:hover > .logo .logo__mark {
   letter-spacing: -0.065em;
   line-height: 0.78;
   text-align: center;
-  background: linear-gradient(180deg, var(--sky-100), rgba(224, 238, 251, 0));
+  background: linear-gradient(180deg, var(--accent-100), transparent);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { LuCalendarCheck, LuSend, LuSparkles, LuCheck } from "react-icons/lu";
+import { LuRefreshCw, LuTrendingUp, LuCheck } from "react-icons/lu";
 import { PointerParallax, Layer } from "./PointerParallax";
 import { ScaledStage } from "./ScaledStage";
-import { HandArrow, HandCircle, Paper, Signature } from "./HandMarks";
+import { HandArrow, HandCircle, Paper } from "./HandMarks";
 import { prefersReducedMotion } from "../motion/env";
 
 const FIELDS = [
-  { k: "Presenting", v: "R knee pain × 3 wks, worse on stairs" },
-  { k: "Examination", v: "Mild effusion · ligaments stable · full ROM" },
-  { k: "Assessment", v: "Probable osteoarthritis flare, right knee" },
-  { k: "Plan", v: "Physio referral · topical NSAID · review 2 wks" },
+  { k: "Seguidores", v: "12.480 · +3,2% en 30 días" },
+  { k: "Interacción", v: "3,4% mediana · @taller.norte 2,1%" },
+  { k: "Frecuencia", v: "5 pub./sem · @taller.norte 3" },
+  { k: "Muestra", v: "22 publicaciones · ventana de 30 días" },
 ];
 
 /**
  * The hero story in three beats:
- *   0 messy     – the handwritten page arrives
- *   1 organised – lines are matched and land in structured fields
- *   2 actionable – referral, follow-up and a task float out of the plan
+ *   0 messy     – manual notes and numbers copied from screenshots
+ *   1 organised – the figures are matched and land in a side-by-side card
+ *   2 evidence  – an insight, the daily sync and the "3 things" summary appear
  */
 export function HeroVisual() {
   const [phase, setPhase] = useState(0);
@@ -38,46 +38,45 @@ export function HeroVisual() {
     <div
       className="hero-visual"
       role="img"
-      aria-label="A handwritten visit note for a knee-pain consultation becomes a structured record with presenting complaint, examination, assessment and plan, then produces a physiotherapy referral, a follow-up booking and a patient task."
+      aria-label="Notas sueltas con cifras copiadas a mano se convierten en un lado a lado ordenado con seguidores, interacción y frecuencia de publicación, y de ahí salen un insight con evidencia, una sincronización diaria y un resumen de tres cosas que deberías saber."
     >
       <ScaledStage width={640} height={580} className={`hv phase-${phase}`}>
         <PointerParallax className="hv__scene" range={18} rotate={1.6}>
           {/* Back glow */}
           <Layer depth={-0.25} rot={0} className="hv__glow" aria-hidden />
 
-          {/* 1 · Handwritten page */}
+          {/* 1 · Manual notes */}
           <Layer depth={-0.55} className="hv__note-wrap">
             <div className="hv__enter hv__enter--note">
               <Paper className="hv__note float-b">
                 <div className="hn__head">
-                  <span>Rosa A. · 58F</span>
+                  <span>Casa Lumbre · sept.</span>
                   <span>29/9</span>
                 </div>
                 <ol className="hn__lines">
                   <li className="hn__l" data-m="0">
-                    R knee pain ~3/52, <span className="hn__up">↑</span> stairs
+                    seguidores ~12.4k <span className="hn__up">↑</span>
                   </li>
-                  <li className="hn__l" data-m="1">no trauma. mild effusion</li>
+                  <li className="hn__l" data-m="1">eng. a ojo ~3%</li>
                   <li className="hn__l" data-m="1">
-                    ligs stable, FROM <span className="hn__tick">✓</span>
+                    norte: 3 pub/sem <span className="hn__tick">✓</span>
                   </li>
                   <li className="hn__l hn__l--circle" data-m="2">
                     <span className="hn__circled">
-                      ?OA flare
+                      ¿quién crece más?
                       <HandCircle className="hn__ring" delay={700} />
                     </span>
                   </li>
                   <li className="hn__l" data-m="3">
-                    → physio ref
+                    → copiar al informe
                   </li>
                   <li className="hn__l" data-m="3">
-                    <s className="hn__strike">ibuprofen</s> topical NSAID
+                    <s className="hn__strike">captura lunes</s> nueva
                   </li>
                   <li className="hn__l" data-m="3">
-                    r/v 2/52 <span className="hn__margin">(text her)</span>
+                    revisar <span className="hn__margin">(¿otra vez?)</span>
                   </li>
                 </ol>
-                <Signature className="hn__sig" />
               </Paper>
             </div>
           </Layer>
@@ -85,27 +84,27 @@ export function HeroVisual() {
           {/* Connector */}
           <Layer depth={0.15} rot={0} className="hv__arrow">
             <HandArrow className="hv__arrow-svg" delay={900} />
-            <span className="hand hv__arrow-label">sorted for you</span>
+            <span className="hand hv__arrow-label">ordenado por Sassy</span>
           </Layer>
 
-          {/* 2 · Structured record */}
+          {/* 2 · Side-by-side card */}
           <Layer depth={0.45} className="hv__doc-wrap">
             <div className="hv__enter hv__enter--doc">
               <article className="hv__doc float-a">
                 <header className="hd__head">
-                  <span className="avatar hd__av">RA</span>
+                  <span className="avatar hd__av">CL</span>
                   <div className="hd__who">
-                    <strong>Rosa Almeida</strong>
-                    <span>58 · F · Visit note</span>
+                    <strong>Casa Lumbre</strong>
+                    <span>@casa.lumbre · Lado a lado</span>
                   </div>
                   <span className={`badge ${phase >= 1 ? "badge--mint" : "badge--sky"} hd__status`}>
                     {phase >= 1 ? (
                       <>
-                        <LuCheck size={11} aria-hidden="true" /> Ready to sign
+                        <LuCheck size={11} aria-hidden="true" /> Al día
                       </>
                     ) : (
                       <>
-                        <LuSparkles size={11} aria-hidden="true" /> Reading…
+                        <LuRefreshCw size={11} aria-hidden="true" /> Sincronizando…
                       </>
                     )}
                   </span>
@@ -123,24 +122,24 @@ export function HeroVisual() {
                 </dl>
                 <footer className="hd__foot">
                   <span className="hd__src">
-                    <span className="dot" /> From handwriting · 7 lines
+                    <span className="dot" /> API oficial · 30 días
                   </span>
-                  <span className="hd__flag">1 word to check</span>
+                  <span className="hd__flag">Muestra pequeña: 1 cuenta</span>
                 </footer>
               </article>
             </div>
           </Layer>
 
-          {/* 3 · Actions */}
+          {/* 3 · Evidence chips */}
           <Layer depth={1.05} className="hv__chip hv__chip--ref">
             <div className="hv__pop" style={{ ["--pi" as string]: 0 }}>
               <div className="chip">
                 <span className="chip__icon chip__icon--mint">
-                  <LuSend size={15} aria-hidden="true" />
+                  <LuTrendingUp size={15} aria-hidden="true" />
                 </span>
                 <span className="chip__txt">
-                  <strong>Referral drafted</strong>
-                  <span>Physiotherapy · ready to send</span>
+                  <strong>Insight con evidencia</strong>
+                  <span>Fortaleza · interacción mediana</span>
                 </span>
               </div>
             </div>
@@ -150,11 +149,11 @@ export function HeroVisual() {
             <div className="hv__pop" style={{ ["--pi" as string]: 1 }}>
               <div className="chip">
                 <span className="chip__icon chip__icon--sky">
-                  <LuCalendarCheck size={15} aria-hidden="true" />
+                  <LuRefreshCw size={15} aria-hidden="true" />
                 </span>
                 <span className="chip__txt">
-                  <strong>Review booked</strong>
-                  <span>Mon, Oct 13 · 09:20</span>
+                  <strong>Sincronizado hoy</strong>
+                  <span>Competidores al día · 06:00</span>
                 </span>
               </div>
             </div>
@@ -166,8 +165,8 @@ export function HeroVisual() {
                 <span className="task-mini__box" aria-hidden="true">
                   <LuCheck size={12} />
                 </span>
-                <span>Text exercise sheet to Rosa</span>
-                <span className="badge badge--butter">Today</span>
+                <span>3 cosas que deberías saber</span>
+                <span className="badge badge--sky">Nuevo</span>
               </div>
             </div>
           </Layer>

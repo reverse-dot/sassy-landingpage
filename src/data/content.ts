@@ -1,260 +1,295 @@
-/* All copy and fictional data for the page lives here. */
+/* All copy and fictional sample data for the page lives here. */
+
+/** Where every "open the app" call to action points. */
+export const APP_URL = "https://sassyig.vercel.app";
+export const LOGIN_URL = `${APP_URL}/login`;
+export const DATA_DELETION_URL = `${APP_URL}/data-deletion`;
+export const PRIVACY_URL = `${APP_URL}/privacy`;
+export const TERMS_URL = `${APP_URL}/terms`;
+
+export const CTA_LABEL = "Empezar gratis en la beta";
 
 export const navLinks = [
-  { label: "Product", href: "#product" },
-  { label: "Solutions", href: "#workflow" },
-  { label: "Resources", href: "#security" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Producto", href: "#features" },
+  { label: "Cómo funciona", href: "#how" },
+  { label: "Privacidad", href: "#security" },
+  { label: "Precios", href: "#pricing" },
 ];
 
 export const steps = [
   {
     n: "1",
-    title: "Capture it your way",
-    body: "Snap a photo of the page, write on a tablet, or talk through the visit. Shorthand, arrows and crossings-out are all fair game.",
-    tag: "Photo · Stylus · Voice",
+    title: "Conecta tu Instagram",
+    body: "Autoriza tu cuenta profesional con el acceso oficial de Instagram, sin salir del navegador. Solo leemos las publicaciones y métricas de tu propia cuenta.",
+    tag: "API oficial · OAuth",
   },
   {
     n: "2",
-    title: "Mendleaf does the sorting",
-    body: "Each line lands in the right section of your template — history, findings, assessment, plan — with every uncertain word flagged for you, not guessed.",
-    tag: "Structured in seconds",
+    title: "Agrega a tus competidores",
+    body: "Suma las cuentas que quieres seguir. Sassy las sincroniza cada día de forma automática, usando únicamente sus datos públicos.",
+    tag: "Sincronización diaria",
   },
   {
     n: "3",
-    title: "Review, sign, move on",
-    body: "Approve the record, then send the referral, book the follow-up and message the patient without leaving the note.",
-    tag: "One place to finish",
+    title: "Recibe insights con evidencia",
+    body: "Cada observación indica la cuenta, la métrica, el valor, la muestra y la ventana de 30 días. Si los datos no alcanzan, Sassy te lo dice.",
+    tag: "Sin puntajes ni recomendaciones",
   },
 ];
 
-export type Patient = {
+/* ------------------------------------------------------------------
+   Sample workspace for the interactive preview (all fictional)
+   ------------------------------------------------------------------ */
+export type Account = {
+  handle: string;
+  followers: string;
+  growth: string;
+  engagement: string;
+  cadence: string;
+  sample: number;
+  you?: boolean;
+};
+
+export type Evidence = {
+  account: string;
+  metric: string;
+  value: string;
+  sample: string;
+  coverage: string;
+  window: string;
+};
+
+export type Insight = {
+  group: "Fortaleza" | "Oportunidad" | "Contexto";
+  text: string;
+  evidence: Evidence;
+};
+
+export type Client = {
   id: string;
   name: string;
   initials: string;
-  age: number;
-  sex: "F" | "M";
-  mrn: string;
-  reason: string;
-  time: string;
-  status: "Ready to sign" | "Drafting" | "Signed" | "Needs review";
   tone: "mint" | "sky" | "butter" | "peach" | "lilac";
+  handle: string;
+  segment: string;
+  sync: string;
+  status: "Sincronizado" | "Sincronizando" | "Datos limitados";
   flags: string[];
-  summary: string;
-  fields: { label: string; value: string }[];
-  tasks: { id: string; label: string; due: string; done: boolean; tone: string }[];
-  timeline: { when: string; what: string; who: string; kind: "note" | "lab" | "msg" | "task" }[];
+  /** First entry is the client's own account. */
+  accounts: Account[];
+  insights: Insight[];
+  /** Publications per weekday, Monday to Sunday, own account, 30 days. */
+  weekly: number[];
+  bestDay: number;
+  bestMoment: string;
 };
 
-export const patients: Patient[] = [
+export const WEEKDAYS = ["L", "M", "X", "J", "V", "S", "D"];
+
+export const clients: Client[] = [
   {
-    id: "p1",
-    name: "Rosa Almeida",
-    initials: "RA",
-    age: 58,
-    sex: "F",
-    mrn: "ML-20418",
-    reason: "Right knee pain, 3 weeks",
-    time: "09:10",
-    status: "Ready to sign",
-    tone: "mint",
-    flags: ["NSAID caution", "Prefers text"],
-    summary:
-      "Three weeks of right knee pain, worse on stairs, no trauma. Mild effusion, stable ligaments. Likely early osteoarthritis flare. Starting physio, short course of topical anti-inflammatory, review in two weeks.",
-    fields: [
-      { label: "Presenting", value: "R knee pain × 3 wks, worse on stairs & after rest" },
-      { label: "Examination", value: "Mild effusion, full ROM, ligaments stable" },
-      { label: "Assessment", value: "Probable OA flare, R knee" },
-      { label: "Plan", value: "Physio referral · topical NSAID · review 2 wks" },
-    ],
-    tasks: [
-      { id: "t1", label: "Physiotherapy referral", due: "Drafted", done: true, tone: "mint" },
-      { id: "t2", label: "Book review in 2 weeks", due: "Oct 13", done: false, tone: "sky" },
-      { id: "t3", label: "Text exercise sheet to patient", due: "Today", done: false, tone: "butter" },
-    ],
-    timeline: [
-      { when: "09:24", what: "Note structured from handwriting", who: "Mendleaf", kind: "note" },
-      { when: "09:26", what: "Physio referral drafted", who: "Mendleaf", kind: "task" },
-      { when: "09:31", what: "Plan edited", who: "Dr. M. Chen", kind: "note" },
-      { when: "Sep 12", what: "Bloods: CRP within range", who: "Lab", kind: "lab" },
-    ],
-  },
-  {
-    id: "p2",
-    name: "Jonah Whitfield",
-    initials: "JW",
-    age: 34,
-    sex: "M",
-    mrn: "ML-19077",
-    reason: "Asthma review",
-    time: "09:40",
-    status: "Drafting",
+    id: "c1",
+    name: "Casa Lumbre",
+    initials: "CL",
     tone: "sky",
-    flags: ["Night symptoms"],
-    summary:
-      "Annual asthma review. Using reliever three to four times a week with some night waking since moving house. Technique reviewed; stepping up preventer and sharing a written action plan.",
-    fields: [
-      { label: "Presenting", value: "Reliever 3–4×/wk, waking 1–2 nights/wk" },
-      { label: "Examination", value: "Chest clear, peak flow 82% predicted" },
-      { label: "Assessment", value: "Partly controlled asthma" },
-      { label: "Plan", value: "Step up preventer · action plan · review 6 wks" },
+    handle: "@casa.lumbre",
+    segment: "Café de especialidad",
+    sync: "06:00",
+    status: "Sincronizado",
+    flags: ["1 cuenta con muestra pequeña"],
+    accounts: [
+      { handle: "@casa.lumbre", followers: "12.480", growth: "+3,2%", engagement: "3,4%", cadence: "5", sample: 22, you: true },
+      { handle: "@taller.norte", followers: "9.810", growth: "+1,1%", engagement: "2,1%", cadence: "3", sample: 13 },
+      { handle: "@estudio.bruma", followers: "15.120", growth: "+2,4%", engagement: "3,0%", cadence: "7", sample: 30 },
+      { handle: "@cafe.ancla", followers: "6.340", growth: "+0,6%", engagement: "4,1%", cadence: "2", sample: 9 },
     ],
-    tasks: [
-      { id: "t1", label: "Send asthma action plan", due: "Today", done: false, tone: "butter" },
-      { id: "t2", label: "Pharmacy: new preventer script", due: "Queued", done: false, tone: "lilac" },
-      { id: "t3", label: "Review in 6 weeks", due: "Nov 10", done: false, tone: "sky" },
+    insights: [
+      {
+        group: "Fortaleza",
+        text: "Tu interacción mediana supera a la de @taller.norte y @estudio.bruma.",
+        evidence: { account: "@casa.lumbre", metric: "Interacción mediana", value: "3,4% vs 2,1% y 3,0%", sample: "22 pub.", coverage: "100%", window: "30 días" },
+      },
+      {
+        group: "Fortaleza",
+        text: "Tus seguidores crecieron más que los de cada competidor.",
+        evidence: { account: "@casa.lumbre", metric: "Seguidores", value: "+3,2% vs +1,1%, +2,4% y +0,6%", sample: "4 cuentas", coverage: "100%", window: "30 días" },
+      },
+      {
+        group: "Oportunidad",
+        text: "@estudio.bruma publica más seguido que tú.",
+        evidence: { account: "@estudio.bruma", metric: "Frecuencia", value: "7 vs 5 pub./semana", sample: "30 pub.", coverage: "100%", window: "30 días" },
+      },
+      {
+        group: "Contexto",
+        text: "@cafe.ancla muestra la mayor interacción, pero con muestra pequeña.",
+        evidence: { account: "@cafe.ancla", metric: "Interacción mediana", value: "4,1%", sample: "9 pub.", coverage: "parcial", window: "30 días" },
+      },
     ],
-    timeline: [
-      { when: "09:52", what: "Dictation transcribed", who: "Mendleaf", kind: "note" },
-      { when: "09:55", what: "Two phrases flagged for review", who: "Mendleaf", kind: "note" },
-      { when: "Aug 30", what: "Patient message: inhaler running low", who: "Portal", kind: "msg" },
-    ],
+    weekly: [2, 3, 4, 5, 3, 4, 1],
+    bestDay: 3,
+    bestMoment: "Jueves, entre 19:00 y 21:00",
   },
   {
-    id: "p3",
-    name: "Amara Oduya",
-    initials: "AO",
-    age: 7,
-    sex: "F",
-    mrn: "ML-21560",
-    reason: "Ear pain, fever",
-    time: "10:15",
-    status: "Needs review",
-    tone: "butter",
-    flags: ["Penicillin allergy"],
-    summary:
-      "Two days of left ear pain with fever, eating and drinking well. Bulging left tympanic membrane. Acute otitis media; penicillin allergy noted, so an alternative antibiotic has been suggested for your confirmation.",
-    fields: [
-      { label: "Presenting", value: "L ear pain × 2 days, T 38.4°C" },
-      { label: "Examination", value: "L TM red & bulging, R normal" },
-      { label: "Assessment", value: "Acute otitis media, left" },
-      { label: "Plan", value: "Confirm antibiotic choice · safety-net advice" },
-    ],
-    tasks: [
-      { id: "t1", label: "Confirm antibiotic (allergy)", due: "Now", done: false, tone: "peach" },
-      { id: "t2", label: "Safety-net leaflet to parent", due: "Today", done: false, tone: "butter" },
-    ],
-    timeline: [
-      { when: "10:22", what: "Allergy conflict flagged", who: "Mendleaf", kind: "task" },
-      { when: "10:21", what: "Note structured from photo", who: "Mendleaf", kind: "note" },
-    ],
-  },
-  {
-    id: "p4",
-    name: "Tomasz Brenner",
-    initials: "TB",
-    age: 71,
-    sex: "M",
-    mrn: "ML-15233",
-    reason: "BP follow-up",
-    time: "10:45",
-    status: "Signed",
+    id: "c2",
+    name: "Nube Studio",
+    initials: "NS",
     tone: "lilac",
-    flags: [],
-    summary:
-      "Home readings now averaging within target after last month's dose change. No side effects reported. Continue current regimen and repeat kidney function in three months.",
-    fields: [
-      { label: "Presenting", value: "Home BP avg 132/80 over 14 days" },
-      { label: "Examination", value: "Clinic BP 134/82, HR 68 regular" },
-      { label: "Assessment", value: "Hypertension, controlled" },
-      { label: "Plan", value: "Continue · U&E in 3 months" },
+    handle: "@nube.studio",
+    segment: "Estudio de yoga",
+    sync: "06:00",
+    status: "Sincronizando",
+    flags: ["1 cuenta con muestra pequeña"],
+    accounts: [
+      { handle: "@nube.studio", followers: "8.920", growth: "+2,1%", engagement: "4,8%", cadence: "4", sample: 17, you: true },
+      { handle: "@respira.taller", followers: "11.300", growth: "+1,4%", engagement: "3,6%", cadence: "6", sample: 27 },
+      { handle: "@sol.y.flor", followers: "5.410", growth: "+3,0%", engagement: "5,2%", cadence: "3", sample: 7 },
     ],
-    tasks: [
-      { id: "t1", label: "Order U&E for January", due: "Scheduled", done: true, tone: "mint" },
+    insights: [
+      {
+        group: "Fortaleza",
+        text: "Tu interacción mediana supera a la de @respira.taller.",
+        evidence: { account: "@nube.studio", metric: "Interacción mediana", value: "4,8% vs 3,6%", sample: "17 pub.", coverage: "100%", window: "30 días" },
+      },
+      {
+        group: "Oportunidad",
+        text: "@respira.taller publica más seguido que tú.",
+        evidence: { account: "@respira.taller", metric: "Frecuencia", value: "6 vs 4 pub./semana", sample: "27 pub.", coverage: "100%", window: "30 días" },
+      },
+      {
+        group: "Contexto",
+        text: "@sol.y.flor crece rápido, pero con muestra pequeña.",
+        evidence: { account: "@sol.y.flor", metric: "Seguidores", value: "+3,0%", sample: "7 pub.", coverage: "parcial", window: "30 días" },
+      },
     ],
-    timeline: [
-      { when: "10:58", what: "Record signed", who: "Dr. M. Chen", kind: "note" },
-      { when: "10:57", what: "Lab order scheduled", who: "Mendleaf", kind: "lab" },
+    weekly: [3, 2, 3, 3, 2, 3, 1],
+    bestDay: 1,
+    bestMoment: "Martes, entre 12:00 y 14:00",
+  },
+  {
+    id: "c3",
+    name: "Marea Viva",
+    initials: "MV",
+    tone: "peach",
+    handle: "@marea.viva",
+    segment: "Marca de ropa",
+    sync: "06:00",
+    status: "Datos limitados",
+    flags: ["Datos insuficientes en 1 cuenta"],
+    accounts: [
+      { handle: "@marea.viva", followers: "21.740", growth: "+0,9%", engagement: "1,8%", cadence: "3", sample: 13, you: true },
+      { handle: "@linea.costa", followers: "34.200", growth: "+1,7%", engagement: "1,5%", cadence: "5", sample: 22 },
+      { handle: "@tejido.sur", followers: "18.050", growth: "−0,3%", engagement: "2,2%", cadence: "2", sample: 9 },
     ],
+    insights: [
+      {
+        group: "Oportunidad",
+        text: "@linea.costa crece más rápido que tú.",
+        evidence: { account: "@linea.costa", metric: "Seguidores", value: "+1,7% vs +0,9%", sample: "2 cuentas", coverage: "100%", window: "30 días" },
+      },
+      {
+        group: "Fortaleza",
+        text: "Tu interacción mediana supera a la de @linea.costa.",
+        evidence: { account: "@marea.viva", metric: "Interacción mediana", value: "1,8% vs 1,5%", sample: "13 pub.", coverage: "100%", window: "30 días" },
+      },
+      {
+        group: "Contexto",
+        text: "Datos insuficientes para leer a @tejido.sur.",
+        evidence: { account: "@tejido.sur", metric: "Interacción mediana", value: "2,2%", sample: "9 pub.", coverage: "parcial", window: "30 días" },
+      },
+    ],
+    weekly: [1, 2, 2, 3, 2, 2, 1],
+    bestDay: 2,
+    bestMoment: "Miércoles, entre 20:00 y 22:00",
   },
 ];
 
 export const testimonials = [
   {
     quote:
-      "I spend less time cleaning up notes and more time focused on the people in front of me. My last patient of the day gets the same version of me as my first.",
-    name: "Dr. Maya Chen",
-    role: "Family physician",
-    org: "Harbourside Family Practice",
+      "Antes armaba el informe de cada cliente copiando cifras a una hoja de cálculo. Ahora abro el panel, cambio de cliente y el lado a lado ya está listo.",
+    name: "Camila R.",
+    role: "Estratega de contenido",
+    org: "agencia de marketing",
     tone: "sky",
     featured: true,
   },
   {
     quote:
-      "It reads my arrows. Nobody has ever been able to read my arrows.",
-    name: "Tomás Ibarra",
-    role: "Nurse practitioner",
-    org: "Northgate Community Clinic",
-    tone: "butter",
-  },
-  {
-    quote:
-      "The flagged-words view is the reason I trust it. It tells me what it isn't sure about instead of quietly guessing.",
-    name: "Dr. Adaeze Okafor",
-    role: "Paediatrician",
-    org: "Little Oak Children's Health",
-    tone: "mint",
-  },
-  {
-    quote:
-      "We rolled it out to eleven clinicians in a week. The follow-up list alone changed how our front desk starts the morning.",
-    name: "Priya Raman",
-    role: "Clinic operations lead",
-    org: "Fernhill Medical Group",
+      "Me gusta que cada insight muestre la muestra y la cobertura. Cuando hay pocos datos, lo dice en lugar de inventar una conclusión.",
+    name: "Diego M.",
+    role: "Analista de redes sociales",
+    org: "agencia digital",
     tone: "lilac",
   },
   {
     quote:
-      "Referrals used to be my Friday-night job. Now they're drafted before the patient has left the car park.",
-    name: "Dr. Henrik Solberg",
-    role: "Sports medicine",
-    org: "Kestrel Sports Clinic",
+      "Seguir a mi competencia dejó de ser abrir perfiles uno por uno. Reviso cómo voy en 30 días y decido qué publicar.",
+    name: "Valentina S.",
+    role: "Creadora de contenido",
+    org: "independiente",
     tone: "peach",
+  },
+  {
+    quote:
+      "Cambiar de cliente es rápido, y cada uno tiene sus propios competidores. Se acabaron las carpetas de capturas.",
+    name: "Tomás A.",
+    role: "Director de cuentas",
+    org: "agencia de comunicación",
+    tone: "lilac",
+  },
+  {
+    quote:
+      "El mejor momento para publicar sale de mis propias publicaciones, no de una regla genérica de internet.",
+    name: "Javiera P.",
+    role: "Marca de diseño",
+    org: "emprendimiento",
+    tone: "sky",
   },
 ];
 
 export const securityPoints = [
   {
-    title: "Private by default",
-    body: "Notes are only ever visible to the people on the patient's care team. Nothing is used to train shared models.",
+    title: "Autorización oficial",
+    body: "Conectas tu cuenta con el acceso oficial de Meta e Instagram (OAuth) y su API Graph. Sassy no te pide tu contraseña de Instagram.",
     icon: "lock",
   },
   {
-    title: "Encrypted end to end",
-    body: "Data is encrypted in transit and at rest, with keys managed separately from the records they protect.",
-    icon: "key",
+    title: "Solo tu cuenta, solo lo necesario",
+    body: "Con la API Graph accedemos a las publicaciones y métricas de tu propia cuenta profesional. A tus competidores los seguimos únicamente con datos públicos.",
+    icon: "eye",
   },
   {
-    title: "Access that fits your team",
-    body: "Role-based permissions for clinicians, admin staff and locums, with single sign-on and enforced two-step login.",
-    icon: "user",
+    title: "Desconecta cuando quieras",
+    body: "Puedes desconectar Instagram en cualquier momento. Sin permisos activos, Sassy deja de sincronizar tu cuenta.",
+    icon: "unlink",
   },
   {
-    title: "Every action on the record",
-    body: "A tamper-evident audit trail shows who opened, edited, signed or exported each note, and when.",
-    icon: "history",
+    title: "Eliminación de datos a tu solicitud",
+    body: "Si quieres que borremos tus datos, puedes pedirlo en cualquier momento desde la página de eliminación de datos.",
+    icon: "trash",
   },
   {
-    title: "Your data, your rules",
-    body: "Set retention periods, export everything in open formats, and delete on request — no support ticket required.",
-    icon: "database",
+    title: "Datos observados, sin adivinar",
+    body: "Los insights se calculan de forma determinista sobre tu muestra de 30 días. Si la muestra es pequeña o los datos no alcanzan, se indica.",
+    icon: "check",
   },
 ];
 
-export const auditLog = [
-  { who: "Dr. M. Chen", act: "signed", obj: "Visit note · R. Almeida", t: "09:31" },
-  { who: "Front desk", act: "viewed", obj: "Follow-up list", t: "09:33" },
-  { who: "T. Ibarra, NP", act: "edited", obj: "Plan · J. Whitfield", t: "09:57" },
-  { who: "Mendleaf", act: "flagged", obj: "Allergy conflict · A. Oduya", t: "10:22" },
-  { who: "Dr. A. Okafor", act: "exported", obj: "Referral letter (PDF)", t: "10:40" },
-  { who: "Admin", act: "revoked", obj: "Locum access · 2 users", t: "11:02" },
+/** Example sync activity shown in the privacy panel (fictional). */
+export const syncLog = [
+  { who: "Sassy", act: "sincronizó", obj: "3 competidores · datos públicos", t: "06:00" },
+  { who: "Tú", act: "agregaste", obj: "@taller.norte a Casa Lumbre", t: "06:12" },
+  { who: "Sassy", act: "actualizó", obj: "Lado a lado · ventana de 30 días", t: "06:14" },
+  { who: "Sassy", act: "recalculó", obj: "Insights de Casa Lumbre", t: "06:15" },
+  { who: "Tú", act: "cambiaste", obj: "al cliente Nube Studio", t: "09:02" },
+  { who: "Sassy", act: "marcó", obj: "Muestra pequeña · @cafe.ancla", t: "09:03" },
 ];
 
 export type Plan = {
   name: string;
   blurb: string;
-  monthly: number | null;
-  annual: number | null;
+  cur: string;
+  price: string;
   unit: string;
   cta: string;
   featured?: boolean;
@@ -264,58 +299,76 @@ export type Plan = {
 
 export const plans: Plan[] = [
   {
-    name: "Solo",
-    blurb: "For one clinician who wants their evenings back.",
-    monthly: 49,
-    annual: 39,
-    unit: "per month",
-    cta: "Start free trial",
+    name: "Creador",
+    blurb: "Para creadores con una sola cuenta de Instagram.",
+    cur: "$",
+    price: "9.990",
+    unit: "CLP por mes",
+    cta: CTA_LABEL,
     features: [
-      "Unlimited handwritten & dictated notes",
-      "12 visit templates, fully editable",
-      "Follow-up and task extraction",
-      "Export to PDF and plain text",
+      "1 cuenta de Instagram",
+      "Hasta 5 competidores",
+      "1 sincronización al día",
+      "Lado a lado, insights, contenido e informes",
     ],
   },
   {
-    name: "Clinic",
-    blurb: "For practices that share patients, templates and a to-do list.",
-    monthly: 39,
-    annual: 32,
-    unit: "per clinician / month",
-    cta: "Start free trial",
+    name: "Empresa",
+    blurb: "Para una marca que sigue su propio Instagram y a su competencia.",
+    cur: "$",
+    price: "39.990",
+    unit: "CLP por mes",
+    cta: CTA_LABEL,
+    features: [
+      "1 cuenta de marca",
+      "Hasta 15 competidores",
+      "2 sincronizaciones al día",
+      "Lado a lado, insights, contenido e informes",
+    ],
+  },
+  {
+    name: "Agencia",
+    blurb: "Para agencias que gestionan a varios clientes en un mismo espacio.",
+    cur: "US$",
+    price: "279",
+    unit: "USD por mes",
+    cta: CTA_LABEL,
     featured: true,
+    note: "Pensado para agencias",
     features: [
-      "Everything in Solo",
-      "Shared templates & house style",
-      "Team task board and hand-offs",
-      "Roles, SSO and audit trail",
-      "Priority onboarding session",
-    ],
-    note: "Most chosen by teams of 3–40",
-  },
-  {
-    name: "Health system",
-    blurb: "For groups with many sites and their own integration needs.",
-    monthly: null,
-    annual: null,
-    unit: "",
-    cta: "Talk to us",
-    features: [
-      "Everything in Clinic",
-      "Custom record integrations",
-      "Data residency options",
-      "Dedicated success partner",
+      "Hasta 6 clientes",
+      "20 competidores por cliente (120 en total)",
+      "2 sincronizaciones al día",
+      "Selector de clientes en un solo espacio",
+      "Lado a lado, insights, contenido e informes",
     ],
   },
 ];
 
-export const footerCols = [
+export const footerCols: { title: string; links: { label: string; href: string }[] }[] = [
   {
-    title: "Product",
-    links: ["Handwriting capture", "Dictation", "Templates", "Task board", "Changelog"],
+    title: "Producto",
+    links: [
+      { label: "Lado a lado", href: "#features" },
+      { label: "Insights con evidencia", href: "#features" },
+      { label: "Contenido y mejor momento", href: "#features" },
+      { label: "Informes", href: "#features" },
+    ],
   },
-  { title: "Solutions", links: ["Family medicine", "Paediatrics", "Physiotherapy", "Group practices"] },
-  { title: "Resources", links: ["Help centre", "Security overview", "Guides", "Contact"] },
-  { title: "Company", links: ["About", "Careers", "Press", "Privacy"] },
+  {
+    title: "Sassy",
+    links: [
+      { label: "Cómo funciona", href: "#how" },
+      { label: "Precios", href: "#pricing" },
+      { label: "Privacidad y datos", href: "#security" },
+    ],
+  },
+  {
+    title: "Cuenta",
+    links: [
+      { label: "Abrir la app", href: APP_URL },
+      { label: "Iniciar sesión", href: LOGIN_URL },
+      { label: "Eliminación de datos", href: DATA_DELETION_URL },
+    ],
+  },
 ];

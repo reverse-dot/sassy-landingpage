@@ -1,57 +1,115 @@
 /* ------------------------------------------------------------------
-   Mendleaf design tokens
+   Sassy design tokens (dark-first)
    One source of truth for colour, type, space, radius, shadow, motion.
+   Palette mirrors the Sassy app: near-black surfaces, warm off-white ink
+   and a single orange accent.
    ------------------------------------------------------------------ */
+
+/* Display face — same files the Sassy app ships */
+@font-face {
+  font-family: "Dingos";
+  src: url("/fonts/dingos/Dingos-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Dingos";
+  src: url("/fonts/dingos/Dingos-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Dingos";
+  src: url("/fonts/dingos/Dingos-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Dingos";
+  src: url("/fonts/dingos/Dingos-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Dingos";
+  src: url("/fonts/dingos/Dingos-ExtraBold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  /* Ink (charcoal family) */
-  --ink: #15171c;
-  --ink-2: #2e333d;
-  --ink-3: #555d6c;
-  --muted: #6a7282;
-  --faint: #9aa2b1;
+  color-scheme: dark;
+
+  /* Ink (text) */
+  --ink: #f5f4f2;
+  --ink-2: #c3c2b7;
+  --ink-3: #a4a09b;
+  --muted: #898781;
+  --faint: #7a7772;
 
   /* Surfaces */
-  --white: #ffffff;
-  --paper: #fffdf7;
-  --paper-rule: #e9eef6;
-  --canvas: #f7f9fc;
-  --line: #e5e9f0;
-  --line-2: #d8dee8;
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface-sunken: #121212;
+  --canvas: #1a1a1a;
+  --paper: #191919;
+  --paper-rule: rgba(255, 255, 255, 0.05);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.16);
 
-  /* Sky (brand) */
-  --sky-25: #f6fafe;
-  --sky-50: #eef6fd;
-  --sky-100: #e0eefb;
-  --sky-200: #c9e1f7;
-  --sky-300: #a6cdf1;
-  --sky-400: #74afe6;
-  --sky-500: #4a91d6;
-  --sky-600: #2c73bb;
-  --sky-700: #1f5a96;
+  /* Accent (single, warm orange) */
+  --accent: #ff7a50;
+  --accent-light: #2a1710;
+  --accent-ink: #ffab91;
+  --on-accent: #0a0a0a;
+  --accent-25: #140d0a;
+  --accent-50: #1a100b;
+  --accent-100: #2a1710;
+  --accent-200: #5a3320;
+  --accent-300: #ffab91;
+  --accent-400: #ff8e6a;
+  --accent-500: #ff7a50;
+  --accent-600: #ff7a50;
+  --accent-700: #ffab91;
+  /* Active surface (selected / featured) */
+  --active-from: rgb(39, 23, 18);
+  --active-to: rgb(24, 17, 14);
+  --active-border: rgba(251, 138, 116, 0.28);
+  --active-border-strong: rgba(255, 214, 176, 0.72);
 
-  /* Pastel accents (bg / fg pairs, all fg >= 4.5:1 on bg) */
-  --mint: #dcf3e7;
-  --mint-ink: #17694a;
-  --peach: #fde8da;
-  --peach-ink: #9a4318;
-  --lilac: #ebe6fc;
-  --lilac-ink: #5140a8;
-  --butter: #fbf1c9;
-  --butter-ink: #6f5408;
-  --rose: #fde3e6;
-  --rose-ink: #a1283c;
+  /* Status colours (bg / fg pairs, all fg >= 4.5:1 on bg) */
+  --success: #22c55e;
+  --warning: #fbbf24;
+  --error: #f87171;
+  --mint: #10261a;
+  --mint-ink: #22c55e;
+  --butter: #2b2210;
+  --butter-ink: #fbbf24;
+  --rose: #2c1515;
+  --rose-ink: #f87171;
+  /* Accent-tinted and neutral pairs stand in for the other pastels */
+  --peach: var(--accent-100);
+  --peach-ink: var(--accent-ink);
+  --lilac: #202020;
+  --lilac-ink: var(--ink-2);
 
-  /* Pen ink for handwriting */
-  --pen: #27407a;
-  --pen-red: #c2453a;
-  --highlight: rgba(255, 223, 107, 0.55);
+  /* Annotation marks (drawn circles, arrows) */
+  --pen: var(--accent-ink);
+  --pen-red: var(--accent);
+  --highlight: rgba(255, 122, 80, 0.28);
 
   /* Type */
-  --font-sans: "Geist", "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --font-display: "Dingos", "Barlow", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
   --fs-display: clamp(2.6rem, 1.4rem + 4.4vw, 5.25rem);
-  --fs-h2: clamp(2rem, 1.25rem + 2.6vw, 3.5rem);
+  --fs-h2: clamp(1.9rem, 1.1rem + 2.3vw, 3.1rem);
   --fs-h3: clamp(1.25rem, 1.05rem + 0.6vw, 1.6rem);
   --fs-lead: clamp(1.05rem, 0.98rem + 0.3vw, 1.25rem);
   --fs-body: 1rem;
@@ -62,8 +120,8 @@
   --lh-snug: 1.15;
   --lh-body: 1.6;
 
-  --tracking-display: -0.045em;
-  --tracking-h: -0.03em;
+  --tracking-display: -0.025em;
+  --tracking-h: -0.02em;
 
   /* Space (4px base) */
   --s-1: 4px;
@@ -92,12 +150,12 @@
   --r-2xl: 36px;
   --r-pill: 999px;
 
-  /* Shadow — soft, cool-tinted, layered */
-  --sh-1: 0 1px 2px rgba(20, 38, 66, 0.06), 0 1px 1px rgba(20, 38, 66, 0.04);
-  --sh-2: 0 1px 2px rgba(20, 38, 66, 0.05), 0 6px 16px -6px rgba(20, 38, 66, 0.12);
-  --sh-3: 0 2px 4px rgba(20, 38, 66, 0.04), 0 18px 40px -16px rgba(20, 38, 66, 0.22);
-  --sh-4: 0 4px 10px rgba(20, 38, 66, 0.05), 0 40px 80px -30px rgba(20, 38, 66, 0.32);
-  --sh-inset: inset 0 0 0 1px rgba(20, 38, 66, 0.06);
+  /* Shadow — deep, neutral, layered (dark surfaces) */
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.3);
+  --sh-2: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 16px -6px rgba(0, 0, 0, 0.6);
+  --sh-3: 0 2px 4px rgba(0, 0, 0, 0.35), 0 18px 40px -16px rgba(0, 0, 0, 0.75);
+  --sh-4: 0 4px 10px rgba(0, 0, 0, 0.35), 0 40px 80px -30px rgba(0, 0, 0, 0.9);
+  --sh-inset: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

@@ -1,8 +1,9 @@
-import { LuArrowRight, LuPlay } from "react-icons/lu";
+import { LuArrowRight, LuArrowDown } from "react-icons/lu";
 import { MagneticButton } from "./MagneticButton";
 import { RevealLines } from "./ScrollReveal";
 import { HandCircle } from "./HandMarks";
 import { HeroVisual } from "./HeroVisual";
+import { APP_URL, CTA_LABEL } from "../data/content";
 
 export function Hero() {
   return (
@@ -15,9 +16,9 @@ export function Hero() {
 
       <div className="hero__inner container container--wide">
         <div className="hero__copy">
-          <a href="#features" className="announce hero__in" style={{ ["--d" as string]: "0ms" }}>
-            <span className="announce__tag">New</span>
-            <span className="announce__txt">Referral letters, drafted straight from your plan</span>
+          <a href="#pricing" className="announce hero__in" style={{ ["--d" as string]: "0ms" }}>
+            <span className="announce__tag">Beta</span>
+            <span className="announce__txt">Gratis mientras dure la beta</span>
             <LuArrowRight size={14} aria-hidden="true" className="announce__arrow" />
           </a>
 
@@ -29,39 +30,39 @@ export function Hero() {
             stagger={110}
             className="display hero__title"
             lines={[
-              <>Scribble freely.</>,
+              <>Tu Instagram,</>,
+              <>frente a la</>,
               <>
-                Chart{" "}
                 <span className="hero__circled">
-                  clearly.
-                  <HandCircle className="hero__ring" color="var(--sky-500)" width={2.6} delay={1100} />
+                  competencia.
+                  <HandCircle className="hero__ring" color="var(--accent)" width={2.6} delay={1100} />
                 </span>
               </>,
             ]}
           />
 
           <p className="lead hero__lead hero__in" style={{ ["--d" as string]: "380ms" }}>
-            Mendleaf reads the notes you already write — by hand or out loud — and turns them into a clean,
-            structured record with every follow-up pulled out and ready to go.
+            Analítica de Instagram para agencias. Sigue el crecimiento, la interacción y la competencia de tus
+            clientes en un solo panel.
           </p>
 
           <div className="hero__ctas hero__in" style={{ ["--d" as string]: "500ms" }}>
-            <MagneticButton href="#start" size="lg">
-              Start your free trial
+            <MagneticButton href={APP_URL} size="lg">
+              {CTA_LABEL}
               <LuArrowRight className="arrow" size={17} aria-hidden="true" />
             </MagneticButton>
-            <MagneticButton href="#product" size="lg" variant="secondary" strength={0.22}>
+            <MagneticButton href="#how" size="lg" variant="secondary" strength={0.22}>
               <span className="play-dot" aria-hidden="true">
-                <LuPlay size={11} />
+                <LuArrowDown size={12} />
               </span>
-              See it in 90 seconds
+              Ver cómo funciona
             </MagneticButton>
           </div>
 
           <ul className="hero__meta hero__in" style={{ ["--d" as string]: "620ms" }}>
-            <li>14 days free</li>
-            <li>No card needed</li>
-            <li>Set up in an afternoon</li>
+            <li>Beta gratuita</li>
+            <li>Conexión oficial con Instagram</li>
+            <li>Un espacio por cliente</li>
           </ul>
         </div>
 

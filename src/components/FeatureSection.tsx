@@ -1,40 +1,47 @@
 import { useEffect, useRef, useState } from "react";
 import { LuArrowRight } from "react-icons/lu";
 import { Reveal, RevealLines } from "./ScrollReveal";
-import { NotesToRecords, TimelineVisual, ActionsVisual } from "./FeatureVisuals";
+import { SideBySideVisual, InsightsVisual, ContentVisual, ReportsVisual } from "./FeatureVisuals";
 
 const FEATURES = [
   {
-    kicker: "01 — Capture",
-    title: "Turn notes into structured records",
-    body: "Every line of your page is matched to the right part of the record and colour-keyed back to where it came from, so checking the result takes seconds, not a re-read.",
-    points: ["Works with your own templates", "Uncertain words are flagged, never guessed", "Abbreviations expanded the way you use them"],
-    Visual: NotesToRecords,
+    kicker: "01 — Lado a lado",
+    title: "Tú y tu competencia, en una sola vista",
+    body: "Compara seguidores, interacción mediana y frecuencia de publicación de tu cuenta y las de tus competidores sobre una ventana de 30 días. Sin abrir perfiles uno por uno.",
+    points: ["Seguidores, interacción y cadencia", "Sincronización diaria automática", "Datos públicos de tus competidores"],
+    Visual: SideBySideVisual,
   },
   {
-    kicker: "02 — Organise",
-    title: "Keep every detail organised",
-    body: "Notes, results and patient messages live on one searchable timeline. Type a word you remember and find the visit, the lab and the message that mentioned it.",
-    points: ["Search across notes, labs and messages", "Filters that match how you think", "History that's quick to scan before a visit"],
-    Visual: TimelineVisual,
+    kicker: "02 — Insights",
+    title: "Insights con evidencia, sin puntajes",
+    body: "Observaciones deterministas de tu muestra de 30 días, agrupadas en Fortalezas, Oportunidades y Contexto. Cada una muestra la cuenta, la métrica, el valor, la muestra y la cobertura.",
+    points: ["Sin puntajes ni recomendaciones", "Avisa cuando la muestra es pequeña", "Un resumen de “3 cosas que deberías saber”"],
+    Visual: InsightsVisual,
   },
   {
-    kicker: "03 — Act",
-    title: "Move from visit to action",
-    body: "Referrals, bookings and patient summaries are drafted from your plan and tracked until they're done — nothing lives only in the margin any more.",
-    points: ["Referral letters in your house style", "Plain-language summaries for patients", "A shared board for the whole team"],
-    Visual: ActionsVisual,
+    kicker: "03 — Contenido",
+    title: "Contenido y mejor momento",
+    body: "Recorre las publicaciones tuyas y de tus competidores con filtros y detalle por publicación. Revisa la frecuencia semanal y el mejor momento para publicar, calculado con tus propios datos.",
+    points: ["Filtros y detalle de cada publicación", "Frecuencia semanal de publicación", "Mejor momento según tu interacción"],
+    Visual: ContentVisual,
+  },
+  {
+    kicker: "04 — Informes",
+    title: "Un informe por cliente, solo con datos observados",
+    body: "Resume interacción, crecimiento y cadencia de cada cliente en un informe. Lo que no se pudo observar no se estima ni se rellena.",
+    points: ["Interacción, crecimiento y cadencia", "Un informe por cliente", "Sin cifras inventadas"],
+    Visual: ReportsVisual,
   },
 ];
 
 /**
  * Pinned showcase. On large screens the product stage stays in view while
- * the three chapters scroll past; the stage cross-fades to match the chapter
+ * the chapters scroll past; the stage cross-fades to match the chapter
  * in the reading line. Below 1024px each chapter carries its own visual.
  */
 export function FeatureSection() {
   const [active, setActive] = useState(0);
-  const [seen, setSeen] = useState<boolean[]>([false, false, false]);
+  const [seen, setSeen] = useState<boolean[]>(() => FEATURES.map(() => false));
   const chapterRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
@@ -60,9 +67,9 @@ export function FeatureSection() {
       <div className="container">
         <div className="section-head">
           <Reveal>
-            <p className="eyebrow">The product</p>
+            <p className="eyebrow">El producto</p>
           </Reveal>
-          <RevealLines id="feat-title" className="h2" lines={["From the page in your hand", "to the next thing that happens"]} />
+          <RevealLines id="feat-title" className="h2" lines={["De tu cuenta a la comparación", "que respalda cada decisión"]} />
         </div>
 
         <div className="feat__grid">

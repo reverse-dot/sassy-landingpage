@@ -1,7 +1,7 @@
 /* All copy and fictional sample data for the page lives here. */
 
 /** Where every "open the app" call to action points. */
-export const APP_URL = "https://sassyig.vercel.app";
+export const APP_URL = "https://app-bandito.vercel.app";
 export const LOGIN_URL = `${APP_URL}/login`;
 export const DATA_DELETION_URL = `${APP_URL}/data-deletion`;
 export const PRIVACY_URL = `${APP_URL}/privacy`;

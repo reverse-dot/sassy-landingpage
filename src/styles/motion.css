@@ -1,0 +1,203 @@
+/* ------------------------------------------------------------------
+   Motion primitives. All entrances animate transform / opacity /
+   clip-path only. Reduced motion collapses everything to its end state.
+   ------------------------------------------------------------------ */
+
+.px-layer {
+  will-change: transform;
+}
+
+/* ---- Reveal (single element) ---- */
+.reveal,
+.reveal-child {
+  transition-property: opacity, transform, clip-path, filter;
+  transition-duration: var(--dur-4);
+  transition-timing-function: var(--ease-out);
+  transition-delay: calc(var(--rd, 0ms) + var(--ri, 0) * var(--rs, 0ms));
+}
+.reveal-group > .reveal-child {
+  /* children read --rd / --rs from the group */
+}
+
+.reveal.reveal--up:not(.is-in),
+.reveal-group:not(.is-in) > .reveal--up {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+}
+.reveal.reveal--fade:not(.is-in),
+.reveal-group:not(.is-in) > .reveal--fade {
+  opacity: 0;
+}
+.reveal.reveal--scale:not(.is-in),
+.reveal-group:not(.is-in) > .reveal--scale {
+  opacity: 0;
+  transform: scale(0.94) translate3d(0, 18px, 0);
+}
+.reveal.reveal--left:not(.is-in),
+.reveal-group:not(.is-in) > .reveal--left {
+  opacity: 0;
+  transform: translate3d(-28px, 0, 0);
+}
+.reveal.reveal--right:not(.is-in),
+.reveal-group:not(.is-in) > .reveal--right {
+  opacity: 0;
+  transform: translate3d(28px, 0, 0);
+}
+/* Masked wipe — used for product frames and imagery */
+.reveal--clip,
+.reveal-group > .reveal--clip {
+  transition-duration: var(--dur-5);
+}
+.reveal.reveal--clip:not(.is-in),
+.reveal-group:not(.is-in) > .reveal--clip {
+  clip-path: inset(18% 8% 0% 8% round 28px);
+  transform: translate3d(0, 40px, 0) scale(0.98);
+  opacity: 0.001;
+}
+.reveal--clip.is-in,
+.reveal-group.is-in > .reveal--clip {
+  clip-path: inset(0% 0% 0% 0% round 0px);
+}
+/* Mask — text rising from beneath an edge */
+.reveal--mask {
+  clip-path: inset(0 0 0 0);
+}
+.reveal.reveal--mask:not(.is-in),
+.reveal-group:not(.is-in) > .reveal--mask {
+  opacity: 0;
+  transform: translate3d(0, 60%, 0);
+  clip-path: inset(0 0 100% 0);
+}
+
+/* ---- Line-by-line headline reveal ---- */
+.reveal-lines {
+  display: block;
+}
+.rl-mask {
+  display: block;
+  overflow: hidden;
+  /* Room for descenders and handwritten flourishes */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.rl-line {
+  display: inline-block;
+  transform: translate3d(0, 108%, 0);
+  opacity: 0;
+  transition:
+    transform var(--dur-5) var(--ease-out),
+    opacity var(--dur-3) var(--ease-out);
+}
+.reveal-lines.is-in .rl-line {
+  transform: none;
+  opacity: 1;
+}
+
+/* ---- Handwritten stroke drawing (SVG paths with pathLength="1") ---- */
+.draw path,
+path.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1100ms var(--ease-in-out);
+  transition-delay: var(--draw-delay, 0ms);
+}
+.is-in .draw path,
+.is-in path.draw,
+.draw.is-in path {
+  stroke-dashoffset: 0;
+}
+
+/* ---- Gentle idle float (applied to children of parallax layers) ---- */
+@keyframes float-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+@keyframes float-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, 6px, 0) rotate(-0.6deg);
+  }
+}
+.float-a {
+  animation: float-a 7s var(--ease-in-out) infinite;
+}
+.float-b {
+  animation: float-b 8.5s var(--ease-in-out) infinite;
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* ---- Tilt card spotlight ---- */
+.tilt {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt--spot {
+  position: relative;
+}
+.tilt--spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(116, 175, 230, 0.14),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-out);
+}
+.tilt--spot:hover::after {
+  opacity: 1;
+}
+
+/* ---- Reduced motion: show end states, no travel ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+  }
+  .reveal,
+  .reveal-child,
+  .rl-line {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .draw path,
+  path.draw {
+    stroke-dashoffset: 0 !important;
+  }
+}

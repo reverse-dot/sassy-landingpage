@@ -17,7 +17,7 @@ Add a light version of the landing page and a Dark/Light selector in the top nav
 - [x] T1 Light tokens + theme attribute + no-flash script (route: delegated writer, 4+ files). Done: `:root[data-theme="light"]` in tokens.css, `src/theme.ts` (useTheme), inline no-flash script + theme-color sync in index.html.
 - [x] T2 De-hardcode theme-dependent colors across CSS (delegated writer). Done: white-alpha washes, dots, nav glass, shadows, accent text moved to new tokens (dark values unchanged).
 - [x] T3 Navbar toggle + logo swap (delegated writer). Done: ThemeSwitch (Dark | Light, aria-pressed) in desktop nav and mobile panel; Logo uses black PNG in light.
-- [ ] T4 Build passes, commit on `feat/light-theme`
+- [x] T4 Build passes, commit on `feat/light-theme` (bde7f7a)
 
 ## Acceptance
 - Toggle switches between dark and light instantly; choice survives reload.

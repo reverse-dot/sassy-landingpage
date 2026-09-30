@@ -9,7 +9,7 @@ export function Logo({ className, showWord = true }: Props) {
     <span className={["logo", className].filter(Boolean).join(" ")}>
       <img
         className="logo__mark"
-        src="/logo/bandito-logo-white.png"
+        src={`${import.meta.env.BASE_URL}logo/bandito-logo-white.png`}
         alt=""
         width={74}
         height={28}

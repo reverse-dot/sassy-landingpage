@@ -19,7 +19,7 @@ export function Testimonials() {
         <div className="quotes__grid">
           <Reveal as="figure" className="quotes__featured" variant="up">
             <p className="eyebrow" id="quotes-title">
-              Agencias y creadores
+              Creadores, empresas y agencias
             </p>
             <span className="quotes__mark hand" aria-hidden="true">
               “

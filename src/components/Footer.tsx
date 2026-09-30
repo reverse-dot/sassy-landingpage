@@ -11,7 +11,7 @@ export function Footer() {
         <div className="foot__top">
           <div className="foot__brand">
             <Logo />
-            <p>Analítica de Instagram para agencias, creadores y marcas.</p>
+            <p>Analítica de Instagram para creadores, empresas y agencias.</p>
           </div>
           <nav className="foot__cols" aria-label="Pie de página">
             {footerCols.map((c) => (

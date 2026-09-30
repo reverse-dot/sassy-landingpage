@@ -11,7 +11,7 @@ const F1 = [
   { manual: "seguidores ~12.4k (¿12.5k?)", field: "Seguidores", value: "12.480 · +3,2% en 30 días", tone: "sky" },
   { manual: "eng. a ojo, ¿3%?", field: "Interacción mediana", value: "3,4% · @taller.norte 2,1%", tone: "mint" },
   { manual: "norte: ¿3 pub. por sem.?", field: "Frecuencia", value: "5 pub./sem · @taller.norte 3", tone: "lilac" },
-  { manual: "revisar capturas del lunes", field: "Ventana", value: "Últimos 30 días · 22 pub.", tone: "peach" },
+  { manual: "revisar capturas del lunes", field: "Ventana", value: "Últimos 30 días · 22 pub.", tone: "peach", hit: true },
 ];
 
 export function SideBySideVisual({ active }: { active: boolean }) {
@@ -61,11 +61,11 @@ export function SideBySideVisual({ active }: { active: boolean }) {
 const EVENTS = [
   { icon: LuTrendingUp, t: "cob. 100%", title: "Fortaleza · interacción", sub: "3,4% vs 2,1% · muestra de 22 pub. · 30 días", tone: "mint", hit: true },
   { icon: LuUsers, t: "cob. 100%", title: "Fortaleza · seguidores", sub: "+3,2% vs +1,1%, +2,4% y +0,6% · 30 días", tone: "sky" },
-  { icon: LuClock, t: "cob. 100%", title: "Oportunidad · frecuencia", sub: "@estudio.bruma 7 vs 5 pub./sem · 30 días", tone: "peach" },
-  { icon: LuInfo, t: "parcial", title: "Contexto · muestra pequeña", sub: "@cafe.ancla · 9 pub. · lectura con cautela", tone: "lilac", hit: true },
+  { icon: LuClock, t: "cob. 100%", title: "Oportunidad · frecuencia", sub: "@estudio.bruma 7 vs 5 pub./sem · 30 días", tone: "peach", hit: true },
+  { icon: LuInfo, t: "cob. 100%", title: "Contexto · horario", sub: "@cafe.ancla · 9 pub. · mejor franja: 19–21 h", tone: "lilac", hit: true },
 ];
 
-const QUERY = "muestra";
+const QUERY = "pub.";
 
 export function InsightsVisual({ active }: { active: boolean }) {
   const [typed, setTyped] = useState(prefersReducedMotion() ? QUERY.length : 0);
@@ -88,7 +88,7 @@ export function InsightsVisual({ active }: { active: boolean }) {
     <div
       className={["fv fv2", active ? "is-active" : "", searching ? "is-searched" : ""].join(" ")}
       role="img"
-      aria-label="Lista de insights con evidencia, agrupados en fortalezas, oportunidades y contexto. Al buscar «muestra» se resaltan las dos entradas que la mencionan."
+      aria-label="Lista de insights con evidencia, agrupados en fortalezas, oportunidades y contexto. Al buscar «pub.» se resaltan las tres entradas que la mencionan."
     >
       <div className="fv2__card card">
         <div className="fv2__top">
@@ -98,7 +98,7 @@ export function InsightsVisual({ active }: { active: boolean }) {
               {QUERY.slice(0, typed)}
               <span className="fv2__caret" />
             </span>
-            <span className="fv2__count">{searching ? "2 coincidencias" : ""}</span>
+            <span className="fv2__count">{searching ? "3 coincidencias" : ""}</span>
           </div>
           <div className="fv2__filters">
             <span className="fv2__f is-on">Todos</span>
@@ -204,13 +204,13 @@ export function ReportsVisual({ active }: { active: boolean }) {
     <div
       className={["fv fv4", active ? "is-active" : ""].join(" ")}
       role="img"
-      aria-label="Informe de un cliente con tres indicadores: interacción mediana 3,4%, crecimiento de seguidores 3,2% y cadencia de 5 publicaciones por semana, calculados con 22 publicaciones observadas."
+      aria-label="Informe de una cuenta con tres indicadores: interacción mediana 3,4%, crecimiento de seguidores 3,2% y cadencia de 5 publicaciones por semana, calculados con 22 publicaciones observadas."
     >
       <div className="fv4__doc card">
         <div className="fv4__head">
           <div>
             <strong>Casa Lumbre</strong>
-            <span>Informe del cliente · ventana de 30 días</span>
+            <span>Informe de la cuenta · ventana de 30 días</span>
           </div>
           <span className="badge badge--mint">
             <LuFileCheck size={11} aria-hidden="true" /> Datos observados

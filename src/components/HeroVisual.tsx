@@ -124,7 +124,6 @@ export function HeroVisual() {
                   <span className="hd__src">
                     <span className="dot" /> API oficial · 30 días
                   </span>
-                  <span className="hd__flag">Muestra pequeña: 1 cuenta</span>
                 </footer>
               </article>
             </div>

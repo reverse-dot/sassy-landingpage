@@ -12,18 +12,8 @@ export function Pricing() {
           <Reveal>
             <p className="eyebrow">Precios</p>
           </Reveal>
-          <RevealLines id="price-title" className="h2" lines={["Gratis durante la beta,", "planes claros después"]} />
+          <RevealLines id="price-title" className="h2" lines={["Planes claros,", "sin sorpresas"]} />
         </div>
-
-        <Reveal className="price__beta">
-          <strong>
-            Hoy Bandito es gratis <span className="badge badge--sky">Beta</span>
-          </strong>
-          <p>
-            Todas las cuentas nuevas empiezan en un plan beta gratuito. Los precios de abajo son los que
-            aplicarán cuando termine la beta.
-          </p>
-        </Reveal>
 
         <Reveal as="ul" className="price__grid" stagger={120} variant="up">
           {plans.map((p) => (
@@ -38,7 +28,6 @@ export function Pricing() {
                   <span className="plan__amt">{p.price}</span>
                   <span className="plan__unit">{p.unit}</span>
                 </div>
-                <p className="plan__after">Después de la beta</p>
 
                 <MagneticButton
                   href={APP_URL}
@@ -66,8 +55,7 @@ export function Pricing() {
           ))}
         </Reveal>
         <p className="price__fine">
-          Precios posteriores a la beta. Los planes Creador y Empresa se cobran en pesos chilenos (CLP); el plan
-          Agencia, en dólares (USD).
+          Los planes Creador y Empresa se cobran en pesos chilenos (CLP); el plan Agencia, en dólares (USD).
         </p>
       </div>
     </section>

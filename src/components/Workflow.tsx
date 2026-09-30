@@ -25,7 +25,7 @@ const AFTER = [
 const BENEFITS = [
   { k: "Un solo panel", v: "Tus métricas y las de tu competencia, sin saltar entre perfiles, capturas y hojas de cálculo." },
   { k: "Datos que se actualizan solos", v: "Las sincronizaciones diarias mantienen el lado a lado al día, sin copiar cifras a mano." },
-  { k: "Cada cliente, su espacio", v: "Cambia de cliente con el selector; cada uno con sus propios competidores." },
+  { k: "Cada cuenta, su competencia", v: "Cada cuenta conectada tiene sus propios competidores, siempre a un clic." },
 ];
 
 export function Workflow() {

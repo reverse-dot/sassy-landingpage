@@ -28,12 +28,6 @@ export function Hero() {
 
       <div className="hero__inner container container--wide">
         <div className="hero__copy">
-          <a href="#pricing" className="announce hero__in" style={{ ["--d" as string]: "0ms" }}>
-            <span className="announce__tag">Beta</span>
-            <span className="announce__txt">Gratis mientras dure la beta</span>
-            <LuArrowRight size={14} aria-hidden="true" className="announce__arrow" />
-          </a>
-
           <RevealLines
             as="h1"
             id="hero-title"
@@ -54,8 +48,8 @@ export function Hero() {
           />
 
           <p className="lead hero__lead hero__in" style={{ ["--d" as string]: "380ms" }}>
-            Analítica de Instagram para agencias. Sigue el crecimiento, la interacción y la competencia de tus
-            clientes en un solo panel.
+            Analítica de Instagram para creadores de contenido, empresas y agencias de marketing. Sigue el
+            crecimiento, la interacción y la competencia en un solo panel.
           </p>
 
           <div className="hero__ctas hero__in" style={{ ["--d" as string]: "500ms" }}>
@@ -72,9 +66,9 @@ export function Hero() {
           </div>
 
           <ul className="hero__meta hero__in" style={{ ["--d" as string]: "620ms" }}>
-            <li>Beta gratuita</li>
             <li>Conexión oficial con Instagram</li>
-            <li>Un espacio por cliente</li>
+            <li>Planes para creadores, empresas y agencias</li>
+            <li>Sincronización diaria</li>
           </ul>
         </div>
 

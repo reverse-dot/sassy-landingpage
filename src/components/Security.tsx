@@ -75,7 +75,7 @@ export function Security() {
             lines={["Tus datos, con", "reglas claras"]}
           />
           <Reveal as="p" className="lead sec__lead" delay={150}>
-            Bandito trabaja con la cuenta de tus clientes, así que explicamos qué datos usamos, cómo los obtenemos
+            Bandito trabaja con la cuenta de Instagram que conectas, así que explicamos qué datos usamos, cómo los obtenemos
             y cómo puedes retirarlos en cualquier momento.
           </Reveal>
           <Reveal delay={250}>

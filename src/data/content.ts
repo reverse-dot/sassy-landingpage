@@ -7,7 +7,7 @@ export const DATA_DELETION_URL = `${APP_URL}/data-deletion`;
 export const PRIVACY_URL = `${APP_URL}/privacy`;
 export const TERMS_URL = `${APP_URL}/terms`;
 
-export const CTA_LABEL = "Empezar gratis en la beta";
+export const CTA_LABEL = "Empezar ahora";
 
 export const navLinks = [
   { label: "Producto", href: "#features" },
@@ -96,7 +96,7 @@ export const clients: Client[] = [
     segment: "Café de especialidad",
     sync: "06:00",
     status: "Sincronizado",
-    flags: ["1 cuenta con muestra pequeña"],
+    flags: [],
     accounts: [
       { handle: "@casa.lumbre", followers: "12.480", growth: "+3,2%", engagement: "3,4%", cadence: "5", sample: 22, you: true },
       { handle: "@taller.norte", followers: "9.810", growth: "+1,1%", engagement: "2,1%", cadence: "3", sample: 13 },
@@ -121,8 +121,8 @@ export const clients: Client[] = [
       },
       {
         group: "Contexto",
-        text: "@cafe.ancla muestra la mayor interacción, pero con muestra pequeña.",
-        evidence: { account: "@cafe.ancla", metric: "Interacción mediana", value: "4,1%", sample: "9 pub.", coverage: "parcial", window: "30 días" },
+        text: "@cafe.ancla muestra la mayor interacción del grupo.",
+        evidence: { account: "@cafe.ancla", metric: "Interacción mediana", value: "4,1%", sample: "9 pub.", coverage: "100%", window: "30 días" },
       },
     ],
     weekly: [2, 3, 4, 5, 3, 4, 1],
@@ -138,7 +138,7 @@ export const clients: Client[] = [
     segment: "Estudio de yoga",
     sync: "06:00",
     status: "Sincronizando",
-    flags: ["1 cuenta con muestra pequeña"],
+    flags: [],
     accounts: [
       { handle: "@nube.studio", followers: "8.920", growth: "+2,1%", engagement: "4,8%", cadence: "4", sample: 17, you: true },
       { handle: "@respira.taller", followers: "11.300", growth: "+1,4%", engagement: "3,6%", cadence: "6", sample: 27 },
@@ -157,8 +157,8 @@ export const clients: Client[] = [
       },
       {
         group: "Contexto",
-        text: "@sol.y.flor crece rápido, pero con muestra pequeña.",
-        evidence: { account: "@sol.y.flor", metric: "Seguidores", value: "+3,0%", sample: "7 pub.", coverage: "parcial", window: "30 días" },
+        text: "@sol.y.flor es la cuenta que más crece este mes.",
+        evidence: { account: "@sol.y.flor", metric: "Seguidores", value: "+3,0%", sample: "7 pub.", coverage: "100%", window: "30 días" },
       },
     ],
     weekly: [3, 2, 3, 3, 2, 3, 1],
@@ -194,7 +194,7 @@ export const clients: Client[] = [
       {
         group: "Contexto",
         text: "Datos insuficientes para leer a @tejido.sur.",
-        evidence: { account: "@tejido.sur", metric: "Interacción mediana", value: "2,2%", sample: "9 pub.", coverage: "parcial", window: "30 días" },
+        evidence: { account: "@tejido.sur", metric: "Interacción mediana", value: "2,2%", sample: "9 pub.", coverage: "100%", window: "30 días" },
       },
     ],
     weekly: [1, 2, 2, 3, 2, 2, 1],
@@ -282,7 +282,7 @@ export const syncLog = [
   { who: "Bandito", act: "actualizó", obj: "Lado a lado · ventana de 30 días", t: "06:14" },
   { who: "Bandito", act: "recalculó", obj: "Insights de Casa Lumbre", t: "06:15" },
   { who: "Tú", act: "cambiaste", obj: "al cliente Nube Studio", t: "09:02" },
-  { who: "Bandito", act: "marcó", obj: "Muestra pequeña · @cafe.ancla", t: "09:03" },
+  { who: "Bandito", act: "detectó", obj: "un nuevo insight · @cafe.ancla", t: "09:03" },
 ];
 
 export type Plan = {

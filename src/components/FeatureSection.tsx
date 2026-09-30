@@ -27,9 +27,9 @@ const FEATURES = [
   },
   {
     kicker: "04 — Informes",
-    title: "Un informe por cliente, solo con datos observados",
-    body: "Resume interacción, crecimiento y cadencia de cada cliente en un informe. Lo que no se pudo observar no se estima ni se rellena.",
-    points: ["Interacción, crecimiento y cadencia", "Un informe por cliente", "Sin cifras inventadas"],
+    title: "Un informe por cuenta, solo con datos observados",
+    body: "Resume interacción, crecimiento y cadencia de cada cuenta en un informe. Lo que no se pudo observar no se estima ni se rellena.",
+    points: ["Interacción, crecimiento y cadencia", "Un informe por cuenta", "Sin cifras inventadas"],
     Visual: ReportsVisual,
   },
 ];

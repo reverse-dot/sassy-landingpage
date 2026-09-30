@@ -89,7 +89,7 @@ export function Navbar() {
             Iniciar sesión
           </a>
           <MagneticButton href={APP_URL} size="md" strength={0.25} className="nav__cta">
-            Empezar gratis
+            Empezar ahora
             <LuArrowRight className="arrow" aria-hidden="true" size={16} />
           </MagneticButton>
           <button
@@ -137,10 +137,9 @@ export function Navbar() {
           </a>
           <a href={APP_URL} className="btn btn--primary btn--lg" onClick={() => setOpen(false)}>
             <span className="btn__label">
-              Empezar gratis en la beta <LuArrowRight size={16} aria-hidden="true" />
+              Empezar ahora <LuArrowRight size={16} aria-hidden="true" />
             </span>
           </a>
-          <p className="hand nav__mnote">gratis durante la beta ✓</p>
         </div>
       </div>
     </header>

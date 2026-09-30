@@ -2,7 +2,7 @@ import { LuArrowRight, LuCheck } from "react-icons/lu";
 import { MagneticButton } from "./MagneticButton";
 import { PointerParallax, Layer } from "./PointerParallax";
 import { RevealLines, Reveal } from "./ScrollReveal";
-import { HandArrow, HandUnderline, Paper } from "./HandMarks";
+import { Paper } from "./HandMarks";
 import { APP_URL, LOGIN_URL, CTA_LABEL } from "../data/content";
 
 export function FinalCTA() {
@@ -41,8 +41,7 @@ export function FinalCTA() {
                 lines={["Empieza a comparar", "con evidencia."]}
               />
               <Reveal as="p" className="lead cta__lead" delay={200}>
-                Conecta tu Instagram, agrega a tus primeros competidores y mira tu primer lado a lado. Mientras
-                dure la beta, todo es gratis.
+                Conecta tu Instagram, agrega a tus primeros competidores y mira tu primer lado a lado.
               </Reveal>
               <Reveal className="cta__actions" delay={300}>
                 <MagneticButton href={APP_URL} size="lg">
@@ -52,13 +51,6 @@ export function FinalCTA() {
                 <MagneticButton href={LOGIN_URL} size="lg" variant="secondary" strength={0.22}>
                   Iniciar sesión
                 </MagneticButton>
-              </Reveal>
-              <Reveal className="cta__note" delay={600}>
-                <HandArrow variant="curve" className="cta__note-arrow" />
-                <span className="hand">
-                  gratis durante la beta
-                  <HandUnderline className="cta__note-line" delay={900} />
-                </span>
               </Reveal>
             </div>
           </PointerParallax>

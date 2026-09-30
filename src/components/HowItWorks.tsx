@@ -52,7 +52,7 @@ function CompetitorsIllo() {
 }
 
 function InsightsIllo() {
-  const items = ["Fortaleza · interacción", "Oportunidad · frecuencia", "Contexto · muestra pequeña"];
+  const items = ["Fortaleza · interacción", "Oportunidad · frecuencia", "Contexto · horario"];
   return (
     <div className="illo illo--act" aria-hidden="true">
       {items.map((t, i) => (
@@ -102,9 +102,6 @@ export function HowItWorks() {
               return (
                 <li key={s.n} className="how__item">
                   <TiltCard className="how__card" max={2.5}>
-                    <div className="how__num hand" aria-hidden="true">
-                      {s.n}
-                    </div>
                     <Illo />
                     <div className="how__body">
                       <p className="how__tag">{s.tag}</p>

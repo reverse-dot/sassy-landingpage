@@ -472,6 +472,7 @@
   grid-template-columns: minmax(0, 1fr);
   gap: 22px;
   align-items: start;
+  margin-top: var(--s-5);
 }
 .pd__panel {
   animation: panel-in 450ms var(--ease-out);

@@ -126,7 +126,7 @@ export function Workflow() {
                 ))}
               </ul>
               <p className="hand cmp__home">…informe listo</p>
-              <span className="cmp__label cmp__label--after">Con Sassy</span>
+              <span className="cmp__label cmp__label--after">Con Bandito</span>
             </div>
 
             <div className="compare__handle" aria-hidden="true">
@@ -136,7 +136,7 @@ export function Workflow() {
             </div>
 
             <label className="sr-only" htmlFor="compare-range">
-              Compara el cierre de mes antes y después de usar Sassy
+              Compara el cierre de mes antes y después de usar Bandito
             </label>
             <input
               id="compare-range"

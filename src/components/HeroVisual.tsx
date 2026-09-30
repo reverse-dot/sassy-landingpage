@@ -84,7 +84,7 @@ export function HeroVisual() {
           {/* Connector */}
           <Layer depth={0.15} rot={0} className="hv__arrow">
             <HandArrow className="hv__arrow-svg" delay={900} />
-            <span className="hand hv__arrow-label">ordenado por Sassy</span>
+            <span className="hand hv__arrow-label">ordenado por Bandito</span>
           </Layer>
 
           {/* 2 · Side-by-side card */}

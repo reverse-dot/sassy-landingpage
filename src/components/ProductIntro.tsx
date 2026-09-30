@@ -4,7 +4,7 @@ import { HandArrow } from "./HandMarks";
 import { Reveal } from "./ScrollReveal";
 
 const TEXT =
-  "Cada cliente tiene su propia competencia. Sassy los reúne en un solo panel, sincroniza los datos cada día y muestra únicamente lo que la evidencia respalda.";
+  "Cada cliente tiene su propia competencia. Bandito los reúne en un solo panel, sincroniza los datos cada día y muestra únicamente lo que la evidencia respalda.";
 
 /** Words that get a soft highlight once they are fully revealed. */
 const EMPHASIS = new Set(["competencia.", "panel,", "respalda."]);
@@ -31,7 +31,7 @@ export function ProductIntro() {
         <div className="intro__side">
           <Reveal>
             <p className="eyebrow" id="intro-title">
-              Por qué Sassy
+              Por qué Bandito
             </p>
           </Reveal>
           <div className="intro__fan" aria-hidden="true">

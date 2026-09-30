@@ -1,7 +1,7 @@
 type Props = { className?: string; showWord?: boolean };
 
 /**
- * Sassy mark: the white logo from the app (transparent PNG, made for dark
+ * Bandito mark: the white logo from the app (transparent PNG, made for dark
  * backgrounds) next to the wordmark set in the display face.
  */
 export function Logo({ className, showWord = true }: Props) {
@@ -11,12 +11,12 @@ export function Logo({ className, showWord = true }: Props) {
         className="logo__mark"
         src="/logo/bandito-logo-white.png"
         alt=""
-        width={58}
-        height={22}
+        width={74}
+        height={28}
         decoding="async"
         aria-hidden="true"
       />
-      {showWord && <span className="logo__word">Sassy</span>}
+      {showWord && <span className="logo__word">Bandito</span>}
     </span>
   );
 }

@@ -1,9 +1,9 @@
-# Sassy — landing page
+# Bandito — landing page
 
-Marketing landing page for **Sassy**, Instagram content intelligence for agencies, creators and brands.
+Marketing landing page for **Bandito**, Instagram content intelligence for agencies, creators and brands.
 It tells the product story in Spanish: connect your Instagram, add competitors, and get a side-by-side
 view and evidence-backed insights in a single dashboard. Dark-first, one warm orange accent, aligned
-with the Sassy app's palette and type.
+with the Bandito app's palette and type.
 
 All calls to action open the app at `APP_URL` (sign-in goes to `${APP_URL}/login`). Both are defined in
 `src/data/content.ts`.

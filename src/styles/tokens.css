@@ -1,11 +1,11 @@
 /* ------------------------------------------------------------------
-   Sassy design tokens (dark-first)
+   Bandito design tokens (dark-first)
    One source of truth for colour, type, space, radius, shadow, motion.
-   Palette mirrors the Sassy app: near-black surfaces, warm off-white ink
+   Palette mirrors the Bandito app: near-black surfaces, warm off-white ink
    and a single orange accent.
    ------------------------------------------------------------------ */
 
-/* Display face — same files the Sassy app ships */
+/* Display face — same files the Bandito app ships */
 @font-face {
   font-family: "Dingos";
   src: url("/fonts/dingos/Dingos-Regular.otf") format("opentype");

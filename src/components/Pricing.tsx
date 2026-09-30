@@ -17,7 +17,7 @@ export function Pricing() {
 
         <Reveal className="price__beta">
           <strong>
-            Hoy Sassy es gratis <span className="badge badge--sky">Beta</span>
+            Hoy Bandito es gratis <span className="badge badge--sky">Beta</span>
           </strong>
           <p>
             Todas las cuentas nuevas empiezan en un plan beta gratuito. Los precios de abajo son los que

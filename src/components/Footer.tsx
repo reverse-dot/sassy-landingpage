@@ -29,7 +29,7 @@ export function Footer() {
           </nav>
         </div>
         <div className="foot__bottom">
-          <p>© 2026 Sassy. Los datos de ejemplo de esta página son ficticios.</p>
+          <p>© 2026 Bandito. Los datos de ejemplo de esta página son ficticios.</p>
           <ul>
             <li>
               <a href={TERMS_URL}>Términos</a>
@@ -40,7 +40,7 @@ export function Footer() {
           </ul>
         </div>
         <p className="foot__word" aria-hidden="true">
-          Sassy
+          Bandito
         </p>
       </div>
     </footer>

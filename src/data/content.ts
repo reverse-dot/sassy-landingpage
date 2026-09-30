@@ -26,13 +26,13 @@ export const steps = [
   {
     n: "2",
     title: "Agrega a tus competidores",
-    body: "Suma las cuentas que quieres seguir. Sassy las sincroniza cada día de forma automática, usando únicamente sus datos públicos.",
+    body: "Suma las cuentas que quieres seguir. Bandito las sincroniza cada día de forma automática, usando únicamente sus datos públicos.",
     tag: "Sincronización diaria",
   },
   {
     n: "3",
     title: "Recibe insights con evidencia",
-    body: "Cada observación indica la cuenta, la métrica, el valor, la muestra y la ventana de 30 días. Si los datos no alcanzan, Sassy te lo dice.",
+    body: "Cada observación indica la cuenta, la métrica, el valor, la muestra y la ventana de 30 días. Si los datos no alcanzan, Bandito te lo dice.",
     tag: "Sin puntajes ni recomendaciones",
   },
 ];
@@ -250,7 +250,7 @@ export const testimonials = [
 export const securityPoints = [
   {
     title: "Autorización oficial",
-    body: "Conectas tu cuenta con el acceso oficial de Meta e Instagram (OAuth) y su API Graph. Sassy no te pide tu contraseña de Instagram.",
+    body: "Conectas tu cuenta con el acceso oficial de Meta e Instagram (OAuth) y su API Graph. Bandito no te pide tu contraseña de Instagram.",
     icon: "lock",
   },
   {
@@ -260,7 +260,7 @@ export const securityPoints = [
   },
   {
     title: "Desconecta cuando quieras",
-    body: "Puedes desconectar Instagram en cualquier momento. Sin permisos activos, Sassy deja de sincronizar tu cuenta.",
+    body: "Puedes desconectar Instagram en cualquier momento. Sin permisos activos, Bandito deja de sincronizar tu cuenta.",
     icon: "unlink",
   },
   {
@@ -277,12 +277,12 @@ export const securityPoints = [
 
 /** Example sync activity shown in the privacy panel (fictional). */
 export const syncLog = [
-  { who: "Sassy", act: "sincronizó", obj: "3 competidores · datos públicos", t: "06:00" },
+  { who: "Bandito", act: "sincronizó", obj: "3 competidores · datos públicos", t: "06:00" },
   { who: "Tú", act: "agregaste", obj: "@taller.norte a Casa Lumbre", t: "06:12" },
-  { who: "Sassy", act: "actualizó", obj: "Lado a lado · ventana de 30 días", t: "06:14" },
-  { who: "Sassy", act: "recalculó", obj: "Insights de Casa Lumbre", t: "06:15" },
+  { who: "Bandito", act: "actualizó", obj: "Lado a lado · ventana de 30 días", t: "06:14" },
+  { who: "Bandito", act: "recalculó", obj: "Insights de Casa Lumbre", t: "06:15" },
   { who: "Tú", act: "cambiaste", obj: "al cliente Nube Studio", t: "09:02" },
-  { who: "Sassy", act: "marcó", obj: "Muestra pequeña · @cafe.ancla", t: "09:03" },
+  { who: "Bandito", act: "marcó", obj: "Muestra pequeña · @cafe.ancla", t: "09:03" },
 ];
 
 export type Plan = {
@@ -356,7 +356,7 @@ export const footerCols: { title: string; links: { label: string; href: string }
     ],
   },
   {
-    title: "Sassy",
+    title: "Bandito",
     links: [
       { label: "Cómo funciona", href: "#how" },
       { label: "Precios", href: "#pricing" },

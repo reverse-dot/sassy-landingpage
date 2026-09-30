@@ -61,7 +61,7 @@ export function Navbar() {
   return (
     <header className={["nav", scrolled ? "is-scrolled" : "", open ? "is-open" : ""].join(" ")}>
       <div className="nav__bar container container--wide">
-        <a href="#top" className="nav__logo" aria-label="Sassy, inicio">
+        <a href="#top" className="nav__logo" aria-label="Bandito, inicio">
           <Logo />
         </a>
 

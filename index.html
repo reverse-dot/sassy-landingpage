@@ -9,6 +9,19 @@
       content="Bandito es analítica de Instagram para agencias, creadores y marcas: sigue el crecimiento, la interacción y la competencia de tus clientes en un solo panel. Beta gratuita."
     />
     <meta name="theme-color" content="#0a0a0a" />
+    <script>
+      // Apply the saved theme before first paint to avoid a flash.
+      (function () {
+        var t = "dark";
+        try {
+          if (localStorage.getItem("theme") === "light") t = "light";
+        } catch (e) {}
+        document.documentElement.dataset.theme = t;
+        if (t === "light") {
+          document.querySelector('meta[name="theme-color"]').setAttribute("content", "#faf8f5");
+        }
+      })();
+    </script>
     <meta property="og:title" content="Bandito — Analítica de Instagram para agencias" />
     <meta
       property="og:description"

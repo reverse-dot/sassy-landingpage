@@ -63,7 +63,7 @@ a:hover > .logo .logo__mark {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(10, 10, 10, 0.78);
+  background: var(--nav-bg);
   backdrop-filter: saturate(1.4) blur(16px);
   -webkit-backdrop-filter: saturate(1.4) blur(16px);
   box-shadow: 0 1px 0 var(--line);
@@ -103,7 +103,7 @@ a:hover > .logo .logo__mark {
   margin-top: -18px;
   width: 0;
   border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--wash-7);
   opacity: 0;
   pointer-events: none;
   transition:
@@ -146,14 +146,51 @@ a:hover > .logo .logo__mark {
 }
 .nav__login:hover {
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--wash-white-6);
+}
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  margin-right: 6px;
+  border-radius: var(--r-pill);
+  background: var(--wash-5);
+  box-shadow: var(--sh-inset);
+}
+.theme-switch__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--ink-3);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--dur-2), background-color var(--dur-2);
+}
+.theme-switch__btn:hover {
+  color: var(--ink);
+}
+.theme-switch__btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.theme-switch--panel {
+  justify-self: center;
+  margin: 6px 0 0;
 }
 .nav__toggle {
   display: none;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--wash-white-6);
   box-shadow: var(--sh-inset), var(--sh-1);
   place-items: center;
 }
@@ -260,6 +297,7 @@ a:hover > .logo .logo__mark {
   }
   .nav__desktop,
   .nav__login,
+  .nav__theme,
   .nav__cta {
     display: none !important;
   }
@@ -291,7 +329,7 @@ a:hover > .logo .logo__mark {
 .hero__grid {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 171, 145, 0.16) 1px, transparent 1.2px);
+  background-image: radial-gradient(var(--dot-accent) 1px, transparent 1.2px);
   background-size: 22px 22px;
   mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 20%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 20%, transparent 75%);
@@ -349,7 +387,7 @@ a:hover > .logo .logo__mark {
   max-width: 100%;
   padding: 5px 14px 5px 5px;
   border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--wash-5);
   box-shadow: var(--sh-inset), var(--sh-1);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -685,7 +723,7 @@ a:hover > .logo .logo__mark {
   z-index: 2;
   font-size: 2.6rem;
   line-height: 1;
-  color: var(--accent-500);
+  color: var(--accent-text);
 }
 .how__body {
   display: grid;
@@ -773,7 +811,7 @@ a:hover > .logo .logo__mark {
 }
 .feat__points svg {
   flex: none;
-  color: var(--accent-500);
+  color: var(--accent-text);
 }
 .feat__inline {
   display: none;
@@ -816,7 +854,7 @@ a:hover > .logo .logo__mark {
   width: 22px;
   height: 3px;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--wash-14);
   overflow: hidden;
 }
 .feat__progress i::after {
@@ -931,7 +969,7 @@ a:hover > .logo .logo__mark {
 }
 .compare__before {
   background:
-    radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1.3px) 0 0 / 14px 14px,
+    radial-gradient(var(--dot) 1px, transparent 1.3px) 0 0 / 14px 14px,
     linear-gradient(160deg, var(--surface), var(--surface-sunken));
 }
 .compare__after {
@@ -1011,7 +1049,7 @@ a:hover > .logo .logo__mark {
   height: 26px;
   padding: 0 10px;
   border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--wash-8);
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--ink-2);
@@ -1093,7 +1131,7 @@ a:hover > .logo .logo__mark {
   left: 24px;
   padding: 5px 11px;
   border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--wash-10);
   color: var(--ink-2);
   font-size: 0.75rem;
   font-weight: 600;
@@ -1250,7 +1288,7 @@ a:hover > .logo .logo__mark {
   margin-top: 28px;
   font-size: 9rem;
   line-height: 0.9;
-  color: var(--accent-500);
+  color: var(--accent-text);
 }
 .quotes__featured blockquote p {
   font-size: clamp(1.55rem, 1rem + 1.7vw, 2.45rem);
@@ -1524,7 +1562,7 @@ a:hover > .logo .logo__mark {
   border-radius: var(--r-pill);
   background: var(--accent);
   color: var(--on-accent);
-  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--sh-tag);
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.3;
@@ -1681,7 +1719,7 @@ a:hover > .logo .logo__mark {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 171, 145, 0.14) 1px, transparent 1.2px);
+  background-image: radial-gradient(var(--dot-accent-soft) 1px, transparent 1.2px);
   background-size: 22px 22px;
   mask-image: radial-gradient(ellipse 60% 70% at 50% 50%, transparent 30%, #000 90%);
   -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 50%, transparent 30%, #000 90%);

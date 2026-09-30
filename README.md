@@ -48,7 +48,7 @@ src/
     FeatureSection.tsx     pinned product stage + four chapters (desktop); inline on mobile
     FeatureVisuals.tsx     the four feature demos (side by side, insights, content, reports)
     Workflow.tsx           draggable before/after comparison (keyboard accessible range)
-    InteractiveDashboard.tsx  working app preview: client switcher, tabs, competitor toggles
+    InteractiveDashboard.tsx  app-shell preview: icon rail, KPI cards, side-by-side table, insight tiles
     Testimonials.tsx, Security.tsx (privacy and data), Pricing.tsx, FinalCTA.tsx, Footer.tsx
     MagneticButton.tsx     lerped magnetic pull, label travels further than shell
     PointerParallax.tsx    depth layers driven by the shared pointer loop
@@ -62,7 +62,7 @@ src/
     hooks.ts     useInView, useScrollVar (writes progress to a CSS var, no re-renders)
     env.ts       lerp/damp (frame-rate independent), reduced-motion & fine-pointer checks
   data/content.ts  all copy, URLs and fictional sample data
-  styles/          tokens, base, motion, sections, visuals
+  styles/          tokens, base, motion, sections, visuals, dashboard
 public/
   fonts/dingos/    display font files
   logo/            app logo PNGs

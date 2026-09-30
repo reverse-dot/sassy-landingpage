@@ -173,8 +173,8 @@ export const clients: Client[] = [
     handle: "@marea.viva",
     segment: "Marca de ropa",
     sync: "06:00",
-    status: "Datos limitados",
-    flags: ["Datos insuficientes en 1 cuenta"],
+    status: "Sincronizado",
+    flags: [],
     accounts: [
       { handle: "@marea.viva", followers: "21.740", growth: "+0,9%", engagement: "1,8%", cadence: "3", sample: 13, you: true },
       { handle: "@linea.costa", followers: "34.200", growth: "+1,7%", engagement: "1,5%", cadence: "5", sample: 22 },
@@ -193,7 +193,7 @@ export const clients: Client[] = [
       },
       {
         group: "Contexto",
-        text: "Datos insuficientes para leer a @tejido.sur.",
+        text: "@tejido.sur logra la interacción más alta del grupo con menos publicaciones.",
         evidence: { account: "@tejido.sur", metric: "Interacción mediana", value: "2,2%", sample: "9 pub.", coverage: "100%", window: "30 días" },
       },
     ],

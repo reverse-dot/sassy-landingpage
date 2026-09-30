@@ -4,7 +4,6 @@ import { ProductIntro } from "./components/ProductIntro";
 import { HowItWorks } from "./components/HowItWorks";
 import { FeatureSection } from "./components/FeatureSection";
 import { Workflow } from "./components/Workflow";
-import { InteractiveDashboard } from "./components/InteractiveDashboard";
 import { Testimonials } from "./components/Testimonials";
 import { Security } from "./components/Security";
 import { Pricing } from "./components/Pricing";
@@ -24,7 +23,6 @@ export default function App() {
         <HowItWorks />
         <FeatureSection />
         <Workflow />
-        <InteractiveDashboard />
         <Testimonials />
         <Security />
         <Pricing />

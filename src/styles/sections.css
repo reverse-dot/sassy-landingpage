@@ -355,14 +355,22 @@ a:hover > .logo .logo__mark {
 }
 
 .hero__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: clamp(32px, 4vw, 72px);
 }
 .hero__copy {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 0;
+  width: 100%;
+  /* Push the app below the fold so only its top edge peeks in on load. */
+  min-height: calc(74svh - var(--nav-h) - clamp(40px, 5vw, 80px));
 }
 
 @keyframes hero-in {
@@ -445,10 +453,12 @@ a:hover > .logo .logo__mark {
 }
 .hero__lead {
   margin-top: 26px;
-  max-width: 34rem;
+  max-width: 38rem;
+  margin-inline: auto;
 }
 .hero__ctas {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 36px;
@@ -467,6 +477,7 @@ a:hover > .logo .logo__mark {
 }
 .hero__meta {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 8px 22px;
   margin-top: 28px;
@@ -487,41 +498,6 @@ a:hover > .logo .logo__mark {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M4 7.2 6 9.2 10 5' fill='none' stroke='%2322c55e' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
     center / 14px no-repeat;
 }
-.hero__visual {
-  position: relative;
-  width: 100%;
-  max-width: 660px;
-  justify-self: end;
-}
-
-@media (max-width: 1099px) {
-  .hero__inner {
-    grid-template-columns: minmax(0, 1fr);
-    text-align: center;
-    gap: 56px;
-  }
-  .hero__copy {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 0;
-    width: 100%;
-  }
-  .hero__title {
-    font-size: clamp(2.5rem, 1rem + 5.8vw, 4.75rem);
-  }
-  .hero__lead {
-    margin-inline: auto;
-  }
-  .hero__ctas,
-  .hero__meta {
-    justify-content: center;
-  }
-  .hero__visual {
-    justify-self: center;
-    max-width: 640px;
-  }
-}
 @media (max-width: 560px) {
   .hero__title {
     font-size: clamp(2.3rem, 10.4vw, 3rem);
@@ -540,9 +516,6 @@ a:hover > .logo .logo__mark {
   }
   .announce {
     font-size: 0.75rem;
-  }
-  .hero__inner {
-    gap: 40px;
   }
 }
 
@@ -1232,40 +1205,50 @@ a:hover > .logo .logo__mark {
 /* =================================================================
    INTERACTIVE DASHBOARD section wrapper
    ================================================================= */
-.dash {
-  background: linear-gradient(180deg, var(--bg) 0%, var(--accent-50) 26%, var(--accent-50) 74%, var(--bg) 100%);
+.hero__stage-wrap {
+  position: relative;
+  z-index: 1;
+}
+/* Untransformed stage: its position is measured for --p (0 = peeking, 1 = centered). */
+.hero__stage {
+  --p: 0;
+  --tilt: 18deg;
+  --s0: 0.86;
+  max-width: 1200px;
+  margin-inline: auto;
 }
 .dash__wrap {
-  --p: 1;
   position: relative;
-  max-width: 1180px;
-  margin-inline: auto;
-  transform: translate3d(0, calc((1 - var(--p)) * 48px), 0) scale(calc(0.93 + var(--p) * 0.07));
+  transform: perspective(1600px) rotateX(calc((1 - var(--p)) * var(--tilt)))
+    scale(calc(var(--s0) + var(--p) * (1 - var(--s0)))) translateY(calc((1 - var(--p)) * 20px));
   transform-origin: 50% 0;
   will-change: transform;
 }
-.dash__hint {
+/* Glow grows with progress; opacity only, so it stays compositor-driven. */
+.dash__wrap::before {
+  content: "";
   position: absolute;
-  left: 3%;
-  top: -64px;
-  display: flex;
-  align-items: flex-end;
-  gap: 4px;
-  font-size: 1.5rem;
-  z-index: 2;
+  inset: 4% 6% -6%;
+  z-index: -1;
+  border-radius: 40px;
+  background: radial-gradient(60% 60% at 50% 40%, var(--accent), transparent 70%);
+  filter: blur(60px);
+  opacity: calc(0.06 + var(--p) * 0.22);
+  pointer-events: none;
 }
-.dash__hint .hand {
-  rotate: -5deg;
+@media (max-width: 720px) {
+  .hero__stage {
+    --tilt: 8deg;
+    --s0: 0.95;
+  }
 }
-.dash__hint-arrow {
-  width: 40px;
-  height: 56px;
-  margin-bottom: -34px;
-  transform: rotate(-12deg);
-}
-@media (max-width: 1023px) {
-  .dash__hint {
-    display: none;
+@media (prefers-reduced-motion: reduce) {
+  .dash__wrap {
+    transform: none;
+    will-change: auto;
+  }
+  .dash__wrap::before {
+    opacity: 0.28;
   }
 }
 

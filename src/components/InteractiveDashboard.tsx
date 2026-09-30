@@ -12,10 +12,7 @@ import {
   LuChartColumn,
 } from "react-icons/lu";
 import { clients, WEEKDAYS, APP_URL, type Client, type Insight } from "../data/content";
-import { Reveal, RevealLines } from "./ScrollReveal";
-import { HandArrow } from "./HandMarks";
 import { Logo } from "./Logo";
-import { useScrollVar } from "../motion/hooks";
 
 const TABS = ["Lado a lado", "Insights", "Contenido"] as const;
 type Tab = (typeof TABS)[number];
@@ -88,7 +85,8 @@ const NAV: { icon: RailIcon; label: string }[] = [
   { icon: "reports", label: "Informes" },
 ];
 
-export function InteractiveDashboard() {
+/** The interactive app window. The scroll-scrubbed transform is driven by the parent via `--p`. */
+export function AppPreview() {
   const [cid, setCid] = useState(clients[0].id);
   const [tab, setTab] = useState<Tab>("Lado a lado");
   // Which competitors are being monitored (paused ones drop out of the views).
@@ -97,11 +95,6 @@ export function InteractiveDashboard() {
   );
   const [query, setQuery] = useState("");
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  const frameRef = useScrollVar<HTMLDivElement>("--p", (el, vh) => {
-    const r = el.getBoundingClientRect();
-    return Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.7)));
-  });
 
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -134,25 +127,7 @@ export function InteractiveDashboard() {
   };
 
   return (
-    <section className="dash section" id="demo" aria-labelledby="dash-title">
-      <div className="container container--wide">
-        <div className="section-head section-head--center">
-          <Reveal>
-            <p className="eyebrow">Pruébalo</p>
-          </Reveal>
-          <RevealLines id="dash-title" className="h2" lines={["Un panel para todos", "tus clientes"]} />
-          <Reveal as="p" className="lead" delay={150}>
-            Esta es una vista previa interactiva con datos de ejemplo. Cambia de cliente, revisa el lado a lado y
-            pausa o activa a tus competidores.
-          </Reveal>
-        </div>
-
-        <div className="dash__wrap" ref={frameRef}>
-          <div className="dash__hint" aria-hidden="true">
-            <span className="hand">elige un cliente</span>
-            <HandArrow variant="down" className="dash__hint-arrow" />
-          </div>
-
+    <div className="dash__wrap">
           <div className="app">
             <div className="app__chrome" aria-hidden="true">
               <span className="app__dots">
@@ -461,8 +436,6 @@ export function InteractiveDashboard() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+    </div>
   );
 }

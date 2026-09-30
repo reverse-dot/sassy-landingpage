@@ -2,10 +2,22 @@ import { LuArrowRight, LuArrowDown } from "react-icons/lu";
 import { MagneticButton } from "./MagneticButton";
 import { RevealLines } from "./ScrollReveal";
 import { HandCircle } from "./HandMarks";
-import { HeroVisual } from "./HeroVisual";
+import { AppPreview } from "./InteractiveDashboard";
+import { useScrollVar } from "../motion/hooks";
 import { APP_URL, CTA_LABEL } from "../data/content";
 
+/** Scroll progress 0..1 of the app preview: from its load position up to roughly centered in the viewport. */
+function peekProgress(el: HTMLElement, vh: number) {
+  const scrollY = window.scrollY;
+  // The stage is never transformed, so its document position is stable while scrolling.
+  const docTop = el.getBoundingClientRect().top + scrollY;
+  const target = Math.max(84, (vh - el.offsetHeight) / 2);
+  const dist = docTop - target;
+  return dist <= 0 ? 1 : Math.min(1, Math.max(0, scrollY / dist));
+}
+
 export function Hero() {
+  const stageRef = useScrollVar<HTMLDivElement>("--p", peekProgress);
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
       <div className="hero__bg" aria-hidden="true">
@@ -66,8 +78,11 @@ export function Hero() {
           </ul>
         </div>
 
-        <div className="hero__visual">
-          <HeroVisual />
+      </div>
+
+      <div className="container container--wide hero__stage-wrap">
+        <div className="hero__stage" id="demo" ref={stageRef}>
+          <AppPreview />
         </div>
       </div>
     </section>

@@ -203,6 +203,147 @@ export const clients: Client[] = [
   },
 ];
 
+/* ------------------------------------------------------------------
+   Client dashboard preview (the page shown under the hero; all fictional)
+   Mirrors the shape of the real client dashboard: header, 4 KPI cards,
+   "Rendimiento" chart, insights teaser, best posts and the quality strip.
+   ------------------------------------------------------------------ */
+const DAY_MS = 86_400_000;
+/** Last observed day of the sample window (UTC noon). */
+const PREVIEW_END = Date.UTC(2026, 8, 29, 12);
+
+/** Deterministic wobbling walk from `start` to `end`, no randomness so renders are stable. */
+function walk(start: number, end: number, n: number, amp: number, phase: number, digits = 0): number[] {
+  const k = 10 ** digits;
+  return Array.from({ length: n }, (_, i) => {
+    const t = n === 1 ? 1 : i / (n - 1);
+    const wobble = Math.sin(i * 1.7 + phase) * amp * Math.sin(Math.PI * t) + Math.cos(i * 0.9 + phase) * amp * 0.4 * (1 - t);
+    return Math.round((start + (end - start) * t + wobble) * k) / k;
+  });
+}
+
+export type PreviewSeries = { id: string; label: string; values: number[] };
+export type PreviewMetric = "growth" | "engagement" | "frequency";
+export type PreviewWindow = 7 | 30 | 90;
+export type PreviewChartData = { x: number[]; series: PreviewSeries[] };
+
+const DAILY_X = Array.from({ length: 90 }, (_, i) => PREVIEW_END - (89 - i) * DAY_MS);
+const WEEKLY_X = Array.from({ length: 13 }, (_, i) => PREVIEW_END - (12 - i) * 7 * DAY_MS);
+
+export const dashboardPreview = {
+  client: {
+    name: "Casa Lumbre",
+    username: "casa.lumbre",
+    initial: "C",
+    plan: "Pro",
+    planUsed: 2,
+    planMax: 10,
+    workspace: "Agencia",
+    posts: "184",
+    followers: "12,5K",
+    following: "312",
+    /** Time since the last sync, shown in the top bar. */
+    lastSync: "hace 2 h",
+  },
+  kpis: {
+    bestFormat: {
+      /** Median ER (%) per format; `best` indexes the winner. */
+      bars: [
+        { label: "Reel", value: 4.6 },
+        { label: "Carrusel", value: 3.7 },
+        { label: "Post", value: 2.4 },
+      ],
+      best: 0,
+    },
+    bestTime: {
+      /** Sunday to Saturday, average ER (%) per weekday. */
+      weekdays: [2.6, 3.1, 2.9, 3.2, 3.9, 3.4, 2.8],
+      bestWeekday: 4,
+    },
+    selfTrend: { current: "3,4%", previous: "2,8%", diff: "+0,6 pp" },
+    analyzed: {
+      line: "22 de 184 publicaciones · 12,5K seguidores",
+      coverage: 12,
+      coverageLabel: "12,0%",
+      coverageLine: "12,0% del contenido disponible",
+    },
+  },
+  chart: {
+    /** Series order matters: the first one is the client's own account (the highlighted line). */
+    growth: {
+      x: DAILY_X,
+      series: [
+        { id: "you", label: "Tú", values: walk(11640, 12480, 90, 34, 0.4) },
+        { id: "taller", label: "@taller.norte", values: walk(9600, 9810, 90, 22, 1.9) },
+        { id: "bruma", label: "@estudio.bruma", values: walk(14610, 15120, 90, 40, 3.1) },
+      ],
+    } as PreviewChartData,
+    engagement: {
+      x: WEEKLY_X,
+      series: [
+        { id: "you", label: "Tú", values: walk(2.6, 3.4, 13, 0.14, 0.7, 1) },
+        { id: "taller", label: "@taller.norte", values: walk(2.3, 2.1, 13, 0.12, 2.2, 1) },
+        { id: "bruma", label: "@estudio.bruma", values: walk(2.8, 3.0, 13, 0.16, 4.1, 1) },
+      ],
+    } as PreviewChartData,
+    frequency: {
+      x: WEEKLY_X,
+      series: [
+        { id: "you", label: "Tú", values: walk(4, 5, 13, 0.9, 1.1) },
+        { id: "taller", label: "@taller.norte", values: walk(3, 3, 13, 0.7, 2.6) },
+        { id: "bruma", label: "@estudio.bruma", values: walk(6, 7, 13, 0.8, 3.7) },
+      ],
+    } as PreviewChartData,
+  },
+  insights: [
+    {
+      kind: "Fortaleza",
+      tone: "positive",
+      window: "30 días",
+      title: "Mayor interacción que la competencia",
+      description: "@casa.lumbre tiene una interacción mediana mayor que @taller.norte y @estudio.bruma (1,3 pp por encima del promedio).",
+      account: "@casa.lumbre",
+      value: "3,4% · ER mediano",
+      entries: 3,
+    },
+    {
+      kind: "Fortaleza",
+      tone: "positive",
+      window: "30 días",
+      title: "Estás creciendo más rápido",
+      description: "@casa.lumbre está creciendo más rápido que @taller.norte y @estudio.bruma durante los últimos 30 días (2,2 pp por encima).",
+      account: "@casa.lumbre",
+      value: "2,2% · Crecimiento %",
+      entries: 3,
+    },
+    {
+      kind: "Oportunidad",
+      tone: "warning",
+      window: "30 días",
+      title: "Publicas con menor frecuencia",
+      description: "@casa.lumbre publica con menor frecuencia que @estudio.bruma (2 publicaciones por semana menos). Tasa observada, no objetivo.",
+      account: "@casa.lumbre",
+      value: "5,0 · Publicaciones por semana",
+      entries: 2,
+    },
+  ] as { kind: "Fortaleza" | "Oportunidad" | "Contexto"; tone: "positive" | "warning" | "neutral"; window: string; title: string; description: string; account: string; value: string; entries: number }[],
+  posts: [
+    { format: "Reel", gradient: "linear-gradient(135deg, #5a3320 0%, #ff7a50 100%)", likes: "1,8K", comments: "96", age: "hace 3 días", er: "5,1%", caption: "Detrás de barra: cómo salen los cortados de la mañana." },
+    { format: "Carrusel", gradient: "linear-gradient(135deg, #1e1e1e 0%, #6b6560 100%)", likes: "1,2K", comments: "64", age: "hace 6 días", er: "4,4%", caption: "Guía rápida: cinco métodos de filtrado en casa." },
+    { format: "Reel", gradient: "linear-gradient(135deg, #2a1710 0%, #ffab91 100%)", likes: "1,1K", comments: "58", age: "hace 9 días", er: "4,2%", caption: "Tostamos el lote nuevo de Huila, así huele el taller." },
+    { format: "Post", gradient: "linear-gradient(135deg, #12261a 0%, #3b6b4c 100%)", likes: "842", comments: "31", age: "hace 12 días", er: "3,6%", caption: "Nueva mesa larga en el salón de la esquina." },
+    { format: "Carrusel", gradient: "linear-gradient(135deg, #202020 0%, #a4a09b 100%)", likes: "790", comments: "27", age: "hace 15 días", er: "3,3%", caption: "Menú de otoño: lo que entra y lo que se va." },
+  ],
+  quality: {
+    line: "22 de 184 publicaciones",
+    coverage: "12,0%",
+    coverageLine: "12,0% del contenido disponible",
+    sample: "22",
+    window: "30 días",
+    basis: "observado",
+  },
+};
+
 export const testimonials = [
   {
     quote:
